@@ -1,0 +1,20 @@
+{
+  "id": "TASK-001",
+  "title": "요구사항 및 WBS 확정",
+  "phase": "Sprint 1",
+  "responsible": "팀장",
+  "assistants": [
+    "PM"
+  ],
+  "startDate": "2026-10-01",
+  "endDate": "2026-10-03",
+  "status": "completed",
+  "predecessorIds": [],
+  "deliverables": [
+    {
+      "label": "WBS 문서",
+      "url": "docs/wbs.md"
+    }
+  ],
+  "notes": "프로젝트 범위와 일정 확정"
+}

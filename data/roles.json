@@ -1,0 +1,7 @@
+[
+  { "id": "팀장", "label": "팀장" },
+  { "id": "Cloud", "label": "Cloud" },
+  { "id": "PM", "label": "PM" },
+  { "id": "FE", "label": "FE" },
+  { "id": "BE", "label": "BE" }
+]

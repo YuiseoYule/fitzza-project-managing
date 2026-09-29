@@ -1,0 +1,20 @@
+{
+  "id": "TASK-002",
+  "title": "클라우드 환경 구성",
+  "phase": "Sprint 1",
+  "responsible": "Cloud",
+  "assistants": [],
+  "startDate": "2026-10-04",
+  "endDate": "2026-10-07",
+  "status": "in_progress",
+  "predecessorIds": [
+    "TASK-001"
+  ],
+  "deliverables": [
+    {
+      "label": "인프라 문서",
+      "url": "docs/infrastructure.md"
+    }
+  ],
+  "notes": "배포 환경과 권한 정책 구성"
+}

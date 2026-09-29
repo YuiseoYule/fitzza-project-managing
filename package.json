@@ -1,0 +1,22 @@
+{
+  "name": "fitzza-project-managing",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "validate:data": "node scripts/validate-wbs.mjs",
+    "import:dependencies": "node scripts/import-dependencies.mjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "typescript": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "ajv": "latest"
+  },
+  "devDependencies": { "@types/node": "latest", "@types/react": "latest", "@types/react-dom": "latest" }
+}

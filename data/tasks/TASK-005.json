@@ -1,0 +1,22 @@
+{
+  "id": "TASK-005",
+  "title": "추천 API 구현",
+  "phase": "Sprint 2",
+  "responsible": "BE",
+  "assistants": [
+    "Cloud"
+  ],
+  "startDate": "2026-10-08",
+  "endDate": "2026-10-17",
+  "status": "not_started",
+  "predecessorIds": [
+    "TASK-002"
+  ],
+  "deliverables": [
+    {
+      "label": "API 명세서",
+      "url": "docs/api-spec.md"
+    }
+  ],
+  "notes": "추천 API와 테스트 구현"
+}

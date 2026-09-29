@@ -1,0 +1,22 @@
+{
+  "id": "TASK-003",
+  "title": "화면 설계",
+  "phase": "Sprint 1",
+  "responsible": "PM",
+  "assistants": [
+    "FE"
+  ],
+  "startDate": "2026-10-04",
+  "endDate": "2026-10-08",
+  "status": "completed",
+  "predecessorIds": [
+    "TASK-001"
+  ],
+  "deliverables": [
+    {
+      "label": "와이어프레임",
+      "url": "docs/wireframe.md"
+    }
+  ],
+  "notes": "주요 사용자 흐름을 정의"
+}

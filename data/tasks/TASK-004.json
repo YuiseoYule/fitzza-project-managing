@@ -1,0 +1,22 @@
+{
+  "id": "TASK-004",
+  "title": "대시보드 프론트엔드 구현",
+  "phase": "Sprint 2",
+  "responsible": "FE",
+  "assistants": [
+    "PM"
+  ],
+  "startDate": "2026-10-09",
+  "endDate": "2026-10-16",
+  "status": "in_progress",
+  "predecessorIds": [
+    "TASK-003"
+  ],
+  "deliverables": [
+    {
+      "label": "프론트엔드 소스",
+      "url": "src"
+    }
+  ],
+  "notes": "읽기 전용 간트 대시보드 구현"
+}
