@@ -80,6 +80,13 @@ test('빈 표와 모두 보류인 표는 0 나눗셈 대신 계산 대상 없음
   }
 })
 
+test('진행 전 작업의 Excel 간트 색상도 연한 빨강이다', () => {
+  const sheet = buildWbsWorkbook([{ ...fixture[0], status: '진행 전' }]).worksheets[0]
+  const rules = sheet.model.conditionalFormattings.flatMap(format => format.rules)
+  const planned = rules.find(rule => rule.type === 'expression' && rule.formulae?.[0].includes('L$8>=$G9') && rule.formulae[0].includes('not_started'))
+  assert.ok(JSON.stringify(planned?.style).includes('FFFAD4D0'))
+})
+
 test('역할 필터에 표시된 작업만 Excel에 포함한다', () => {
   const workbook = buildWbsWorkbook([fixture[1]], '표시된 역할: BE')
   const sheet = workbook.worksheets[0]

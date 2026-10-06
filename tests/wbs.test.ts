@@ -94,6 +94,16 @@ test('비근무/0.5 색상은 작업의 상태 및 일정 유무와 관계없이
   assert.equal(slotColor(unknown, new Date('2026-10-17T00:00:00Z')), CAPACITY_COLORS.halfDay)
 })
 
+test('진행 전 작업 기간은 연한 빨강으로 반일 근무 회색과 구분한다', () => {
+  for (const status of ['진행 전', '시작 전', 'not_started'] as const) {
+    const task = { ...makeTask('FR-A', 1, status), endDate: '2026-10-24' }
+    assert.equal(slotColor(task, new Date('2026-10-07T00:00:00Z')), 'FAD4D0')
+    assert.equal(slotColor(task, new Date('2026-10-09T00:00:00Z')), '000000')
+    assert.equal(slotColor(task, new Date('2026-10-17T00:00:00Z')), '9CA3AF')
+    assert.equal(slotColor(task, new Date('2026-10-24T00:00:00Z')), '9CA3AF')
+  }
+})
+
 test('미배정/완료일 미상 데이터도 숨겨지거나 날짜 계산을 망가뜨리지 않는다', () => {
   const undated = { ...makeTask('FR-A', 2, '완료'), responsible: '' as const, startDate: '', endDate: '', progress: null }
   const planned = makeTask('FR-B', 1, '진행 전')

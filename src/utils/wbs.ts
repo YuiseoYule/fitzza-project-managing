@@ -12,7 +12,7 @@ export const STATUS_LABELS = {
 } as const satisfies Record<Status, string>
 export type StatusLabel = typeof STATUS_LABELS[Status]
 export const STATUS_COLORS: Record<StatusLabel, string> = {
-  '시작 전': 'CCD3DF', '진행 중': 'A9C4E9', '차단됨': 'F1B6B6',
+  '시작 전': 'FAD4D0', '진행 중': 'A9C4E9', '차단됨': 'F1B6B6',
   '완료': 'B6DDCA', '보류': 'F6DFAC',
 }
 export const COLUMNS = [
