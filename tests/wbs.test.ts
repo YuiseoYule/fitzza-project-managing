@@ -3,7 +3,9 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import Ajv from 'ajv/dist/2020.js'
 import type { Status, Task } from '../src/types'
-import { calculateProgress, createWbsView, taskProgress } from '../src/utils/wbs'
+import { FILTER_ROLES, calculateProgress, createWbsView, slotColor, taskProgress } from '../src/utils/wbs'
+import { CAPACITY_COLORS, dayCapacity } from '../src/utils/workCalendar'
+import { validateTaskRules } from '../scripts/task-rules.mjs'
 
 export function makeTask(id: string, weight: 1 | 2, status: Status): Task {
   return { id, weight, status, title: id, phase: '설계', section: '개발', responsible: 'FE',
@@ -58,11 +60,62 @@ test('화면/Excel 공통 뷰는 입력 배열을 보존하고 필터 범위만 
 test('JSON 스키마는 1/2 가중치와 한국어 상태만 허용하고 잘못된 가중치를 거절한다', async () => {
   const schema = JSON.parse(await readFile(new URL('../schemas/task.schema.json', import.meta.url), 'utf8'))
   const validate = new Ajv().compile(schema)
-  for (const status of ['완료', '보류', '시작 전', '진행 중', '차단됨', 'completed', 'on_hold'] as const) {
+  for (const status of ['완료', '보류', '시작 전', '진행 전', '진행 중', '차단됨', 'completed', 'on_hold'] as const) {
     assert.equal(validate(makeTask('TASK-A', 2, status)), true)
   }
   for (const weight of [0, 0.03, 1.5, 3, -1, '1', null, undefined]) {
     assert.equal(validate({ ...makeTask('TASK-A', 1, '완료'), weight }), false, `weight=${weight}`)
   }
   assert.equal(validate({ ...makeTask('TASK-A', 1, '완료'), status: 'complete' }), false)
+  assert.equal(validate({ ...makeTask('FR-ACC-01-FE-01', 1, '완료'), responsible: '', startDate: '', endDate: '', progress: null }), true)
+  assert.equal(validate({ ...makeTask('FR-ACC-01-FE-01', 1, '완료'), responsible: 'unknown' }), false)
+  assert.equal(validate({ ...makeTask('../escape', 1, '완료') }), false)
+})
+
+test('10월 근무일 17개 중 17일/24일만 0.5이며 나머지 날짜는 비근무일이다', () => {
+  const fullDays = [7, 8, 12, 13, 14, 15, 16, 20, 21, 22, 23, 27, 28, 29, 30]
+  for (let day = 1; day <= 31; day++) {
+    const date = new Date(Date.UTC(2026, 9, day))
+    assert.equal(dayCapacity(date), [17, 24].includes(day) ? 0.5 : fullDays.includes(day) ? 1 : 0, `October ${day}`)
+  }
+  assert.equal(dayCapacity(new Date('2026-11-01T00:00:00Z')), null)
+})
+
+test('비근무/0.5 색상은 작업의 상태 및 일정 유무와 관계없이 우선 적용한다', () => {
+  for (const status of ['완료', '진행 전', '보류', '진행 중'] as const) {
+    const task = { ...makeTask('FR-A', 1, status), startDate: '2026-10-01', endDate: '2026-10-31' }
+    assert.equal(slotColor(task, new Date('2026-10-09T00:00:00Z')), CAPACITY_COLORS.nonWorking)
+    assert.equal(slotColor(task, new Date('2026-10-17T00:00:00Z')), CAPACITY_COLORS.halfDay)
+    assert.equal(slotColor(task, new Date('2026-10-24T00:00:00Z')), CAPACITY_COLORS.halfDay)
+    assert.notEqual(slotColor(task, new Date('2026-10-07T00:00:00Z')), CAPACITY_COLORS.nonWorking)
+  }
+  const unknown = { ...makeTask('FR-A', 1, '완료'), startDate: '', endDate: '' }
+  assert.equal(slotColor(unknown, new Date('2026-10-07T00:00:00Z')), 'FFFFFF')
+  assert.equal(slotColor(unknown, new Date('2026-10-17T00:00:00Z')), CAPACITY_COLORS.halfDay)
+})
+
+test('미배정/완료일 미상 데이터도 숨겨지거나 날짜 계산을 망가뜨리지 않는다', () => {
+  const undated = { ...makeTask('FR-A', 2, '완료'), responsible: '' as const, startDate: '', endDate: '', progress: null }
+  const planned = makeTask('FR-B', 1, '진행 전')
+  assert.ok(FILTER_ROLES.includes(undated.responsible))
+  const view = createWbsView([undated, planned])
+  assert.deepEqual(view.tasks.map(t => t.id), ['FR-B', 'FR-A'])
+  assert.equal(view.summary.rate, 2 / 3)
+  assert.ok(view.calendar.length > 0)
+  assert.ok(createWbsView([undated]).calendar.every(date => Number.isFinite(date.getTime())))
+  assert.ok(createWbsView([undated]).calendar.length >= 31)
+})
+
+test('날짜 미상은 완료 이력에만 허용하고 의존성 및 실제 날짜 검증은 유지한다', () => {
+  const completed = { ...makeTask('FR-A', 1, '완료'), startDate: '', endDate: '' }
+  const next = { ...makeTask('FR-B', 1, '진행 전'), predecessorIds: ['FR-A'] }
+  assert.deepEqual(validateTaskRules([completed, next]), [])
+  assert.ok(validateTaskRules([{ ...completed, status: '진행 전' }]).length)
+  assert.ok(validateTaskRules([{ ...completed, endDate: '2026-10-08' }]).length)
+  assert.ok(validateTaskRules([{ ...next, startDate: '2026-02-30' }]).some((e: string) => e.includes('invalid calendar date')))
+  assert.ok(validateTaskRules([{ ...next, startDate: '2026-10-09' }]).some((e: string) => e.includes('after endDate')))
+  assert.ok(validateTaskRules([next]).some((e: string) => e.includes('does not exist')))
+  assert.ok(validateTaskRules([{ ...next, predecessorIds: ['FR-B'] }]).some((e: string) => e.includes('itself')))
+  assert.ok(validateTaskRules([{ ...completed, predecessorIds: ['FR-B'] }, next]).some((e: string) => e.includes('circular')))
+  assert.ok(validateTaskRules([makeTask('FR-A', 1, '완료'), next]).some((e: string) => e.includes('after predecessor')))
 })

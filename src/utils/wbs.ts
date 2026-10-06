@@ -1,11 +1,14 @@
 import type { Role, Status, Task } from '../types'
+import { capacityColor, WORK_CALENDAR } from './workCalendar'
 
 export const ROLES: Role[] = ['팀장', 'Cloud', 'PM', 'FE', 'BE']
+export const FILTER_ROLES: Task['responsible'][] = [...ROLES, '']
+export const roleLabel = (role: Task['responsible']) => role || '미배정'
 export const DAY = 86_400_000
 export const STATUS_LABELS = {
   not_started: '시작 전', in_progress: '진행 중', blocked: '차단됨',
   completed: '완료', on_hold: '보류',
-  '시작 전': '시작 전', '진행 중': '진행 중', '차단됨': '차단됨', '완료': '완료', '보류': '보류',
+  '시작 전': '시작 전', '진행 전': '시작 전', '진행 중': '진행 중', '차단됨': '차단됨', '완료': '완료', '보류': '보류',
 } as const satisfies Record<Status, string>
 export type StatusLabel = typeof STATUS_LABELS[Status]
 export const STATUS_COLORS: Record<StatusLabel, string> = {
@@ -46,7 +49,8 @@ export type WbsRow = { kind: 'section'; key: string; label: string } | { kind: '
 
 /** Both the screen and XLSX use this exact row order, date span and column layout. */
 export function createWbsView(tasks: readonly Task[]) {
-  const sorted = [...tasks].sort((a, b) => dateValue(a.startDate) - dateValue(b.startDate) || a.id.localeCompare(b.id))
+  const sortDate = (task: Task) => task.startDate ? dateValue(task.startDate) : Infinity
+  const sorted = [...tasks].sort((a, b) => sortDate(a) - sortDate(b) || a.id.localeCompare(b.id))
   const rows: WbsRow[] = []
   let previousSection: string | undefined
   sorted.forEach((task, index) => {
@@ -57,8 +61,10 @@ export function createWbsView(tasks: readonly Task[]) {
   })
   const calendar: Date[] = []
   if (sorted.length) {
-    const first = new Date(Math.min(...sorted.map(t => dateValue(t.startDate))))
-    const last = new Date(Math.max(...sorted.map(t => dateValue(t.endDate))))
+    const starts = sorted.map(t => dateValue(t.startDate)).filter(Number.isFinite)
+    const ends = sorted.map(t => dateValue(t.endDate)).filter(Number.isFinite)
+    const first = new Date(starts.length ? Math.min(...starts) : dateValue(WORK_CALENDAR.startDate))
+    const last = new Date(ends.length ? Math.max(...ends) : dateValue(WORK_CALENDAR.endDate))
     first.setUTCDate(first.getUTCDate() - ((first.getUTCDay() + 6) % 7))
     last.setUTCDate(last.getUTCDate() + ((7 - last.getUTCDay()) % 7))
     for (let day = first.getTime(); day <= last.getTime(); day += DAY) calendar.push(new Date(day))
@@ -73,3 +79,6 @@ export const isScheduled = (task: Task, date: Date) =>
   date.getTime() >= dateValue(task.startDate) && date.getTime() <= dateValue(task.endDate)
 export const shortDate = (date: Date) => date.toISOString().slice(5, 10).replace('-', '/')
 export const isWeekend = (date: Date) => date.getUTCDay() === 0 || date.getUTCDay() === 6
+/** Work capacity shading must win even when a task spans the date. */
+export const slotColor = (task: Task, date: Date) =>
+  capacityColor(date) ?? (isScheduled(task, date) ? STATUS_COLORS[statusLabel(task)] : isWeekend(date) ? 'F0F2F5' : 'FFFFFF')

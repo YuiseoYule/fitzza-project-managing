@@ -25,7 +25,8 @@ header p:not(.kicker) { margin: 0; color: #62708a; font-size: 13px; }
 .scope-note, .formula-note { color: #596b85; font-size: 12px; margin: 12px 0 6px; }
 .formula-note { margin-top: 0; }
 .export-error { color: #a32432; }
-.legend { display: flex; gap: 14px; padding: 9px 0 13px; font-size: 11px; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; padding: 9px 0 13px; font-size: 11px; }
+.capacity-legend { padding-top: 0; color: #596b85; }
 .legend span { display: flex; gap: 5px; align-items: center; }
 .legend i { width: 12px; height: 12px; border-radius: 2px; border: 1px solid #0001; }
 .wbs-scroll { border: 1px solid #bdc8d8; overflow: auto; max-height: 70vh; background: white; }
@@ -47,6 +48,7 @@ thead .pinned { z-index: 4; background: #385f9d; }
 .task-row:hover td:not(.slot) { background: #edf4ff; }
 .task-name { font-weight: 600; }
 .task-name button { text-align: left; border: 0; padding: 0; color: inherit; background: none; line-height: 1.5; }
+.on-hold .task-name button, .on-hold .pin-1, h2.on-hold { text-decoration: line-through; text-decoration-thickness: 1.5px; }
 .number { text-align: center; }
 .slot { padding: 0; background: white; }
 .slot.weekend { background: #f0f2f5; }
@@ -59,7 +61,7 @@ thead .pinned { z-index: 4; background: #385f9d; }
 .detail-dialog h2 { margin: 7px 0 24px; font-size: 22px; }
 .detail-dialog dl { margin: 0; }
 .detail-dialog dt { color: #63708b; font-weight: bold; font-size: 12px; margin-top: 16px; }
-.detail-dialog dd { margin: 4px 0; line-height: 1.5; }
+.detail-dialog dd { margin: 4px 0; line-height: 1.5; white-space: pre-line; }
 @media (max-width: 800px) {
   .wbs-page { padding: 14px; }
   .wbs-page header, .toolbar { align-items: start; flex-direction: column; }

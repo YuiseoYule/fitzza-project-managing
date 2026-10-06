@@ -1,0 +1,18 @@
+{
+  "id": "FR-COM-02-FE-07",
+  "wbs": "5.2.7",
+  "section": "커뮤니티 게시글·댓글·투표",
+  "title": "댓글의 답글 보기 및 접기 구현 (구현됨)",
+  "phase": "개발",
+  "category": "프론트엔드",
+  "responsible": "",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "weight": 2,
+  "progress": 1,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[난이도] weight=2; 복합 상태·트랜잭션·외부 서비스 연동 또는 여러 데이터 처리에 대한 개발자 추정.\n[완료 근거] 사용자 제공 점검 보고서, 2026-10-06, development@13101e1890defae19f8e3a99a85f61f12d4ac76f. src/pages/community/CommunityArticleCommentItem.jsx:23,35,96. 답글 표시·접기 로컬 구현; 접기는 depth>=3 조건. 실제 완료일은 미상."
+}

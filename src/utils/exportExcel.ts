@@ -3,6 +3,7 @@ import type { Task } from '../types'
 import {
   COLUMNS, STATUS_COLORS, createWbsView, isWeekend, shortDate, statusLabel, taskProgress,
 } from './wbs'
+import { CAPACITY_COLORS, dayCapacity } from './workCalendar'
 
 const fill = (argb: string): ExcelJS.Fill => ({ type: 'pattern', pattern: 'solid', fgColor: { argb: `FF${argb}` } })
 export const HEADER_ROW = 8
@@ -54,6 +55,10 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
   sheet.getRow(5).height = 24
   sheet.mergeCells('A6:K6')
   sheet.getCell('A6').value = 'Excel 수정은 이 파일에만 반영됩니다. 대시보드 원본 변경은 GitHub의 작업 JSON에서 진행하세요.'
+  if (view.calendar.length) {
+    sheet.mergeCells(5, COLUMNS.length + 1, 5, COLUMNS.length + view.calendar.length)
+    sheet.getCell(5, COLUMNS.length + 1).value = '업무 가능량: 0 = 검정 / 0.5 = 회색 / 1 = 근무일 / 미설정 = 10월 외'
+  }
   sheet.mergeCells('A7:K7')
   sheet.getCell('A7').value = '주차'
   view.weeks.forEach(week => {
@@ -65,6 +70,7 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
   view.calendar.forEach((date, i) => {
     const cell = sheet.getCell(HEADER_ROW, COLUMNS.length + i + 1)
     cell.value = date
+    sheet.getCell(6, COLUMNS.length + i + 1).value = dayCapacity(date) ?? '미설정'
     // Date stays numeric; an invariant literal preserves Korean weekdays in all viewers.
     cell.numFmt = `d"\n${['일', '월', '화', '수', '목', '금', '토'][date.getUTCDay()]}"`
   })
@@ -85,8 +91,9 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
     const task = entry.task
     row.values = [
       task.section || '프로젝트 작업', task.wbs || task.id, task.title, task.category || task.phase,
-      task.deliverables.map(x => x.label).join(', '), [task.responsible, ...task.assistants].join(', '),
-      new Date(`${task.startDate}T00:00:00Z`), new Date(`${task.endDate}T00:00:00Z`), task.weight, statusLabel(task),
+      task.deliverables.map(x => x.label).join(', '), [task.responsible || '미배정', ...task.assistants].join(', '),
+      task.startDate ? new Date(`${task.startDate}T00:00:00Z`) : '날짜 미정',
+      task.endDate ? new Date(`${task.endDate}T00:00:00Z`) : '날짜 미정', task.weight, statusLabel(task),
       { formula: `IF(OR(J${rowIndex}="보류",J${rowIndex}="on_hold"),"제외",IF(OR(J${rowIndex}="완료",J${rowIndex}="completed"),1,0))`, result: taskProgress(task) ?? '제외' },
     ]
     row.getCell(7).numFmt = row.getCell(8).numFmt = 'yyyy-mm-dd'
@@ -109,19 +116,31 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
 
   // Conditions stay live when the exported dates, weights or statuses are edited in Excel.
   if (view.calendar.length) {
+    // Capacity fills take precedence over task bars, including held/undated tasks.
+    for (const [capacity, color] of [[0, CAPACITY_COLORS.nonWorking], [0.5, CAPACITY_COLORS.halfDay]] as const) {
+      sheet.addConditionalFormatting({ ref: `L9:${lastColumn}${lastRow}`, rules: [{
+        type: 'expression', priority: capacity === 0 ? 1 : 2,
+        formulae: [`AND(ISNUMBER($I9),ISNUMBER(L$6),L$6=${capacity})`],
+        style: { fill: fill(color) },
+      }] })
+    }
     const aliases = ['not_started', 'in_progress', 'blocked', 'completed', 'on_hold']
     Object.entries(STATUS_COLORS).forEach(([label, color], index) => {
       const statusCondition = `OR($J9="${label}",$J9="${aliases[index]}")`
       sheet.addConditionalFormatting({ ref: `L9:${lastColumn}${lastRow}`, rules: [{
-        type: 'expression', priority: index + 1,
-        formulae: [`AND(ISNUMBER($I9),ISNUMBER($G9),ISNUMBER($H9),L$8>=$G9,L$8<=$H9,${statusCondition})`],
+        type: 'expression', priority: index + 3,
+        formulae: [`AND(ISNUMBER($I9),ISNUMBER($G9),ISNUMBER($H9),L$8>=$G9,L$8<=$H9,OR(NOT(ISNUMBER(L$6)),L$6=1),${statusCondition})`],
         style: { fill: fill(color) },
       }] })
       sheet.addConditionalFormatting({ ref: `J9:J${lastRow}`, rules: [{
-        type: 'expression', priority: index + 6, formulae: [statusCondition], style: { fill: fill(color) },
+        type: 'expression', priority: index + 8, formulae: [statusCondition], style: { fill: fill(color) },
       }] })
     })
   }
+  sheet.addConditionalFormatting({ ref: `B9:C${lastRow}`, rules: [{
+    type: 'expression', priority: 13,
+    formulae: ['OR($J9="보류",$J9="on_hold")'], style: { font: { strike: true } },
+  }] })
   for (let rowIndex = 2; rowIndex <= lastRow; rowIndex++) {
     for (let col = 1; col <= COLUMNS.length + view.calendar.length; col++) {
       const cell = sheet.getCell(rowIndex, col)

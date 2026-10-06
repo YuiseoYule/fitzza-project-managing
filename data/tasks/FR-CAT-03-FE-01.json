@@ -1,0 +1,18 @@
+{
+  "id": "FR-CAT-03-FE-01",
+  "wbs": "2.3.1",
+  "section": "상품 탐색과 상세 정보",
+  "title": "상품 상세 페이지 레이아웃 구현",
+  "phase": "개발",
+  "category": "프론트엔드",
+  "responsible": "",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "weight": 1,
+  "progress": 1,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[난이도] weight=1; 단일 화면 요소·검증·조회·상태 처리 중심의 개발자 추정.\n[완료 근거] 사용자 제공 점검 보고서, 2026-10-06, development@13101e1890defae19f8e3a99a85f61f12d4ac76f. src/pages/ProductPage.jsx:48,132,156. 레이아웃 완료; 탭과 상품 데이터 목업. 실제 완료일은 미상."
+}

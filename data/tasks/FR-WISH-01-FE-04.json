@@ -1,0 +1,18 @@
+{
+  "id": "FR-WISH-01-FE-04",
+  "wbs": "4.1.4",
+  "section": "찜·장바구니·주문과 결제",
+  "title": "사용자 찜 목록 화면 구현",
+  "phase": "개발",
+  "category": "프론트엔드",
+  "responsible": "",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "weight": 1,
+  "progress": 1,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[난이도] weight=1; 단일 화면 요소·검증·조회·상태 처리 중심의 개발자 추정.\n[완료 근거] 사용자 제공 점검 보고서, 2026-10-06, development@13101e1890defae19f8e3a99a85f61f12d4ac76f. src/pages/LikesPage.jsx:13; src/App.jsx:40. 목업 찜 목록; 실제 사용자 조회·삭제 미연동. 실제 완료일은 미상."
+}

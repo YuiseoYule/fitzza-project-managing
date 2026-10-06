@@ -1,0 +1,18 @@
+{
+  "id": "FR-COM-02-FE-01",
+  "wbs": "5.2.1",
+  "section": "커뮤니티 게시글·댓글·투표",
+  "title": "게시글 댓글 목록 화면 구현",
+  "phase": "개발",
+  "category": "프론트엔드",
+  "responsible": "",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "weight": 1,
+  "progress": 1,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[난이도] weight=1; 단일 화면 요소·검증·조회·상태 처리 중심의 개발자 추정.\n[완료 근거] 사용자 제공 점검 보고서, 2026-10-06, development@13101e1890defae19f8e3a99a85f61f12d4ac76f. src/pages/community/CommunityArticleCommentList.jsx:4; CommunityArticleCommentItem.jsx:18; CommunityArticlePage.jsx:259. 댓글 목록 UI 완료; API 실패 시 목업 폴백. 실제 완료일은 미상."
+}
