@@ -48,7 +48,14 @@ thead .pinned { z-index: 4; background: #385f9d; }
 .task-row:hover td:not(.slot) { background: #edf4ff; }
 .task-name { font-weight: 600; }
 .task-name button { text-align: left; border: 0; padding: 0; color: inherit; background: none; line-height: 1.5; }
-.on-hold .task-name button, .on-hold .pin-1, h2.on-hold { text-decoration: line-through; text-decoration-thickness: 1.5px; }
+.task-row.on-hold > td:not(.slot),
+.task-row.on-hold .task-name button,
+.task-row.on-hold .status-badge,
+h2.on-hold,
+.legend .held-label {
+  text-decoration-line: line-through;
+  text-decoration-thickness: 1.5px;
+}
 .number { text-align: center; }
 .slot { padding: 0; background: white; }
 .slot.weekend { background: #f0f2f5; }

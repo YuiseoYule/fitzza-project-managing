@@ -64,7 +64,7 @@ test('XLSX 근무일 색상 우선순위, 보류 취소선과 날짜 미상 표�
   const rules = formats.flatMap(format => format.rules)
   assert.ok(rules.some(rule => rule.priority === 1 && JSON.stringify(rule.style).includes('FF000000')))
   assert.ok(rules.some(rule => rule.priority === 2 && JSON.stringify(rule.style).includes('FF9CA3AF')))
-  const strike = formats.find(format => format.ref === 'B9:C11')
+  const strike = formats.find(format => format.ref === 'A9:K11')
   assert.equal(strike?.rules[0].style?.font?.strike, true)
   assert.ok(JSON.stringify(strike).includes('보류'))
   assert.ok(JSON.stringify(formats).includes('OR(NOT(ISNUMBER(L$6)),L$6=1)'))

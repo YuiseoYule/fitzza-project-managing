@@ -89,10 +89,10 @@ export default function App() {
       </button>
     </div>
     <p className="scope-note">{scopeLabel} · {view.tasks.length}개 작업. 진척률과 Excel 내보내기는 현재 표시된 작업 기준입니다.</p>
-    <p className="formula-note">완료 가중치 합 ÷ 보류를 제외한 전체 가중치 합. 가중치는 1 또는 2이며, 보류 작업의 진행률은 ‘제외’로 표시합니다.</p>
+    <p className="formula-note">완료 가중치 합 ÷ 보류를 제외한 전체 가중치 합. 가중치는 1 또는 2이며, 보류 업무는 취소선으로, 진행률은 ‘제외’로 표시합니다.</p>
     {exportError && <p role="alert" className="export-error">{exportError}</p>}
     <div className="legend" aria-label="상태 범례">
-      {Object.entries(STATUS_COLORS).map(([label, color]) => <span key={label}><i style={{ background: `#${color}` }} />{label}</span>)}
+      {Object.entries(STATUS_COLORS).map(([label, color]) => <span key={label}><i style={{ background: `#${color}` }} /><span className={label === '보류' ? 'held-label' : ''}>{label}</span></span>)}
     </div>
     <div className="legend capacity-legend" aria-label="근무일 범례">
       <span><i style={{ background: `#${CAPACITY_COLORS.nonWorking}` }} />비근무일 (0)</span>

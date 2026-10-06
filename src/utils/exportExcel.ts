@@ -137,7 +137,7 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
       }] })
     })
   }
-  sheet.addConditionalFormatting({ ref: `B9:C${lastRow}`, rules: [{
+  sheet.addConditionalFormatting({ ref: `A9:K${lastRow}`, rules: [{
     type: 'expression', priority: 13,
     formulae: ['OR($J9="보류",$J9="on_hold")'], style: { font: { strike: true } },
   }] })
