@@ -26,4 +26,4 @@ try {
 if(errors.length){ console.error('WBS validation failed:\n' + errors.map(e=>`- ${e}`).join('\n')); process.exit(1) }
 console.log(`WBS validation passed: ${tasks.length} task(s).`)
 const unknownDates = tasks.filter(task => !task.startDate).length
-if (unknownDates) console.log(`Note: ${unknownDates} completed task(s) have unknown dates; their dependency dates cannot be checked.`)
+if (unknownDates) console.log(`Note: ${unknownDates} completed/held task(s) have unknown dates; their dependency dates cannot be checked.`)

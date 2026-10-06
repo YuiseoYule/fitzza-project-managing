@@ -69,6 +69,10 @@ test('JSON 스키마는 1/2 가중치와 한국어 상태만 허용하고 잘못
   assert.equal(validate({ ...makeTask('TASK-A', 1, '완료'), status: 'complete' }), false)
   assert.equal(validate({ ...makeTask('FR-ACC-01-FE-01', 1, '완료'), responsible: '', startDate: '', endDate: '', progress: null }), true)
   assert.equal(validate({ ...makeTask('FR-ACC-01-FE-01', 1, '완료'), responsible: 'unknown' }), false)
+  for (const responsible of ['경민', '주희', '지현'] as const) {
+    assert.equal(validate({ ...makeTask('FR-ACC-01-BE-01', 1, '진행 전'), responsible }), true)
+    assert.ok(FILTER_ROLES.includes(responsible))
+  }
   assert.equal(validate({ ...makeTask('../escape', 1, '완료') }), false)
 })
 
@@ -116,10 +120,14 @@ test('미배정/완료일 미상 데이터도 숨겨지거나 날짜 계산을 �
   assert.ok(createWbsView([undated]).calendar.length >= 31)
 })
 
-test('날짜 미상은 완료 이력에만 허용하고 의존성 및 실제 날짜 검증은 유지한다', () => {
+test('날짜 미상은 완료/보류에 허용하고 의존성 및 실제 날짜 검증은 유지한다', () => {
   const completed = { ...makeTask('FR-A', 1, '완료'), startDate: '', endDate: '' }
   const next = { ...makeTask('FR-B', 1, '진행 전'), predecessorIds: ['FR-A'] }
   assert.deepEqual(validateTaskRules([completed, next]), [])
+  for (const status of ['보류', 'on_hold'] as const) {
+    assert.deepEqual(validateTaskRules([{ ...completed, status }]), [])
+    assert.ok(validateTaskRules([{ ...completed, status, startDate: '2026-10-07' }]).length)
+  }
   assert.ok(validateTaskRules([{ ...completed, status: '진행 전' }]).length)
   assert.ok(validateTaskRules([{ ...completed, endDate: '2026-10-08' }]).length)
   assert.ok(validateTaskRules([{ ...next, startDate: '2026-02-30' }]).some((e: string) => e.includes('invalid calendar date')))

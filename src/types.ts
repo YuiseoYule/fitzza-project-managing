@@ -1,4 +1,5 @@
 export type Role = '팀장' | 'Cloud' | 'PM' | 'FE' | 'BE'
+export type Assignee = Role | '경민' | '주희' | '지현'
 export type Status = '시작 전' | '진행 전' | '진행 중' | '차단됨' | '완료' | '보류'
   | 'not_started' | 'in_progress' | 'blocked' | 'completed' | 'on_hold'
 
@@ -9,8 +10,8 @@ export interface Task {
   title: string
   phase: string
   category?: string
-  responsible: Role | ''
-  assistants: Role[]
+  responsible: Assignee | ''
+  assistants: Assignee[]
   startDate: string
   endDate: string
   weight: 1 | 2

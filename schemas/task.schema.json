@@ -3,7 +3,7 @@
   "required":["id","title","phase","responsible","assistants","startDate","endDate","weight","status","predecessorIds","deliverables","notes"],
   "properties": {
     "id":{"type":"string","pattern":"^[A-Za-z0-9][A-Za-z0-9_-]*$"}, "wbs":{"type":"string"}, "section":{"type":"string"}, "title":{"type":"string","minLength":1}, "phase":{"type":"string","minLength":1}, "category":{"type":"string"},
-    "responsible":{"enum":["팀장","Cloud","PM","FE","BE",""],"description":"빈 문자열은 담당자 미배정입니다."}, "assistants":{"type":"array","items":{"enum":["팀장","Cloud","PM","FE","BE"]},"uniqueItems":true},
+    "responsible":{"enum":["팀장","Cloud","PM","FE","BE","경민","주희","지현",""],"description":"역할 또는 지정된 담당자 이름. 빈 문자열은 담당자 미배정입니다."}, "assistants":{"type":"array","items":{"enum":["팀장","Cloud","PM","FE","BE","경민","주희","지현"]},"uniqueItems":true},
     "startDate":{"type":"string","pattern":"^(\\d{4}-\\d{2}-\\d{2})?$"}, "endDate":{"type":"string","pattern":"^(\\d{4}-\\d{2}-\\d{2})?$"},
     "weight":{"type":"integer","enum":[1,2]},
     "progress":{"type":["number","null"],"minimum":0,"maximum":1,"deprecated":true,"description":"과거 데이터 호환용. 진척률 계산에는 사용하지 않고 status에서 자동 계산합니다."},

@@ -2,7 +2,7 @@ import type { Role, Status, Task } from '../types'
 import { capacityColor, WORK_CALENDAR } from './workCalendar'
 
 export const ROLES: Role[] = ['팀장', 'Cloud', 'PM', 'FE', 'BE']
-export const FILTER_ROLES: Task['responsible'][] = [...ROLES, '']
+export const FILTER_ROLES: Task['responsible'][] = [...ROLES, '경민', '주희', '지현', '']
 export const roleLabel = (role: Task['responsible']) => role || '미배정'
 export const DAY = 86_400_000
 export const STATUS_LABELS = {
