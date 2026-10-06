@@ -1,22 +1,139 @@
-import { useMemo, useState } from 'react'
-import type { Role, Task } from './types'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import type { Task } from './types'
+import {
+  COLUMNS, DAY_WIDTH, ROLES, STATUS_COLORS, createWbsView, formatProgress,
+  isScheduled, isWeekend, shortDate, statusLabel, taskProgress,
+} from './utils/wbs'
 
 const modules = import.meta.glob('../data/tasks/*.json', { eager: true, import: 'default' })
 const allTasks = Object.values(modules) as Task[]
-const ROLES: Role[] = ['팀장', 'Cloud', 'PM', 'FE', 'BE']
-const DAY = 86_400_000
-const dateValue = (date: string) => Date.parse(`${date}T00:00:00Z`)
-const dates = (tasks: Task[]) => { const a=Math.min(...tasks.map(x=>dateValue(x.startDate))), b=Math.max(...tasks.map(x=>dateValue(x.endDate))); return Array.from({length:Math.round((b-a)/DAY)+1},(_,i)=>new Date(a+i*DAY)) }
-const week = (date: Date) => { const monday = new Date(date); monday.setUTCDate(date.getUTCDate()-((date.getUTCDay()+6)%7)); return monday.toISOString().slice(5,10).replace('-','/') }
+
+function TaskDetail({ task, close }: { task: Task; close: () => void }) {
+  const dialog = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    const element = dialog.current
+    element?.showModal()
+    return () => element?.close()
+  }, [])
+  const relatedNames = (ids: string[]) => ids.map(id => allTasks.find(t => t.id === id)?.title ?? id).join(', ') || '없음'
+  return <dialog ref={dialog} className="detail-dialog" onCancel={close} onClick={event => {
+    if (event.target === event.currentTarget) close()
+  }}>
+    <article>
+      <button className="close" onClick={close} aria-label="상세 닫기">×</button>
+      <p className="kicker">{task.wbs ?? task.id}</p>
+      <h2>{task.title}</h2>
+      <dl>
+        <dt>책임자 / 보조자</dt><dd>{task.responsible} / {task.assistants.join(', ') || '없음'}</dd>
+        <dt>단계 / 유형</dt><dd>{task.phase} / {task.category || '없음'}</dd>
+        <dt>상태 / 가중치</dt><dd>{statusLabel(task)} / {task.weight}{taskProgress(task) === null ? ' (진척률 계산 제외)' : ''}</dd>
+        <dt>기간</dt><dd>{task.startDate} ~ {task.endDate}</dd>
+        <dt>선행 작업</dt><dd>{relatedNames(task.predecessorIds)}</dd>
+        <dt>후행 작업</dt><dd>{relatedNames(allTasks.filter(t => t.predecessorIds.includes(task.id)).map(t => t.id))}</dd>
+        <dt>산출물</dt><dd>{task.deliverables.map(x => x.label).join(', ') || '없음'}</dd>
+        <dt>비고</dt><dd>{task.notes || '없음'}</dd>
+      </dl>
+    </article>
+  </dialog>
+}
 
 export default function App() {
-  const [shown, setShown] = useState(new Set<Role>(ROLES)); const [selected, setSelected] = useState<Task | null>(null)
-  const tasks = useMemo(()=>allTasks.filter(x=>shown.has(x.responsible)).sort((a,b)=>dateValue(a.startDate)-dateValue(b.startDate)||a.id.localeCompare(b.id)),[shown])
-  const calendar = useMemo(()=>dates(tasks.length?tasks:allTasks),[tasks]); const start=calendar[0]
-  const weeks = calendar.reduce<{label:string;span:number}[]>((out,date)=>{const label=week(date);const last=out.at(-1);if(last?.label===label)last.span++;else out.push({label,span:1});return out},[])
-  const successor=(task:Task)=>allTasks.filter(x=>x.predecessorIds.includes(task.id)).map(x=>x.title).join(', ')
-  return <main className="wbs-page"><header><div><p className="kicker">PROJECT WBS</p><h1>프로젝트 WBS</h1><p>작업 JSON을 기준으로 표시하는 읽기 전용 일정표</p></div><div className="summary"><b>가중 진척률</b><strong>{Math.round(tasks.reduce((sum,t)=>sum+(t.progress ?? (t.status==='completed'?1:0))*(t.weight ?? 0),0)*100)}%</strong></div></header>
-  <nav className="role-filter" aria-label="수행인력 필터">{ROLES.map(role=><button className={shown.has(role)?'on':''} key={role} onClick={()=>setShown(old=>{const next=new Set(old);next.has(role)?next.delete(role):next.add(role);return next})}>{role}</button>)}</nav>
-  <div className="wbs-scroll"><table><colgroup><col className="division"/><col className="code"/><col className="job"/><col className="type"/><col className="output"/><col className="person"/><col className="date"/><col className="date"/><col className="percent"/><col className="percent"/>{calendar.map((_,i)=><col className="day" key={i}/>)}</colgroup><thead><tr className="week-head"><th colSpan={10}>단계</th>{weeks.map((item,i)=><th key={i} colSpan={item.span}>W{i+1}<small>{item.label}</small></th>)}</tr><tr className="day-head"><th>구분</th><th>WBS</th><th>업무</th><th>유형</th><th>산출물</th><th>수행인력</th><th>시작일</th><th>종료일</th><th>가중치</th><th>진행률</th>{calendar.map(date=><th key={date.toISOString()} className={date.getUTCDay()===0||date.getUTCDay()===6?'weekend':''}><b>{date.getUTCDate()}</b><small>{['일','월','화','수','목','금','토'][date.getUTCDay()]}</small></th>)}</tr></thead><tbody>{tasks.map((task,index)=>{const first=index===0||tasks[index-1].section!==task.section;const offset=Math.round((dateValue(task.startDate)-start.getTime())/DAY), length=Math.round((dateValue(task.endDate)-dateValue(task.startDate))/DAY)+1;return <>{first&&<tr className="section" key={`${task.section}-section`}><td colSpan={10}>{task.section}</td><td colSpan={calendar.length}/></tr>}<tr key={task.id} onClick={()=>setSelected(task)}><td>{first?'착수 및 공통 분석·설계':''}</td><td>{task.wbs ?? task.id}</td><td className="task-name">{task.title}</td><td>{task.category ?? task.phase}</td><td>{task.deliverables.map(x=>x.label).join(', ')}</td><td>{[task.responsible,...task.assistants].join(', ')}</td><td>{task.startDate}</td><td>{task.endDate}</td><td>{Math.round((task.weight ?? 0)*100)}%</td><td>{Math.round((task.progress ?? (task.status==='completed'?1:0))*100)}%</td>{calendar.map((_,i)=><td key={i} className={`slot ${i>=offset&&i<offset+length?'filled':''}`}/>)}</tr></>})}</tbody></table></div>
-  {selected&&<div className="modal" onMouseDown={()=>setSelected(null)}><article onMouseDown={e=>e.stopPropagation()}><button onClick={()=>setSelected(null)}>×</button><p className="kicker">{selected.wbs ?? selected.id}</p><h2>{selected.title}</h2><dl><dt>수행인력</dt><dd>{[selected.responsible,...selected.assistants].join(', ')}</dd><dt>기간</dt><dd>{selected.startDate} ~ {selected.endDate}</dd><dt>산출물</dt><dd>{selected.deliverables.map(x=>x.label).join(', ') || '없음'}</dd><dt>후행 작업</dt><dd>{successor(selected)||'없음'}</dd><dt>비고</dt><dd>{selected.notes||'없음'}</dd></dl></article></div>}</main>
+  const [shown, setShown] = useState(new Set(ROLES))
+  const [selected, setSelected] = useState<Task | null>(null)
+  const [exporting, setExporting] = useState(false)
+  const [exportError, setExportError] = useState('')
+  const view = useMemo(() => createWbsView(allTasks.filter(task => shown.has(task.responsible))), [shown])
+  const { rows, calendar, weeks, summary } = view
+  const scopeLabel = shown.size === ROLES.length ? '전체 작업' : `표시된 역할: ${ROLES.filter(role => shown.has(role)).join(', ') || '없음'}`
+
+  async function exportExcel() {
+    setExporting(true)
+    setExportError('')
+    try {
+      const { downloadWbsExcel } = await import('./utils/exportExcel')
+      await downloadWbsExcel(view.tasks, scopeLabel)
+    } catch (error) {
+      console.error('Excel export failed', error)
+      setExportError('Excel 파일을 만들지 못했습니다. 다시 시도해 주세요.')
+    } finally {
+      setExporting(false)
+    }
+  }
+
+  return <main className="wbs-page">
+    <header>
+      <div>
+        <p className="kicker">PROJECT WBS</p>
+        <h1>프로젝트 WBS</h1>
+        <p>작업 JSON을 기준으로 표시하는 읽기 전용 일정표</p>
+      </div>
+      <div className="summary" aria-live="polite">
+        <b>가중 진척률{shown.size !== ROLES.length ? ' · 표시된 작업' : ''}</b>
+        <strong>{formatProgress(summary.rate)}</strong>
+        <small>완료 {summary.completedWeight} / 계산 대상 {summary.totalWeight} · 보류 가중치 {summary.excludedWeight} 제외</small>
+      </div>
+    </header>
+    <div className="toolbar">
+      <nav className="role-filter" aria-label="수행인력 필터">
+        {ROLES.map(role => <button key={role} className={shown.has(role) ? 'on' : ''} aria-pressed={shown.has(role)}
+          onClick={() => setShown(old => {
+            const next = new Set(old)
+            next.has(role) ? next.delete(role) : next.add(role)
+            return next
+          })}>{role}</button>)}
+        <button onClick={() => setShown(new Set(ROLES))}>전체 표시</button>
+      </nav>
+      <button className="export-button" onClick={exportExcel} disabled={exporting || !view.tasks.length}>
+        {exporting ? 'Excel 생성 중…' : 'Excel 내보내기 (.xlsx)'}
+      </button>
+    </div>
+    <p className="scope-note">{scopeLabel} · {view.tasks.length}개 작업. 진척률과 Excel 내보내기는 현재 표시된 작업 기준입니다.</p>
+    <p className="formula-note">완료 가중치 합 ÷ 보류를 제외한 전체 가중치 합. 가중치는 1 또는 2이며, 보류 작업의 진행률은 ‘제외’로 표시합니다.</p>
+    {exportError && <p role="alert" className="export-error">{exportError}</p>}
+    <div className="legend" aria-label="상태 범례">
+      {Object.entries(STATUS_COLORS).map(([label, color]) => <span key={label}><i style={{ background: `#${color}` }} />{label}</span>)}
+    </div>
+    {!view.tasks.length ? <div className="empty">표시할 작업이 없습니다. 역할 필터에서 표시할 역할을 선택하세요.</div> :
+      <div className="wbs-scroll" tabIndex={0} role="region" aria-label="WBS 일정표">
+        <table style={{ width: COLUMNS.reduce((sum, col) => sum + col.width, 0) + calendar.length * DAY_WIDTH }}>
+          <colgroup>
+            {COLUMNS.map(column => <col key={column.label} style={{ width: column.width }} />)}
+            {calendar.map(day => <col key={day.toISOString()} style={{ width: DAY_WIDTH }} />)}
+          </colgroup>
+          <thead>
+            <tr className="week-head"><th colSpan={COLUMNS.length}>주차</th>
+              {weeks.map(week => <th key={week.label} colSpan={week.span}>{week.label}<small>{shortDate(week.start)}</small></th>)}
+            </tr>
+            <tr className="day-head">
+              {COLUMNS.map((column, i) => <th key={column.label} scope="col" className={i < 3 ? `pinned pin-${i}` : ''}>{column.label}</th>)}
+              {calendar.map(date => <th key={date.toISOString()} className={isWeekend(date) ? 'weekend' : ''} scope="col"
+                title={date.toISOString().slice(0, 10)}><b>{date.getUTCDate()}</b><small>{['일', '월', '화', '수', '목', '금', '토'][date.getUTCDay()]}</small></th>)}
+            </tr>
+          </thead>
+          <tbody>{rows.map(row => {
+            if (row.kind === 'section') return <tr className="section" key={row.key}>
+              <td colSpan={COLUMNS.length}>{row.label}</td><td colSpan={calendar.length} />
+            </tr>
+            const task = row.task
+            const label = statusLabel(task)
+            return <tr key={row.key} className="task-row" onClick={() => setSelected(task)}>
+              <td className="pinned pin-0">{task.section || '프로젝트 작업'}</td>
+              <td className="pinned pin-1">{task.wbs || task.id}</td>
+              <td className="pinned pin-2 task-name"><button onClick={() => setSelected(task)}>{task.title}</button></td>
+              <td>{task.category || task.phase}</td>
+              <td>{task.deliverables.map(item => item.label).join(', ')}</td>
+              <td>{[task.responsible, ...task.assistants].join(', ')}</td>
+              <td>{task.startDate}</td><td>{task.endDate}</td>
+              <td className="number">{task.weight}</td>
+              <td><span className="status-badge" style={{ background: `#${STATUS_COLORS[label]}` }}>{label}</span></td>
+              <td className="number">{taskProgress(task) === null ? '제외' : `${taskProgress(task)! * 100}%`}</td>
+              {calendar.map(date => <td key={date.toISOString()} className={`slot ${isWeekend(date) ? 'weekend' : ''}`}
+                style={isScheduled(task, date) ? { background: `#${STATUS_COLORS[label]}` } : undefined}
+                title={`${task.title} · ${date.toISOString().slice(0, 10)} · ${label}`} />)}
+            </tr>
+          })}</tbody>
+        </table>
+      </div>}
+    {selected && <TaskDetail task={selected} close={() => setSelected(null)} />}
+  </main>
 }

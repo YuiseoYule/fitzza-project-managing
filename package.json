@@ -7,16 +7,26 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
+    "test": "tsx --test tests/*.test.ts",
     "validate:data": "node scripts/validate-wbs.mjs",
     "import:dependencies": "node scripts/import-dependencies.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "typescript": "latest",
+    "ajv": "latest",
+    "exceljs": "4.4.0",
     "react": "latest",
     "react-dom": "latest",
-    "ajv": "latest"
+    "typescript": "latest",
+    "vite": "latest"
   },
-  "devDependencies": { "@types/node": "latest", "@types/react": "latest", "@types/react-dom": "latest" }
+  "overrides": {
+    "exceljs": { "uuid": "11.1.1" }
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "tsx": "^4.23.15"
+  }
 }

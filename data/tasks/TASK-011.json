@@ -1,1 +1,22 @@
-{"id":"TASK-011","wbs":"1.2.2.4","section":"착수 및 공통 분석·설계","title":"요구사항정의서 작성","phase":"요구사항 정의","category":"자료작성","responsible":"PM","assistants":[],"startDate":"2026-08-31","endDate":"2026-09-02","weight":0.1,"progress":1,"status":"completed","predecessorIds":[],"deliverables":[{"label":"요구사항정의서","url":"docs/requirements.md"}],"notes":""}
+{
+  "id": "TASK-011",
+  "wbs": "1.2.2.4",
+  "section": "착수 및 공통 분석·설계",
+  "title": "요구사항정의서 작성",
+  "phase": "요구사항 정의",
+  "category": "자료작성",
+  "responsible": "PM",
+  "assistants": [],
+  "startDate": "2026-08-31",
+  "endDate": "2026-09-02",
+  "weight": 1,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [
+    {
+      "label": "요구사항정의서",
+      "url": "docs/requirements.md"
+    }
+  ],
+  "notes": ""
+}

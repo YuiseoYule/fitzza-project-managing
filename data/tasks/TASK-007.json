@@ -1,1 +1,22 @@
-{"id":"TASK-007","wbs":"1.2.1.4","section":"착수 및 공통 분석·설계","title":"업무 프로세스 정리 및 업무·데이터 흐름도 작성","phase":"공통 분석","category":"자료작성","responsible":"Cloud","assistants":[],"startDate":"2026-08-28","endDate":"2026-09-03","weight":0.1,"progress":1,"status":"completed","predecessorIds":[],"deliverables":[{"label":"업무·데이터 흐름도","url":"docs/data-flow.md"}],"notes":""}
+{
+  "id": "TASK-007",
+  "wbs": "1.2.1.4",
+  "section": "착수 및 공통 분석·설계",
+  "title": "업무 프로세스 정리 및 업무·데이터 흐름도 작성",
+  "phase": "공통 분석",
+  "category": "자료작성",
+  "responsible": "Cloud",
+  "assistants": [],
+  "startDate": "2026-08-28",
+  "endDate": "2026-09-03",
+  "weight": 1,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [
+    {
+      "label": "업무·데이터 흐름도",
+      "url": "docs/data-flow.md"
+    }
+  ],
+  "notes": ""
+}
