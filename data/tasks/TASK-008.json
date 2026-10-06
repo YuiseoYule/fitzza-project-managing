@@ -1,0 +1,1 @@
+{"id":"TASK-008","wbs":"1.2.2.1","section":"착수 및 공통 분석·설계","title":"자동화할 부분과 담당자가 직접 입력할 부분 나누기","phase":"요구사항 정의","category":"기획","responsible":"FE","assistants":[],"startDate":"2026-08-28","endDate":"2026-08-31","weight":0.1,"progress":1,"status":"completed","predecessorIds":[],"deliverables":[{"label":"자동화 대상 구분표","url":"docs/automation-scope.md"}],"notes":""}
