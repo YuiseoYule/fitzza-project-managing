@@ -1,0 +1,24 @@
+{
+  "id": "PHASE-PLAN",
+  "wbs": "P.1",
+  "section": "계획",
+  "title": "계획",
+  "phase": "계획",
+  "category": "계획",
+  "responsible": "",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "weight": 0.15,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "계획 영역 전체를 하나의 작업으로 관리합니다. 가중치는 원본 엑셀 O6:P6의 15%입니다. 사용자 확인으로 완료 상태를 적용했습니다. 담당자와 실제 시작일·종료일은 제공되지 않아 비워 둡니다.",
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 6,
+    "category": "계획",
+    "section": "계획",
+    "feature": ""
+  }
+}

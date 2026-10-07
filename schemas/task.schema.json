@@ -5,7 +5,7 @@
     "id":{"type":"string","pattern":"^[A-Za-z0-9][A-Za-z0-9_-]*$"}, "wbs":{"type":"string"}, "section":{"type":"string"}, "title":{"type":"string","minLength":1}, "phase":{"type":"string","minLength":1}, "category":{"type":"string"},
     "responsible":{"enum":["팀장","Cloud","PM","FE","BE","경민","주희","지현","수혁","승원","준우","나연",""],"description":"역할 또는 지정된 담당자 이름. 빈 문자열은 담당자 미배정입니다."}, "assistants":{"type":"array","items":{"enum":["팀장","Cloud","PM","FE","BE","경민","주희","지현","수혁","승원","준우","나연"]},"uniqueItems":true},
     "startDate":{"type":"string","pattern":"^(\\d{4}-\\d{2}-\\d{2})?$"}, "endDate":{"type":"string","pattern":"^(\\d{4}-\\d{2}-\\d{2})?$"},
-    "weight":{"type":"number","exclusiveMinimum":0,"maximum":1,"description":"전체 프로젝트 기여도. 0.01 = 1%. 엑셀 D열의 최종 가중치."},
+    "weight":{"type":"number","exclusiveMinimum":0,"maximum":1,"description":"전체 프로젝트 기여도. 0.01 = 1%. 엑셀 D열의 최종 가중치 또는 단일 작업으로 등록한 영역의 P열 비중."},
     "effortScore":{"type":"integer","minimum":1,"maximum":4},
     "schedulePending":{"type":"boolean"},
     "source":{"type":"object","additionalProperties":false,"required":["sheet","row","category","section","feature"],"properties":{"sheet":{"type":"string"},"row":{"type":"integer","minimum":1},"category":{"type":"string"},"section":{"type":"string"},"feature":{"type":"string"}}},

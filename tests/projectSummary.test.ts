@@ -14,6 +14,29 @@ const tasks: Task[] = [
 ]
 const near = (a: number, b: number) => assert.ok(Math.abs(a - b) < 1e-12, `${a} != ${b}`)
 
+test('단일 계획/분석설계 작업은 화면과 Excel에서 각각 한 번만 집계한다', () => {
+  const phases: Task[] = [
+    { ...tasks[0], id: 'PHASE-PLAN', category: '계획', weight: 0.15, responsible: '', startDate: '', endDate: '' },
+    { ...tasks[0], id: 'PHASE-ANALYSIS-DESIGN', category: '분석설계', weight: 0.1, responsible: '', startDate: '', endDate: '' },
+  ]
+  const combined = [...tasks, ...phases]
+  const result = projectSummary(combined)
+  near(result.total.allWeight, 0.35)
+  near(result.total.completedWeight, 0.27)
+  near(result.total.totalWeight, 0.32)
+  for (const phase of phases) {
+    const row = result.rows.find(item => item.category === phase.category)!
+    assert.equal(row.count, 1)
+    near(row.allWeight, phase.weight)
+    near(row.completedWeight, phase.status === '완료' ? phase.weight : 0)
+  }
+  const sheet = buildWbsWorkbook(combined).getWorksheet('가중치 총합')!
+  near(sheet.getCell('C7').result as number, 0.15)
+  near(sheet.getCell('C8').result as number, 0.1)
+  near(sheet.getCell('D12').result as number, 0.27)
+  near(sheet.getCell('C12').result as number, 0.35)
+})
+
 test('전체 합계는 최하위 가중치만 더하고 보류/미등록/미계획을 구분한다', () => {
   const { rows, total } = projectSummary(tasks)
   near(total.allWeight, 0.10)

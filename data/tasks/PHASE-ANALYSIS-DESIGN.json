@@ -1,0 +1,24 @@
+{
+  "id": "PHASE-ANALYSIS-DESIGN",
+  "wbs": "A.1",
+  "section": "분석설계",
+  "title": "분석설계",
+  "phase": "분석설계",
+  "category": "분석설계",
+  "responsible": "",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "weight": 0.1,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "분석설계 영역 전체를 하나의 작업으로 관리합니다. 가중치는 원본 엑셀 O7:P7의 10%입니다. 사용자 확인으로 완료 상태를 적용했습니다. 담당자와 실제 시작일·종료일은 제공되지 않아 비워 둡니다.",
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 7,
+    "category": "분석설계",
+    "section": "분석설계",
+    "feature": ""
+  }
+}

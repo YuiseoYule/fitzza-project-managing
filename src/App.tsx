@@ -88,7 +88,7 @@ export default function App() {
           <td>{formatWeight(row.allWeight)}</td><td>{formatWeight(row.completedWeight)}</td><td>{formatWeight(row.excludedWeight)}</td><td>{formatProgress(row.rate)}</td>
         </tr>)}</tbody>
       </table></div>
-      <p>등록된 최하위 작업만 합산합니다. 등록 작업 진척률 = 완료 가중치 ÷ (등록 가중치 − 보류 가중치). 미등록 영역의 진행 상태는 추정하지 않습니다.</p>
+      <p>등록된 작업만 한 번씩 합산합니다. 등록 작업 진척률 = 완료 가중치 ÷ (등록 가중치 − 보류 가중치). 미등록 영역의 진행 상태는 추정하지 않습니다.</p>
       <p className="weight-warning">계획 대비 미등록·미배분 가중치 {formatWeight(project.total.plannedWeight - project.total.allWeight)}. 이 중 작업이 등록된 영역의 계획·세부 합계 차이는 {formatWeight(project.rows.filter(row => row.count).reduce((sum, row) => sum + row.plannedWeight - row.allWeight, 0))}p입니다. 원본의 차이를 임의로 보정하지 않으며, 보류 제외 가중치와는 별개입니다.</p>
     </section>
     <div className="toolbar">
