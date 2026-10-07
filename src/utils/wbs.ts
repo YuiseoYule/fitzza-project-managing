@@ -2,7 +2,7 @@ import type { Role, Status, Task } from '../types'
 import { capacityColor, WORK_CALENDAR } from './workCalendar'
 
 export const ROLES: Role[] = ['팀장', 'Cloud', 'PM', 'FE', 'BE']
-export const FILTER_ROLES: Task['responsible'][] = [...ROLES, '경민', '주희', '지현', '']
+export const FILTER_ROLES: Task['responsible'][] = [...ROLES, '경민', '주희', '지현', '수혁', '승원', '준우', '나연', '']
 export const roleLabel = (role: Task['responsible']) => role || '미배정'
 export const DAY = 86_400_000
 export const STATUS_LABELS = {
@@ -20,7 +20,7 @@ export const COLUMNS = [
   { label: '업무', width: 350 }, { label: '유형', width: 78 },
   { label: '산출물', width: 200 }, { label: '수행인력', width: 100 },
   { label: '시작일', width: 96 }, { label: '종료일', width: 96 },
-  { label: '가중치', width: 64 }, { label: '상태', width: 84 },
+  { label: '가중치', width: 80 }, { label: '상태', width: 84 },
   { label: '진행률', width: 68 },
 ]
 export const DAY_WIDTH = 26
@@ -29,6 +29,7 @@ export const statusLabel = (task: Pick<Task, 'status'>) => STATUS_LABELS[task.st
 export const taskProgress = (task: Pick<Task, 'status'>): number | null =>
   statusLabel(task) === '보류' ? null : statusLabel(task) === '완료' ? 1 : 0
 export const formatProgress = (rate: number | null) => rate === null ? '계산 대상 없음' : `${(rate * 100).toFixed(1)}%`
+export const formatWeight = (weight: number) => `${(weight * 100).toFixed(3)}%`
 
 export function calculateProgress(tasks: readonly Task[]) {
   let totalWeight = 0, completedWeight = 0, excludedWeight = 0, heldCount = 0
@@ -41,7 +42,7 @@ export function calculateProgress(tasks: readonly Task[]) {
     totalWeight += task.weight
     if (statusLabel(task) === '완료') completedWeight += task.weight
   }
-  return { totalWeight, completedWeight, excludedWeight, heldCount,
+  return { totalWeight, completedWeight, excludedWeight, heldCount, allWeight: totalWeight + excludedWeight,
     rate: totalWeight === 0 ? null : completedWeight / totalWeight }
 }
 

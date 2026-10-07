@@ -1,0 +1,26 @@
+{
+  "id": "CLOUD-015",
+  "wbs": "C.4.1",
+  "section": "AI 검색 인프라",
+  "title": "Qdrant 배포, 영속 저장 공간 및 내부 접근 설정",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[일정 미정] 사용자 요청으로 클라우드 날짜 계획을 비워 둡니다.",
+  "weight": 0.0064516129032258064,
+  "effortScore": 4,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 366,
+    "category": "클라우드",
+    "section": "AI 검색 인프라 (나연)",
+    "feature": ""
+  }
+}

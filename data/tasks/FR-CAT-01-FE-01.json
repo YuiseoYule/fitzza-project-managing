@@ -5,14 +5,21 @@
   "title": "카테고리 선택 UI 구현",
   "phase": "개발",
   "category": "프론트엔드",
-  "responsible": "",
+  "responsible": "준우",
   "assistants": [],
   "startDate": "",
   "endDate": "",
-  "weight": 1,
-  "progress": 1,
+  "weight": 0.0024999999999999996,
   "status": "완료",
   "predecessorIds": [],
   "deliverables": [],
-  "notes": "[난이도] weight=1; 단일 화면 요소·검증·조회·상태 처리 중심의 개발자 추정.\n[완료 근거] 사용자 제공 점검 보고서, 2026-10-06, development@13101e1890defae19f8e3a99a85f61f12d4ac76f. src/pages/CategoryPage.jsx:11,27,43. 선택 UI만 완료; 카테고리별 실제 상품 조회 미완성. 실제 완료일은 미상."
+  "notes": "[완료 근거] 사용자 제공 점검 보고서, 2026-10-06, development@13101e1890defae19f8e3a99a85f61f12d4ac76f. src/pages/CategoryPage.jsx:11,27,43. 선택 UI만 완료; 카테고리별 실제 상품 조회 미완성. 실제 완료일은 미상.\n[프론트 담당자] 첨부 요구사항의 영역별 담당자 중 기존 백엔드 담당자를 제외하여 배정: 준우. 완료 과업에도 영역 책임자로 배정하며 실제 구현자 확인을 의미하지 않음.",
+  "effortScore": 1,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 65,
+    "category": "프론트엔드",
+    "section": "상품 탐색과 상세 정보 (임수혁)",
+    "feature": "FR-CAT-01"
+  }
 }

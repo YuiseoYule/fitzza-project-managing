@@ -1,18 +1,25 @@
 {
   "id": "FR-COM-05-FE-03",
   "wbs": "5.5.3",
-  "section": "커뮤니티 게시글·댓글·투표",
+  "section": "커뮤니티 게시글 댓글과 투표",
   "title": "게시글별 제목·분류·작성자·작성 시간·썸네일 표시",
   "phase": "개발",
   "category": "프론트엔드",
-  "responsible": "",
+  "responsible": "수혁",
   "assistants": [],
   "startDate": "",
   "endDate": "",
-  "weight": 1,
-  "progress": 1,
+  "weight": 0.0005128205128205129,
   "status": "완료",
   "predecessorIds": [],
   "deliverables": [],
-  "notes": "[난이도] weight=1; 단일 화면 요소·검증·조회·상태 처리 중심의 개발자 추정.\n[완료 근거] 사용자 제공 점검 보고서, 2026-10-06, development@13101e1890defae19f8e3a99a85f61f12d4ac76f. src/pages/community/CommunityMainPage.jsx:171. 게시글 요약 표시 UI 범위. 실제 완료일은 미상."
+  "notes": "[완료 근거] 사용자 제공 점검 보고서, 2026-10-06, development@13101e1890defae19f8e3a99a85f61f12d4ac76f. src/pages/community/CommunityMainPage.jsx:171. 게시글 요약 표시 UI 범위. 실제 완료일은 미상.\n[프론트 담당자] 첨부 요구사항의 영역별 담당자 중 기존 백엔드 담당자를 제외하여 배정: 수혁. 완료 과업에도 영역 책임자로 배정하며 실제 구현자 확인을 의미하지 않음.",
+  "effortScore": 1,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 111,
+    "category": "프론트엔드",
+    "section": "커뮤니티 게시글 댓글과 투표 (임수혁)",
+    "feature": "FR-COM-05"
+  }
 }

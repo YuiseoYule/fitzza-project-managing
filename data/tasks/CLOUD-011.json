@@ -1,0 +1,26 @@
+{
+  "id": "CLOUD-011",
+  "wbs": "C.3.2",
+  "section": "데이터·파일·메시지 인프라",
+  "title": "Redis 배포 및 서비스 연결 설정",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[일정 미정] 사용자 요청으로 클라우드 날짜 계획을 비워 둡니다.",
+  "weight": 0.004838709677419355,
+  "effortScore": 3,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 361,
+    "category": "클라우드",
+    "section": "데이터·파일·메시지 인프라 (나연)",
+    "feature": ""
+  }
+}

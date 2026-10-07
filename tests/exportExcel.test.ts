@@ -5,9 +5,9 @@ import type { Task } from '../src/types'
 import { buildWbsWorkbook } from '../src/utils/exportExcel'
 
 const fixture: Task[] = [
-  { id: 'TASK-A', title: '완료 작업', phase: '설계', responsible: 'FE', assistants: [], startDate: '2026-10-06', endDate: '2026-10-08', weight: 2, status: '완료', predecessorIds: [], deliverables: [], notes: '' },
-  { id: 'TASK-B', title: '진행 작업', phase: '설계', responsible: 'BE', assistants: [], startDate: '2026-10-06', endDate: '2026-10-08', weight: 1, status: '진행 중', predecessorIds: [], deliverables: [], notes: '' },
-  { id: 'TASK-C', title: '보류 작업', phase: '설계', responsible: 'PM', assistants: [], startDate: '2026-10-06', endDate: '2026-10-08', weight: 2, status: '보류', predecessorIds: [], deliverables: [], notes: '' },
+  { id: 'TASK-A', title: '완료 작업', phase: '설계', responsible: 'FE', assistants: [], startDate: '2026-10-06', endDate: '2026-10-08', weight: 0.02, status: '완료', predecessorIds: [], deliverables: [], notes: '' },
+  { id: 'TASK-B', title: '진행 작업', phase: '설계', responsible: 'BE', assistants: [], startDate: '2026-10-06', endDate: '2026-10-08', weight: 0.01, status: '진행 중', predecessorIds: [], deliverables: [], notes: '' },
+  { id: 'TASK-C', title: '보류 작업', phase: '설계', responsible: 'PM', assistants: [], startDate: '2026-10-06', endDate: '2026-10-08', weight: 0.02, status: '보류', predecessorIds: [], deliverables: [], notes: '' },
 ]
 
 test('XLSX 저장/재열기 후 값, 수식, 날짜, 서식, 틀 고정, 입력 제한이 보존된다', async () => {
@@ -16,10 +16,10 @@ test('XLSX 저장/재열기 후 값, 수식, 날짜, 서식, 틀 고정, 입력 
   await reopened.xlsx.load(await workbook.xlsx.writeBuffer())
   const sheet = reopened.worksheets[0]
   assert.equal(sheet.name, '프로젝트 WBS')
-  assert.equal(sheet.getCell('C3').result, 2 / 3)
-  assert.equal(sheet.getCell('B4').result, 2)
-  assert.equal(sheet.getCell('D4').result, 3)
-  assert.equal(sheet.getCell('F4').result, 2)
+  assert.equal(sheet.getCell('C3').result, 0.02 / 0.03)
+  assert.equal(sheet.getCell('B4').result, 0.02)
+  assert.equal(sheet.getCell('D4').result, 0.03)
+  assert.equal(sheet.getCell('F4').result, 0.02)
   assert.match(sheet.getCell('D4').formula, /<>보류/)
   assert.match(sheet.getCell('D4').formula, /<>on_hold/)
   assert.equal(sheet.getCell('C10').value, '완료 작업')
@@ -27,14 +27,14 @@ test('XLSX 저장/재열기 후 값, 수식, 날짜, 서식, 틀 고정, 입력 
   assert.equal(sheet.getCell('K10').result, 1)
   assert.equal(sheet.getCell('K11').result, 0)
   assert.equal(sheet.getCell('K12').result, '제외')
-  assert.equal(sheet.getCell('I10').value, 2)
-  assert.equal(sheet.getCell('I10').numFmt, '0')
+  assert.equal(sheet.getCell('I10').value, 0.02)
+  assert.equal(sheet.getCell('I10').numFmt, '0.000%')
   assert.equal(sheet.getCell('C3').numFmt, '0.0%')
   assert.ok(sheet.getCell('L8').value instanceof Date)
   assert.equal(sheet.getCell('G10').numFmt, 'yyyy-mm-dd')
   assert.equal(sheet.views[0].state, 'frozen')
-  assert.equal(sheet.getCell('I10').dataValidation.type, 'whole')
-  assert.deepEqual(sheet.getCell('I10').dataValidation.formulae, [1, 2])
+  assert.equal(sheet.getCell('I10').dataValidation.type, 'custom')
+  assert.deepEqual(sheet.getCell('I10').dataValidation.formulae, ['AND(ISNUMBER(I10),I10>0,I10<=1)'])
   assert.equal(sheet.getCell('J10').dataValidation.type, 'list')
   const rules = sheet.model.conditionalFormattings
   assert.equal(rules.length, 13)
@@ -92,7 +92,7 @@ test('역할 필터에 표시된 작업만 Excel에 포함한다', () => {
   const sheet = workbook.worksheets[0]
   assert.equal(sheet.getCell('C10').value, '진행 작업')
   assert.equal(sheet.getCell('C11').value, null)
-  assert.equal(sheet.getCell('D4').result, 1)
+  assert.equal(sheet.getCell('D4').result, 0.01)
   assert.equal(sheet.getCell('C3').result, 0)
   assert.match(sheet.getCell('A2').text, /BE/)
 })

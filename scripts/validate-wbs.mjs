@@ -13,6 +13,14 @@ for (const file of (await readdir(taskDir)).filter(x=>x.endsWith('.json')).sort(
 }
 errors.push(...validateTaskRules(tasks))
 try {
+  const allocation = JSON.parse(await readFile(path.join(root, 'data', 'project-weights.json'), 'utf8'))
+  const categories = allocation.categories
+  if (!Array.isArray(categories) || !categories.length || categories.some(item => !item || typeof item.category !== 'string' || !item.category || typeof item.weight !== 'number' || !Number.isFinite(item.weight) || item.weight <= 0 || item.weight > 1) ||
+      new Set(categories.map(item => item.category)).size !== categories.length || Math.abs(categories.reduce((sum, item) => sum + item.weight, 0) - 1) > 1e-10) {
+    errors.push('project-weights.json: categories must be unique and positive weights must sum to 100%')
+  }
+} catch (error) { errors.push(`project-weights.json: ${error.message}`) }
+try {
   const calendar = JSON.parse(await readFile(path.join(root, 'data', 'work-calendar.json'), 'utf8'))
   if (!isRealDate(calendar.startDate) || !isRealDate(calendar.endDate) || calendar.startDate > calendar.endDate ||
       ![0, 0.5, 1].includes(calendar.defaultCapacity) || !calendar.capacities || typeof calendar.capacities !== 'object' || Array.isArray(calendar.capacities)) {
@@ -26,4 +34,4 @@ try {
 if(errors.length){ console.error('WBS validation failed:\n' + errors.map(e=>`- ${e}`).join('\n')); process.exit(1) }
 console.log(`WBS validation passed: ${tasks.length} task(s).`)
 const unknownDates = tasks.filter(task => !task.startDate).length
-if (unknownDates) console.log(`Note: ${unknownDates} completed/held task(s) have unknown dates; their dependency dates cannot be checked.`)
+if (unknownDates) console.log(`Note: ${unknownDates} task(s) have unknown/pending dates; their dependency dates cannot be checked.`)

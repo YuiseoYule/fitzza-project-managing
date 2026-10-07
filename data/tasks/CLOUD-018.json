@@ -1,0 +1,26 @@
+{
+  "id": "CLOUD-018",
+  "wbs": "C.5.2",
+  "section": "로그·모니터링·운영 점검",
+  "title": "Grafana 데이터 소스 연결 및 서비스 상태 대시보드 구성",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[일정 미정] 사용자 요청으로 클라우드 날짜 계획을 비워 둡니다.",
+  "weight": 0.004838709677419354,
+  "effortScore": 3,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 370,
+    "category": "클라우드",
+    "section": "로그·모니터링·운영 점검 (나연)",
+    "feature": ""
+  }
+}

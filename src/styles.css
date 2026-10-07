@@ -17,6 +17,17 @@ header p:not(.kicker) { margin: 0; color: #62708a; font-size: 13px; }
 .summary { border: 1px solid #9eb5d6; background: #eef5ff; padding: 12px 16px; color: #335e98; font-size: 12px; }
 .summary strong { padding-left: 18px; font-size: 22px; }
 .summary small { display: block; margin-top: 7px; color: #506784; }
+.weight-summary { margin-top: 20px; padding: 16px; border: 1px solid #bdc8d8; border-radius: 6px; background: white; }
+.weight-summary h2 { margin: 0 0 12px; font-size: 16px; }
+.weight-summary h2 small { font-size: 11px; color: #62708a; font-weight: normal; }
+.weight-table-wrap { overflow: auto; }
+.weight-summary table { width: 100%; min-width: 680px; text-align: right; }
+.weight-summary th, .weight-summary td { height: 29px; padding: 5px 8px; }
+.weight-summary th:first-child { text-align: left; }
+.weight-summary thead th { position: static; }
+.weight-summary tbody tr:last-child { background: #eef5ff; font-weight: bold; }
+.weight-summary p { margin: 9px 0 0; font-size: 11px; line-height: 1.6; color: #596b85; }
+.weight-summary .weight-warning { color: #915b15; }
 .toolbar { margin-top: 20px; display: flex; justify-content: space-between; gap: 14px; align-items: center; }
 .role-filter { display: flex; flex-wrap: wrap; gap: 6px; }
 .role-filter button { border: 1px solid #b8c7da; border-radius: 4px; background: white; color: #4f6481; padding: 7px 13px; font-size: 12px; }

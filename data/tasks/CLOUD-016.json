@@ -1,0 +1,26 @@
+{
+  "id": "CLOUD-016",
+  "wbs": "C.4.2",
+  "section": "AI 검색 인프라",
+  "title": "AI 서비스와 Qdrant·S3·SQS 연결 설정 및 동작 확인",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[일정 미정] 사용자 요청으로 클라우드 날짜 계획을 비워 둡니다.",
+  "weight": 0.004838709677419355,
+  "effortScore": 3,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 367,
+    "category": "클라우드",
+    "section": "AI 검색 인프라 (나연)",
+    "feature": ""
+  }
+}

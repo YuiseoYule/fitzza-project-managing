@@ -1,0 +1,26 @@
+{
+  "id": "CLOUD-008",
+  "wbs": "C.2.4",
+  "section": "컨테이너 배포·CI/CD",
+  "title": "GitHub Actions 빌드·배포 파이프라인 구성",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[일정 미정] 사용자 요청으로 클라우드 날짜 계획을 비워 둡니다.",
+  "weight": 0.0064516129032258064,
+  "effortScore": 4,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 357,
+    "category": "클라우드",
+    "section": "컨테이너 배포·CI/CD (나연)",
+    "feature": ""
+  }
+}

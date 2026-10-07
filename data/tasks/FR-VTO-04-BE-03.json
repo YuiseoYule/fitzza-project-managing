@@ -1,0 +1,26 @@
+{
+  "id": "FR-VTO-04-BE-03",
+  "wbs": "FR-VTO-04-BE-03",
+  "section": "AI 가상 피팅",
+  "title": "삭제된 데이터에 대한 조회 제한 방어 로직 구현",
+  "phase": "개발",
+  "category": "백엔드",
+  "responsible": "경민",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[일정 미정] 엑셀에 추가된 작업입니다. 일정 정보가 없어 날짜를 추정하지 않았습니다.",
+  "weight": 0.0040404040404040395,
+  "effortScore": 2,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 337,
+    "category": "백엔드",
+    "section": "AI 가상 피팅 (승원, 경민)",
+    "feature": "FR-VTO-04"
+  }
+}

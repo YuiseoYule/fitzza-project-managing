@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Task } from './types'
 import {
-  COLUMNS, DAY_WIDTH, FILTER_ROLES, STATUS_COLORS, createWbsView, formatProgress,
+  COLUMNS, DAY_WIDTH, FILTER_ROLES, STATUS_COLORS, createWbsView, formatProgress, formatWeight,
   isWeekend, roleLabel, shortDate, slotColor, statusLabel, taskProgress,
 } from './utils/wbs'
 import { CAPACITY_COLORS, capacityColor, capacityLabel, dayCapacity } from './utils/workCalendar'
+import { projectSummary } from './utils/projectSummary'
 
 const modules = import.meta.glob('../data/tasks/*.json', { eager: true, import: 'default' })
 const allTasks = Object.values(modules) as Task[]
+const project = projectSummary(allTasks)
 
 function TaskDetail({ task, close }: { task: Task; close: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null)
@@ -27,7 +29,9 @@ function TaskDetail({ task, close }: { task: Task; close: () => void }) {
       <dl>
         <dt>책임자 / 보조자</dt><dd>{roleLabel(task.responsible)} / {task.assistants.join(', ') || '없음'}</dd>
         <dt>단계 / 유형</dt><dd>{task.phase} / {task.category || '없음'}</dd>
-        <dt>상태 / 가중치</dt><dd>{statusLabel(task)} / {task.weight}{taskProgress(task) === null ? ' (진척률 계산 제외)' : ''}</dd>
+        <dt>상태 / 가중치</dt><dd>{statusLabel(task)} / {formatWeight(task.weight)}{taskProgress(task) === null ? ' (진척률 계산 제외)' : ''}</dd>
+        {task.effortScore && <><dt>원본 점수</dt><dd>{task.effortScore}점 (가중치는 엑셀의 최종 전체 기여도 적용)</dd></>}
+        {task.source && <><dt>원본 계층</dt><dd>{task.source.category} → {task.source.section}{task.source.feature ? ` → ${task.source.feature}` : ''}<br />{task.source.sheet} · {task.source.row}행</dd></>}
         <dt>기간</dt><dd>{task.startDate || '날짜 미정'} ~ {task.endDate || '날짜 미정'}</dd>
         <dt>선행 작업</dt><dd>{relatedNames(task.predecessorIds)}</dd>
         <dt>후행 작업</dt><dd>{relatedNames(allTasks.filter(t => t.predecessorIds.includes(task.id)).map(t => t.id))}</dd>
@@ -71,9 +75,22 @@ export default function App() {
       <div className="summary" aria-live="polite">
         <b>가중 진척률{shown.size !== FILTER_ROLES.length ? ' · 표시된 작업' : ''}</b>
         <strong>{formatProgress(summary.rate)}</strong>
-        <small>완료 {summary.completedWeight} / 계산 대상 {summary.totalWeight} · 보류 가중치 {summary.excludedWeight} 제외</small>
+        <small>완료 {formatWeight(summary.completedWeight)} / 계산 대상 {formatWeight(summary.totalWeight)} · 보류 {formatWeight(summary.excludedWeight)} 제외</small>
+        <small>표시된 작업 가중치 합계 {formatWeight(summary.allWeight)}</small>
       </div>
     </header>
+    <section className="weight-summary" aria-label="전체 프로젝트 가중치 총합">
+      <h2>전체 프로젝트 가중치 총합 <small>필터와 관계없이 전체 {project.total.count}개 작업</small></h2>
+      <div className="weight-table-wrap"><table>
+        <thead><tr><th>영역</th><th>작업 수</th><th>계획 비중</th><th>등록 가중치</th><th>완료 가중치</th><th>보류 제외</th><th>등록 작업 진척률</th></tr></thead>
+        <tbody>{[...project.rows, { ...project.total, category: '전체 총합' }].map(row => <tr key={row.category}>
+          <th scope="row">{row.category}</th><td>{row.count}</td><td>{formatWeight(row.plannedWeight)}</td>
+          <td>{formatWeight(row.allWeight)}</td><td>{formatWeight(row.completedWeight)}</td><td>{formatWeight(row.excludedWeight)}</td><td>{formatProgress(row.rate)}</td>
+        </tr>)}</tbody>
+      </table></div>
+      <p>등록된 최하위 작업만 합산합니다. 등록 작업 진척률 = 완료 가중치 ÷ (등록 가중치 − 보류 가중치). 미등록 영역의 진행 상태는 추정하지 않습니다.</p>
+      <p className="weight-warning">계획 대비 미등록·미배분 가중치 {formatWeight(project.total.plannedWeight - project.total.allWeight)}. 이 중 작업이 등록된 영역의 계획·세부 합계 차이는 {formatWeight(project.rows.filter(row => row.count).reduce((sum, row) => sum + row.plannedWeight - row.allWeight, 0))}p입니다. 원본의 차이를 임의로 보정하지 않으며, 보류 제외 가중치와는 별개입니다.</p>
+    </section>
     <div className="toolbar">
       <nav className="role-filter" aria-label="수행인력 필터">
         {FILTER_ROLES.map(role => <button key={role} className={shown.has(role) ? 'on' : ''} aria-pressed={shown.has(role)}
@@ -89,7 +106,7 @@ export default function App() {
       </button>
     </div>
     <p className="scope-note">{scopeLabel} · {view.tasks.length}개 작업. 진척률과 Excel 내보내기는 현재 표시된 작업 기준입니다.</p>
-    <p className="formula-note">완료 가중치 합 ÷ 보류를 제외한 전체 가중치 합. 가중치는 1 또는 2이며, 보류 업무는 취소선으로, 진행률은 ‘제외’로 표시합니다.</p>
+    <p className="formula-note">가중치는 엑셀의 최종 전체 기여도(%)입니다. 보류는 계산 제외·취소선으로 표시합니다. 일정 계획 전 작업 {allTasks.filter(task => task.schedulePending).length}개는 날짜 미정입니다.</p>
     {exportError && <p role="alert" className="export-error">{exportError}</p>}
     <div className="legend" aria-label="상태 범례">
       {Object.entries(STATUS_COLORS).map(([label, color]) => <span key={label}><i style={{ background: `#${color}` }} /><span className={label === '보류' ? 'held-label' : ''}>{label}</span></span>)}
@@ -132,7 +149,7 @@ export default function App() {
               <td>{task.deliverables.map(item => item.label).join(', ')}</td>
               <td>{[roleLabel(task.responsible), ...task.assistants].join(', ')}</td>
               <td>{task.startDate || '날짜 미정'}</td><td>{task.endDate || '날짜 미정'}</td>
-              <td className="number">{task.weight}</td>
+              <td className="number">{formatWeight(task.weight)}</td>
               <td><span className="status-badge" style={{ background: `#${STATUS_COLORS[label]}` }}>{label}</span></td>
               <td className="number">{taskProgress(task) === null ? '제외' : `${taskProgress(task)! * 100}%`}</td>
               {calendar.map(date => <td key={date.toISOString()} className="slot" data-date={date.toISOString().slice(0, 10)}

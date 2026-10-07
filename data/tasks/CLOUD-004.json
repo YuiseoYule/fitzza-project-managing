@@ -1,0 +1,26 @@
+{
+  "id": "CLOUD-004",
+  "wbs": "C.1.4",
+  "section": "AWS 환경·보안 설정",
+  "title": "시크릿·환경 변수 관리: DB 비밀번호, JWT 키, 외부 API 키 등",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[일정 미정] 사용자 요청으로 클라우드 날짜 계획을 비워 둡니다.",
+  "weight": 0.0032258064516129032,
+  "effortScore": 2,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 352,
+    "category": "클라우드",
+    "section": "AWS 환경·보안 설정 (나연)",
+    "feature": ""
+  }
+}

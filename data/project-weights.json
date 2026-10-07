@@ -1,0 +1,35 @@
+{
+  "source": "구현과업_계층형_행구조_퍼센트_클라우드추가.xlsx",
+  "sheet": "기능별 구현 task",
+  "range": "O4:P10",
+  "categories": [
+    {
+      "category": "프론트엔드",
+      "weight": 0.25
+    },
+    {
+      "category": "백엔드",
+      "weight": 0.3
+    },
+    {
+      "category": "계획",
+      "weight": 0.15
+    },
+    {
+      "category": "분석설계",
+      "weight": 0.1
+    },
+    {
+      "category": "클라우드",
+      "weight": 0.1
+    },
+    {
+      "category": "테스트",
+      "weight": 0.05
+    },
+    {
+      "category": "배포운영",
+      "weight": 0.05
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "CLOUD-009",
+  "wbs": "C.2.5",
+  "section": "컨테이너 배포·CI/CD",
+  "title": "Spring Cloud Gateway 외부 접속, 도메인·HTTPS 인증서 설정",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[일정 미정] 사용자 요청으로 클라우드 날짜 계획을 비워 둡니다.",
+  "weight": 0.004838709677419355,
+  "effortScore": 3,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 358,
+    "category": "클라우드",
+    "section": "컨테이너 배포·CI/CD (나연)",
+    "feature": ""
+  }
+}

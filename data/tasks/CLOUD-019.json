@@ -1,0 +1,26 @@
+{
+  "id": "CLOUD-019",
+  "wbs": "C.5.3",
+  "section": "로그·모니터링·운영 점검",
+  "title": "서비스 오류·작업 큐 적체 등 주요 상황의 알림 설정",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[일정 미정] 사용자 요청으로 클라우드 날짜 계획을 비워 둡니다.",
+  "weight": 0.0032258064516129032,
+  "effortScore": 2,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 371,
+    "category": "클라우드",
+    "section": "로그·모니터링·운영 점검 (나연)",
+    "feature": ""
+  }
+}

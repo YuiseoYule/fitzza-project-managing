@@ -1,0 +1,26 @@
+{
+  "id": "FR-VTO-01-BE-02",
+  "wbs": "FR-VTO-01-BE-02",
+  "section": "AI 가상 피팅",
+  "title": "피팅 후보 상품 추가 API 구현",
+  "phase": "개발",
+  "category": "백엔드",
+  "responsible": "경민",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[일정 미정] 엑셀에 추가된 작업입니다. 일정 정보가 없어 날짜를 추정하지 않았습니다.",
+  "weight": 0.0012121212121212121,
+  "effortScore": 2,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 322,
+    "category": "백엔드",
+    "section": "AI 가상 피팅 (승원, 경민)",
+    "feature": "FR-VTO-01"
+  }
+}

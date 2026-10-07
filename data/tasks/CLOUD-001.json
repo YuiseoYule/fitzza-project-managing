@@ -1,0 +1,26 @@
+{
+  "id": "CLOUD-001",
+  "wbs": "C.1.1",
+  "section": "AWS 환경·보안 설정",
+  "title": "개발 환경과 운영 환경, 기본 AWS 리소스 구성",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "[일정 미정] 사용자 요청으로 클라우드 날짜 계획을 비워 둡니다.",
+  "weight": 0.0032258064516129032,
+  "effortScore": 2,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 349,
+    "category": "클라우드",
+    "section": "AWS 환경·보안 설정 (나연)",
+    "feature": ""
+  }
+}

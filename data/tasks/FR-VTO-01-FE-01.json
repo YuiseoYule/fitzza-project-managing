@@ -2,17 +2,24 @@
   "id": "FR-VTO-01-FE-01",
   "wbs": "6.1.1",
   "section": "AI 가상 피팅",
-  "title": "가상 피팅 페이지 구현",
+  "title": "가상 피팅 페이지 및 후보 상품 목록 화면 구현",
   "phase": "개발",
   "category": "프론트엔드",
-  "responsible": "",
+  "responsible": "승원",
   "assistants": [],
   "startDate": "",
   "endDate": "",
-  "weight": 1,
-  "progress": 1,
+  "weight": 0.0017857142857142857,
   "status": "완료",
   "predecessorIds": [],
   "deliverables": [],
-  "notes": "[난이도] weight=1; 단일 화면 요소·검증·조회·상태 처리 중심의 개발자 추정.\n[완료 근거] 사용자 제공 점검 보고서, 2026-10-06, development@13101e1890defae19f8e3a99a85f61f12d4ac76f. src/pages/TryOnPage.jsx:22,48,86. 피팅·후보 목록 목업 화면; 선택·API 없음. 실제 완료일은 미상."
+  "notes": "[완료 근거] 사용자 제공 점검 보고서, 2026-10-06, development@13101e1890defae19f8e3a99a85f61f12d4ac76f. src/pages/TryOnPage.jsx:22,48,86. 피팅·후보 목록 목업 화면; 선택·API 없음. 실제 완료일은 미상.\n[프론트 담당자] 첨부 요구사항의 영역별 담당자 중 기존 백엔드 담당자를 제외하여 배정: 승원. 완료 과업에도 영역 책임자로 배정하며 실제 구현자 확인을 의미하지 않음.\n[원본 갱신] 작업명이 변경되었습니다. 기존 상태와 일정은 유지했습니다. 기존 작업명: 가상 피팅 페이지 구현",
+  "effortScore": 2,
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 149,
+    "category": "프론트엔드",
+    "section": "AI 가상 피팅 (강승원)",
+    "feature": "FR-VTO-01"
+  }
 }
