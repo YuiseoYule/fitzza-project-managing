@@ -30,11 +30,13 @@
     },
     {
       "category": "테스트",
-      "weight": 0.05
+      "weight": 0.05,
+      "requireFullAllocation": true
     },
     {
       "category": "배포운영",
-      "weight": 0.05
+      "weight": 0.05,
+      "requireFullAllocation": true
     }
   ]
 }

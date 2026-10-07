@@ -5,6 +5,8 @@ import type { Task } from '../src/types'
 import { projectSummary } from '../src/utils/projectSummary'
 import { buildWbsWorkbook } from '../src/utils/exportExcel'
 import { calculateProgress, formatWeight } from '../src/utils/wbs'
+import testingTask from '../data/tasks/PHASE-TEST.json'
+import deployTask from '../data/tasks/PHASE-DEPLOY-OPS.json'
 
 const tasks: Task[] = [
   { id: 'FE-1', title: '완료', phase: '개발', category: '프론트엔드', responsible: '준우', assistants: [], startDate: '2026-10-07', endDate: '2026-10-08', weight: 0.02, status: '완료', predecessorIds: [], deliverables: [], notes: '' },
@@ -13,6 +15,31 @@ const tasks: Task[] = [
   { id: 'FE-2', title: '보류', phase: '개발', category: '프론트엔드', responsible: '수혁', assistants: [], startDate: '', endDate: '', weight: 0.03, status: '보류', predecessorIds: [], deliverables: [], notes: '' },
 ]
 const near = (a: number, b: number) => assert.ok(Math.abs(a - b) < 1e-12, `${a} != ${b}`)
+
+test('테스트·배포운영은 각각 단일 5% 작업이며 완료 처리 없이 총합에 반영한다', () => {
+  const phases = [testingTask, deployTask] as Task[]
+  for (const task of phases) {
+    assert.equal(task.weight, 0.05)
+    assert.equal(task.status, '시작 전')
+    assert.equal(task.responsible, '')
+    assert.equal(task.startDate, '')
+    assert.equal(task.endDate, '')
+    assert.equal(task.schedulePending, true)
+  }
+  const result = projectSummary(phases)
+  near(result.total.allWeight, 0.1)
+  near(result.total.completedWeight, 0)
+  for (const task of phases) {
+    const row = result.rows.find(item => item.category === task.category)!
+    assert.equal(row.count, 1)
+    near(row.allWeight, row.plannedWeight)
+  }
+  const summary = buildWbsWorkbook(phases).getWorksheet('가중치 총합')!
+  near(summary.getCell('C10').result as number, 0.05)
+  near(summary.getCell('C11').result as number, 0.05)
+  near(summary.getCell('C12').result as number, 0.1)
+  near(summary.getCell('D12').result as number, 0)
+})
 
 test('단일 계획/분석설계 작업은 화면과 Excel에서 각각 한 번만 집계한다', () => {
   const phases: Task[] = [

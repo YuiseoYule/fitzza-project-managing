@@ -1,0 +1,25 @@
+{
+  "id": "PHASE-DEPLOY-OPS",
+  "wbs": "D.1",
+  "section": "배포운영",
+  "title": "배포운영",
+  "phase": "배포운영",
+  "category": "배포운영",
+  "responsible": "",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "weight": 0.05,
+  "status": "시작 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "배포운영 영역 전체를 하나의 작업으로 관리합니다. 가중치는 영역 계획 비중 5%입니다. 현재 진행 상태·담당자·일정은 제공되지 않아 시작 전 및 일정 미정으로 등록했습니다. 추후 세부 작업으로 나눌 때는 이 단일 작업을 대체하여 중복 합산하지 않습니다.",
+  "source": {
+    "sheet": "기능별 구현 task",
+    "row": 10,
+    "category": "배포운영",
+    "section": "배포운영",
+    "feature": ""
+  }
+}
