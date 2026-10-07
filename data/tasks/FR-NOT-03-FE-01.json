@@ -9,7 +9,7 @@
   "assistants": [],
   "startDate": "2026-10-30",
   "endDate": "2026-10-30",
-  "weight": 0.001171875,
+  "weight": 0.00234375,
   "status": "진행 전",
   "predecessorIds": [],
   "deliverables": [],
@@ -17,7 +17,7 @@
   "effortScore": 1,
   "source": {
     "sheet": "기능별 구현 task",
-    "row": 183,
+    "row": 178,
     "category": "프론트엔드",
     "section": "알림 기능 (강승원)",
     "feature": "FR-NOT-03"

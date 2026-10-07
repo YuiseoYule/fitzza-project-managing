@@ -53,6 +53,18 @@ test('전체 합계는 최하위 가중치만 더하고 보류/미등록/미계�
   near(projectSummary(tasks).total.rate!, 2 / 7)
 })
 
+test('영역별 부족과 초과를 상쇄하지 않고 미등록 영역과 구분한다', () => {
+  const result = projectSummary([
+    { ...tasks[0], weight: 0.24 },
+    { ...tasks[1], weight: 0.31 },
+  ])
+  assert.deepEqual(result.allocationGaps.map(row => row.category), ['프론트엔드', '백엔드'])
+  assert.ok(result.unregistered.some(row => row.category === '테스트'))
+  assert.ok(!result.unregistered.some(row => row.category === '백엔드'))
+  const fixed = projectSummary([{ ...tasks[0], weight: 0.25 }, { ...tasks[1], weight: 0.30 }])
+  assert.deepEqual(fixed.allocationGaps, [])
+})
+
 test('퍼센트 및 영역별 SUMIFS 총합이 XLSX 재열기 후에도 보존된다', async () => {
   const workbook = new ExcelJS.Workbook()
   await workbook.xlsx.load(await buildWbsWorkbook(tasks).xlsx.writeBuffer())

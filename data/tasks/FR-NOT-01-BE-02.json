@@ -4,12 +4,12 @@
   "section": "알림 기능",
   "title": "알림에 피팅 작업 ID 연결",
   "phase": "개발",
-  "category": "프론트엔드",
+  "category": "백엔드",
   "responsible": "지현",
   "assistants": [],
   "startDate": "2026-10-28",
   "endDate": "2026-10-28",
-  "weight": 0.0008522727272727272,
+  "weight": 0.0014610389610389607,
   "status": "진행 전",
   "predecessorIds": [],
   "deliverables": [],
@@ -17,9 +17,9 @@
   "effortScore": 1,
   "source": {
     "sheet": "기능별 구현 task",
-    "row": 174,
-    "category": "프론트엔드",
-    "section": "알림 기능 (강승원)",
+    "row": 337,
+    "category": "백엔드",
+    "section": "알림 기능 (준우,지현)",
     "feature": "FR-NOT-01"
   }
 }

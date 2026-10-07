@@ -4,12 +4,12 @@
   "section": "알림 기능",
   "title": "투표 마감 상태 갱신 및 게시글 작성자에게 알림 생성",
   "phase": "개발",
-  "category": "프론트엔드",
+  "category": "백엔드",
   "responsible": "지현",
   "assistants": [],
   "startDate": "2026-10-30",
   "endDate": "2026-10-30",
-  "weight": 0.00234375,
+  "weight": 0.0025046382189239324,
   "status": "진행 전",
   "predecessorIds": [],
   "deliverables": [],
@@ -17,9 +17,9 @@
   "effortScore": 3,
   "source": {
     "sheet": "기능별 구현 task",
-    "row": 193,
-    "category": "프론트엔드",
-    "section": "알림 기능 (강승원)",
+    "row": 347,
+    "category": "백엔드",
+    "section": "알림 기능 (준우,지현)",
     "feature": "FR-NOT-04"
   }
 }

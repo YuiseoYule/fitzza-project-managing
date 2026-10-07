@@ -17,7 +17,7 @@
   "effortScore": 4,
   "source": {
     "sheet": "기능별 구현 task",
-    "row": 246,
+    "row": 236,
     "category": "백엔드",
     "section": "자연어 검색과 개인화 코디 추천(수혁, 경민)",
     "feature": "FR-REC-02"

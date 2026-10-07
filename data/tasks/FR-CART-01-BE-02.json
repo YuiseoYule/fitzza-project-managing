@@ -17,7 +17,7 @@
   "effortScore": 1,
   "source": {
     "sheet": "기능별 구현 task",
-    "row": 255,
+    "row": 245,
     "category": "백엔드",
     "section": "찜 장바구니 주문과 결제 (승원, 주희)",
     "feature": "FR-CART-01"

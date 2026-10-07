@@ -5,23 +5,28 @@
   "categories": [
     {
       "category": "프론트엔드",
-      "weight": 0.25
+      "weight": 0.25,
+      "requireFullAllocation": true
     },
     {
       "category": "백엔드",
-      "weight": 0.3
+      "weight": 0.3,
+      "requireFullAllocation": true
     },
     {
       "category": "계획",
-      "weight": 0.15
+      "weight": 0.15,
+      "requireFullAllocation": true
     },
     {
       "category": "분석설계",
-      "weight": 0.1
+      "weight": 0.1,
+      "requireFullAllocation": true
     },
     {
       "category": "클라우드",
-      "weight": 0.1
+      "weight": 0.1,
+      "requireFullAllocation": true
     },
     {
       "category": "테스트",

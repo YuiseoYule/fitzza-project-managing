@@ -4,12 +4,12 @@
   "section": "알림 기능",
   "title": "이벤트에 포함된 실패 원인·재시도 가능 여부를 알림 내용에 반영",
   "phase": "개발",
-  "category": "프론트엔드",
+  "category": "백엔드",
   "responsible": "지현",
   "assistants": [],
   "startDate": "2026-10-30",
   "endDate": "2026-10-30",
-  "weight": 0.001875,
+  "weight": 0.0019480519480519474,
   "status": "진행 전",
   "predecessorIds": [],
   "deliverables": [],
@@ -17,9 +17,9 @@
   "effortScore": 2,
   "source": {
     "sheet": "기능별 구현 task",
-    "row": 180,
-    "category": "프론트엔드",
-    "section": "알림 기능 (강승원)",
+    "row": 340,
+    "category": "백엔드",
+    "section": "알림 기능 (준우,지현)",
     "feature": "FR-NOT-02"
   }
 }

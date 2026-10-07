@@ -17,7 +17,7 @@
   "effortScore": 1,
   "source": {
     "sheet": "기능별 구현 task",
-    "row": 307,
+    "row": 297,
     "category": "백엔드",
     "section": "커뮤니티 게시글 댓글과 투표 (수혁, 지현)",
     "feature": "FR-COM-05"

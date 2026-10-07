@@ -4,12 +4,12 @@
   "section": "알림 기능",
   "title": "피팅 완료 이벤트 수신 및 알림 저장 (가상 피팅 서비스와 이벤트 형식 협의)",
   "phase": "개발",
-  "category": "프론트엔드",
+  "category": "백엔드",
   "responsible": "지현",
   "assistants": [],
   "startDate": "2026-10-29",
   "endDate": "2026-10-30",
-  "weight": 0.0025568181818181814,
+  "weight": 0.004383116883116882,
   "status": "진행 전",
   "predecessorIds": [],
   "deliverables": [],
@@ -17,9 +17,9 @@
   "effortScore": 3,
   "source": {
     "sheet": "기능별 구현 task",
-    "row": 173,
-    "category": "프론트엔드",
-    "section": "알림 기능 (강승원)",
+    "row": 336,
+    "category": "백엔드",
+    "section": "알림 기능 (준우,지현)",
     "feature": "FR-NOT-01"
   }
 }

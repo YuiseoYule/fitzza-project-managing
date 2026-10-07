@@ -2,6 +2,7 @@ import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import Ajv from 'ajv/dist/2020.js'
 import { isRealDate, validateTaskRules } from './task-rules.mjs'
+import { validateAllocation } from './allocation-rules.mjs'
 
 const root = process.cwd(), taskDir = path.join(root, 'data', 'tasks')
 const schema = JSON.parse(await readFile(path.join(root, 'schemas', 'task.schema.json'), 'utf8'))
@@ -14,11 +15,7 @@ for (const file of (await readdir(taskDir)).filter(x=>x.endsWith('.json')).sort(
 errors.push(...validateTaskRules(tasks))
 try {
   const allocation = JSON.parse(await readFile(path.join(root, 'data', 'project-weights.json'), 'utf8'))
-  const categories = allocation.categories
-  if (!Array.isArray(categories) || !categories.length || categories.some(item => !item || typeof item.category !== 'string' || !item.category || typeof item.weight !== 'number' || !Number.isFinite(item.weight) || item.weight <= 0 || item.weight > 1) ||
-      new Set(categories.map(item => item.category)).size !== categories.length || Math.abs(categories.reduce((sum, item) => sum + item.weight, 0) - 1) > 1e-10) {
-    errors.push('project-weights.json: categories must be unique and positive weights must sum to 100%')
-  }
+  errors.push(...validateAllocation(tasks, allocation.categories))
 } catch (error) { errors.push(`project-weights.json: ${error.message}`) }
 try {
   const calendar = JSON.parse(await readFile(path.join(root, 'data', 'work-calendar.json'), 'utf8'))

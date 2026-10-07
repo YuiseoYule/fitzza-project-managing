@@ -9,6 +9,8 @@ export function projectSummary(tasks: readonly Task[]) {
     return { category, plannedWeight: allocation.categories.find(item => item.category === category)?.weight ?? 0,
       count: items.length, ...calculateProgress(items) }
   })
-  return { rows, total: { ...calculateProgress(tasks), count: tasks.length,
+  const allocationGaps = rows.filter(row => row.count > 0 && Math.abs(row.plannedWeight - row.allWeight) > 1e-10)
+  const unregistered = rows.filter(row => row.count === 0 && row.plannedWeight > 0)
+  return { rows, allocationGaps, unregistered, total: { ...calculateProgress(tasks), count: tasks.length,
     plannedWeight: allocation.categories.reduce((sum, item) => sum + item.weight, 0) } }
 }
