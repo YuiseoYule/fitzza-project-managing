@@ -2,6 +2,8 @@
 
 GitHub의 `data/tasks/*.json`을 단일 원본으로 사용하는 읽기 전용 간트 대시보드입니다.
 
+프론트엔드·백엔드의 점수와 가중치 계산 근거는 [서식 정리된 산출 근거 Excel](docs/weight-evidence/프론트%20및%20백엔드%20산출%20근거.xlsx)에서 확인할 수 있습니다. 이 파일은 설명과 검산용이며, 대시보드 데이터는 `data/tasks/*.json`을 기준으로 합니다.
+
 ## Local development
 
 ```bash
