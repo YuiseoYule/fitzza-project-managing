@@ -10,7 +10,7 @@
     "schedulePending":{"type":"boolean"},
     "source":{"type":"object","additionalProperties":false,"required":["sheet","row","category","section","feature"],"properties":{"sheet":{"type":"string"},"row":{"type":"integer","minimum":1},"category":{"type":"string"},"section":{"type":"string"},"feature":{"type":"string"}}},
     "progress":{"type":["number","null"],"minimum":0,"maximum":1,"deprecated":true,"description":"과거 데이터 호환용. 진척률 계산에는 사용하지 않고 status에서 자동 계산합니다."},
-    "status":{"enum":["시작 전","진행 전","진행 중","차단됨","완료","보류","not_started","in_progress","blocked","completed","on_hold"]},
+    "status":{"enum":["시작 전","진행 전","진행 중","검토 중","차단됨","완료","보류","not_started","in_progress","in_review","blocked","completed","on_hold"]},
     "predecessorIds":{"type":"array","items":{"type":"string"},"uniqueItems":true}, "deliverables":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["label","url"],"properties":{"label":{"type":"string","minLength":1},"url":{"type":"string","minLength":1}}}}, "notes":{"type":"string"}
   }
 }

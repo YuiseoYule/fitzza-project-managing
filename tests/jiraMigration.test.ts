@@ -42,7 +42,7 @@ test('Jira 완료만 완료로 계산하고 원본 보류 가중치는 제외한
   assert.ok(Math.abs(progress.totalWeight + progress.excludedWeight - 1) < 1e-10)
   assert.equal(audit.unmatchedJiraSubtasks.length, 2)
   assert.ok(active.some(task => task.id === 'FITZZA-11' && task.status === '완료'))
-  assert.ok(active.some(task => task.id === 'FITZZA-9' && task.status === '진행 중'))
+  assert.ok(active.some(task => task.id === 'FITZZA-9' && task.status === '검토 중'))
 })
 
 test('Jira 섹션 순서와 가중치 합산 근거 296행이 Excel 저장 후에도 보존된다', async () => {

@@ -11,6 +11,14 @@ const fill = (argb: string): ExcelJS.Fill => ({ type: 'pattern', pattern: 'solid
 export const HEADER_ROW = 8
 export const FIRST_DATA_ROW = 9
 
+/** Keep the Excel roll-up live when a user edits a task's status or weight. */
+function earnedWeightFormula(weights: string, statuses: string, categoryRange?: string, categoryCell?: string) {
+  const forStatus = (status: string) => `SUMIFS(${weights}${categoryRange && categoryCell ? `,${categoryRange},${categoryCell}` : ''},${statuses},"${status}")`
+  return `${forStatus('완료')}+${forStatus('completed')}`
+    + `+0.5*(${forStatus('진행 중')}+${forStatus('in_progress')})`
+    + `+0.75*(${forStatus('검토 중')}+${forStatus('in_review')})`
+}
+
 /** Generate an actual .xlsx, with editable status/weight cells and recalculating formulas. */
 export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 작업', order: 'date' | 'jira-section' = 'date') {
   const view = createWbsView(tasks, order)
@@ -36,14 +44,14 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
   sheet.getCell('A3').value = '가중 진척률'
   sheet.getCell('C3').value = { formula: 'IF(D4=0,"계산 대상 없음",B4/D4)', result: view.summary.rate ?? '계산 대상 없음' }
   sheet.getCell('C3').numFmt = '0.0%'
-  sheet.getCell('A4').value = '완료 가중치'
+  sheet.getCell('A4').value = '진척 반영 가중치'
   sheet.getCell('C4').value = '계산 대상 가중치'
   sheet.getCell('E4').value = '보류 가중치 (제외)'
   const weightRange = `$I$${FIRST_DATA_ROW}:$I$${lastRow}`
   const statusRange = `$J$${FIRST_DATA_ROW}:$J$${lastRow}`
   sheet.getCell('B4').value = {
-    formula: `SUMIFS(${weightRange},${statusRange},"완료")+SUMIFS(${weightRange},${statusRange},"completed")`,
-    result: view.summary.completedWeight,
+    formula: earnedWeightFormula(weightRange, statusRange),
+    result: view.summary.earnedWeight,
   }
   sheet.getCell('D4').value = {
     formula: `SUMIFS(${weightRange},${statusRange},"<>보류",${statusRange},"<>on_hold")`,
@@ -56,7 +64,7 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
   sheet.getCell('H4').value = { formula: `SUM(${weightRange})`, result: view.summary.allWeight }
   for (const address of ['B4', 'D4', 'F4', 'H4']) sheet.getCell(address).numFmt = '0.000%'
   sheet.mergeCells('A5:K5')
-  sheet.getCell('A5').value = '가중 진척률 = 완료 가중치 합 ÷ 보류 제외 가중치 합. 가중치: 전체 기여도(%). 영역별 총합은 가중치 총합 시트에서 확인하세요.'
+  sheet.getCell('A5').value = '가중 진척률 = Σ(작업 가중치 × 상태별 진행률) ÷ 보류 제외 가중치. 진행 중 50%, 검토 중 75%, 완료 100%, 시작 전 0%; 보류는 제외합니다.'
   sheet.getRow(5).height = 24
   sheet.mergeCells('A6:K6')
   sheet.getCell('A6').value = 'Excel 수정은 이 파일에만 반영됩니다. 대시보드 원본 변경은 GitHub의 작업 JSON에서 진행하세요.'
@@ -99,7 +107,7 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
       task.deliverables.map(x => x.label).join(', '), [task.responsible || '미배정', ...task.assistants].join(', '),
       task.startDate ? new Date(`${task.startDate}T00:00:00Z`) : '날짜 미정',
       task.endDate ? new Date(`${task.endDate}T00:00:00Z`) : '날짜 미정', task.weight, statusLabel(task),
-      { formula: `IF(OR(J${rowIndex}="보류",J${rowIndex}="on_hold"),"제외",IF(OR(J${rowIndex}="완료",J${rowIndex}="completed"),1,0))`, result: taskProgress(task) ?? '제외' },
+      { formula: `IF(OR(J${rowIndex}="보류",J${rowIndex}="on_hold"),"제외",IF(OR(J${rowIndex}="완료",J${rowIndex}="completed"),1,IF(OR(J${rowIndex}="검토 중",J${rowIndex}="in_review"),0.75,IF(OR(J${rowIndex}="진행 중",J${rowIndex}="in_progress"),0.5,0))))`, result: taskProgress(task) ?? '제외' },
     ]
     row.getCell(7).numFmt = row.getCell(8).numFmt = 'yyyy-mm-dd'
     row.getCell(9).numFmt = '0.000%'
@@ -109,7 +117,7 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
       showErrorMessage: true, errorStyle: 'stop', errorTitle: '가중치 확인', error: '0% 초과 100% 이하의 가중치를 입력하세요. 예: 0.25%',
     }
     row.getCell(10).dataValidation = {
-      type: 'list', formulae: ['"시작 전,진행 중,차단됨,완료,보류"'], allowBlank: false,
+      type: 'list', formulae: ['"시작 전,진행 중,검토 중,차단됨,완료,보류"'], allowBlank: false,
       showErrorMessage: true, errorStyle: 'stop', errorTitle: '상태 확인', error: '목록에서 상태를 선택하세요.',
     }
     view.calendar.forEach((date, dayIndex) => {
@@ -129,7 +137,7 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
         style: { fill: fill(color) },
       }] })
     }
-    const aliases = ['not_started', 'in_progress', 'blocked', 'completed', 'on_hold']
+    const aliases = ['not_started', 'in_progress', 'in_review', 'blocked', 'completed', 'on_hold']
     Object.entries(STATUS_COLORS).forEach(([label, color], index) => {
       const statusCondition = `OR($J9="${label}",$J9="${aliases[index]}")`
       sheet.addConditionalFormatting({ ref: `L9:${lastColumn}${lastRow}`, rules: [{
@@ -138,12 +146,12 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
         style: { fill: fill(color) },
       }] })
       sheet.addConditionalFormatting({ ref: `J9:J${lastRow}`, rules: [{
-        type: 'expression', priority: index + 8, formulae: [statusCondition], style: { fill: fill(color) },
+        type: 'expression', priority: index + 9, formulae: [statusCondition], style: { fill: fill(color) },
       }] })
     })
   }
   sheet.addConditionalFormatting({ ref: `A9:K${lastRow}`, rules: [{
-    type: 'expression', priority: 13,
+    type: 'expression', priority: 15,
     formulae: ['OR($J9="보류",$J9="on_hold")'], style: { font: { strike: true } },
   }] })
   for (let rowIndex = 2; rowIndex <= lastRow; rowIndex++) {
@@ -223,16 +231,16 @@ function addJiraWeightLineage(workbook: ExcelJS.Workbook, tasks: readonly Task[]
 function addWeightSummary(workbook: ExcelJS.Workbook, tasks: readonly Task[], scopeLabel: string, lastRow: number) {
   const summary = projectSummary(tasks)
   const sheet = workbook.addWorksheet('가중치 총합', { views: [{ state: 'frozen', ySplit: 4 }] })
-  sheet.columns = [22, 20, 20, 20, 20, 20, 20].map(width => ({ width }))
-  sheet.mergeCells('A1:G1')
+  sheet.columns = [22, 20, 20, 20, 22, 20, 20, 20].map(width => ({ width }))
+  sheet.mergeCells('A1:H1')
   sheet.getCell('A1').value = '프로젝트 가중치 총합'
   sheet.getCell('A1').font = { size: 18, bold: true }
   sheet.getRow(1).height = 32
-  sheet.mergeCells('A2:G2')
-  sheet.getCell('A2').value = `${scopeLabel} · 등록/완료/보류 합계는 내보낸 작업 기준. 전체 합계는 전체 표시 후 내보내세요.`
-  sheet.mergeCells('A3:G3')
+  sheet.mergeCells('A2:H2')
+  sheet.getCell('A2').value = `${scopeLabel} · 완료와 진척 반영 가중치를 구분합니다. 전체 합계는 전체 표시 후 내보내세요.`
+  sheet.mergeCells('A3:H3')
   sheet.getCell('A3').value = '계획 비중은 원본 O4:P10 기준이며 미등록 영역의 상태는 추정하지 않습니다. 보류는 진척률 분모에서 제외합니다.'
-  sheet.getRow(4).values = ['영역', '전체 계획 비중', '등록 가중치', '완료 가중치', '보류 가중치', '계산 대상 가중치', '가중 진척률']
+  sheet.getRow(4).values = ['영역', '전체 계획 비중', '등록 가중치', '완료 가중치', '진척 반영 가중치', '보류 가중치', '계산 대상 가중치', '가중 진척률']
   const weights = `'프로젝트 WBS'!$I$9:$I$${lastRow}`
   const statuses = `'프로젝트 WBS'!$J$9:$J$${lastRow}`
   const categories = `'프로젝트 WBS'!$D$9:$D$${lastRow}`
@@ -241,18 +249,19 @@ function addWeightSummary(workbook: ExcelJS.Workbook, tasks: readonly Task[], sc
     sheet.getRow(n).values = [row.category, row.plannedWeight,
       { formula: `SUMIFS(${weights},${categories},A${n})`, result: row.allWeight },
       { formula: `SUMIFS(${weights},${categories},A${n},${statuses},"완료")+SUMIFS(${weights},${categories},A${n},${statuses},"completed")`, result: row.completedWeight },
+      { formula: earnedWeightFormula(weights, statuses, categories, `A${n}`), result: row.earnedWeight },
       { formula: `SUMIFS(${weights},${categories},A${n},${statuses},"보류")+SUMIFS(${weights},${categories},A${n},${statuses},"on_hold")`, result: row.excludedWeight },
-      { formula: `C${n}-E${n}`, result: row.totalWeight },
-      { formula: `IF(F${n}=0,"계산 대상 없음",D${n}/F${n})`, result: row.rate ?? '계산 대상 없음' },
+      { formula: `C${n}-F${n}`, result: row.totalWeight },
+      { formula: `IF(G${n}=0,"계산 대상 없음",E${n}/G${n})`, result: row.rate ?? '계산 대상 없음' },
     ]
   })
   const total = summary.rows.length + 5
   sheet.getCell(total, 1).value = '전체 총합'
-  for (const [col, result] of [[2, summary.total.plannedWeight], [3, summary.total.allWeight], [4, summary.total.completedWeight], [5, summary.total.excludedWeight], [6, summary.total.totalWeight]]) {
+  for (const [col, result] of [[2, summary.total.plannedWeight], [3, summary.total.allWeight], [4, summary.total.completedWeight], [5, summary.total.earnedWeight], [6, summary.total.excludedWeight], [7, summary.total.totalWeight]]) {
     const letter = sheet.getColumn(col).letter
     sheet.getCell(total, col).value = { formula: `SUM(${letter}5:${letter}${total - 1})`, result }
   }
-  sheet.getCell(total, 7).value = { formula: `IF(F${total}=0,"계산 대상 없음",D${total}/F${total})`, result: summary.total.rate ?? '계산 대상 없음' }
+  sheet.getCell(total, 8).value = { formula: `IF(G${total}=0,"계산 대상 없음",E${total}/G${total})`, result: summary.total.rate ?? '계산 대상 없음' }
   sheet.mergeCells(total + 2, 1, total + 2, 2)
   sheet.getCell(total + 2, 1).value = '계획 대비 미등록·미배분'
   sheet.getCell(total + 2, 3).value = { formula: `B${total}-C${total}`, result: summary.total.plannedWeight - summary.total.allWeight }
@@ -263,7 +272,7 @@ function addWeightSummary(workbook: ExcelJS.Workbook, tasks: readonly Task[], sc
       cell.font = { name: '맑은 고딕', size: 11, bold: n === 4 || n === total, color: { argb: n === 4 ? 'FFFFFFFF' : 'FF202D40' } }
       cell.alignment = { vertical: 'middle', horizontal: col === 1 ? 'left' : 'right' }
       if (n === 4 || n === total) cell.fill = fill(n === 4 ? '385F9D' : 'EEF5FF')
-      if (n > 4 && col > 1) cell.numFmt = col === 7 ? '0.0%' : '0.000%'
+      if (n > 4 && col > 1) cell.numFmt = col === 8 ? '0.0%' : '0.000%'
     })
   }
 }

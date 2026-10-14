@@ -32,7 +32,7 @@ function TaskDetail({ task, close }: { task: Task; close: () => void }) {
       <dl>
         <dt>책임자 / 보조자</dt><dd>{roleLabel(task.responsible)} / {task.assistants.join(', ') || '없음'}</dd>
         <dt>단계 / 유형</dt><dd>{task.phase} / {task.category || '없음'}</dd>
-        <dt>상태 / 가중치</dt><dd>{statusLabel(task)} / {formatWeight(task.weight)}{taskProgress(task) === null ? ' (진척률 계산 제외)' : ''}</dd>
+        <dt>상태 / 가중치 / 반영률</dt><dd>{statusLabel(task)} / {formatWeight(task.weight)} / {taskProgress(task) === null ? '제외' : formatProgress(taskProgress(task))}</dd>
         <dt>가중치 합산 근거</dt><dd><strong>기존 작업 {weightSources.length}개 합계 {formatWeight(weightSources.reduce((sum, row) => sum + row.sourceWeight, 0))}</strong>
           <ul className="weight-sources">{weightSources.map(row => <li key={row.sourceTaskId}><code>{row.sourceTaskId}</code> · {row.sourceTitle} — {formatWeight(row.sourceWeight)}</li>)}</ul></dd>
         {task.effortScore && <><dt>원본 점수</dt><dd>{task.effortScore}점 (가중치는 엑셀의 최종 전체 기여도 적용)</dd></>}
@@ -80,20 +80,20 @@ export default function App() {
       <div className="summary" aria-live="polite">
         <b>가중 진척률{shown.size !== FILTER_ROLES.length ? ' · 표시된 작업' : ''}</b>
         <strong>{formatProgress(summary.rate)}</strong>
-        <small>완료 {formatWeight(summary.completedWeight)} / 계산 대상 {formatWeight(summary.totalWeight)} · 보류 {formatWeight(summary.excludedWeight)} 제외</small>
+        <small>진척 반영 {formatWeight(summary.earnedWeight)} / 계산 대상 {formatWeight(summary.totalWeight)} · 보류 {formatWeight(summary.excludedWeight)} 제외</small>
         <small>표시된 작업 가중치 합계 {formatWeight(summary.allWeight)}</small>
       </div>
     </header>
     <section className="weight-summary" aria-label="전체 프로젝트 가중치 총합">
       <h2>전체 프로젝트 가중치 총합 <small>Jira {jiraAudit.jiraIssueCount}개 이슈 · 가중치가 있는 작업 {project.total.count}행 · 기존 {jiraAudit.sourceTaskCount}개 가중치 보존</small></h2>
       <div className="weight-table-wrap"><table>
-        <thead><tr><th>영역</th><th>작업 수</th><th>계획 비중</th><th>등록 가중치</th><th>완료 가중치</th><th>보류 제외</th><th>등록 작업 진척률</th></tr></thead>
+        <thead><tr><th>영역</th><th>작업 수</th><th>계획 비중</th><th>등록 가중치</th><th>완료 가중치</th><th>진척 반영 가중치</th><th>보류 제외</th><th>등록 작업 진척률</th></tr></thead>
         <tbody>{[...project.rows, { ...project.total, category: '전체 총합' }].map(row => <tr key={row.category}>
           <th scope="row">{row.category}</th><td>{row.count}</td><td>{formatWeight(row.plannedWeight)}</td>
-          <td>{formatWeight(row.allWeight)}</td><td>{formatWeight(row.completedWeight)}</td><td>{formatWeight(row.excludedWeight)}</td><td>{formatProgress(row.rate)}</td>
+          <td>{formatWeight(row.allWeight)}</td><td>{formatWeight(row.completedWeight)}</td><td>{formatWeight(row.earnedWeight)}</td><td>{formatWeight(row.excludedWeight)}</td><td>{formatProgress(row.rate)}</td>
         </tr>)}</tbody>
       </table></div>
-      <p>등록된 작업만 한 번씩 합산합니다. 등록 작업 진척률 = 완료 가중치 ÷ (등록 가중치 − 보류 가중치). 미등록 영역의 진행 상태는 추정하지 않습니다.</p>
+      <p>등록된 작업만 한 번씩 합산합니다. 진척 반영 가중치 = Σ(작업 가중치 × 상태별 반영률), 가중 진척률 = 진척 반영 가중치 ÷ (등록 가중치 − 보류 가중치). 미등록 영역의 진행 상태는 추정하지 않습니다.</p>
       <p>기능 Story를 섹션 분류로 쓰고 FE/BE Subtask와 클라우드 세부 Story에 기존 가중치를 합산했습니다. Epic의 상하위 링크는 내보내기에 없어 별도 스냅샷에 보관합니다. 기존 보류 4건은 별도 행으로 유지해 계산에서 제외합니다. 계획·분석설계·테스트·배포 4건도 중복 없이 유지합니다. 합산 내역은 <code>data/jira-weight-audit.json</code>에 원본 작업별로 기록했습니다.</p>
       <p>Jira 조회 시점: {new Date(jiraAudit.fetchedAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}. 가중치가 없는 Jira 신규 Subtask {jiraAudit.unmatchedJiraSubtasks.map(item => item.key).join(', ')}는 임의의 0% 작업으로 만들지 않았습니다.</p>
       {project.allocationGaps.length > 0 ?
@@ -116,7 +116,7 @@ export default function App() {
       </button>
     </div>
     <p className="scope-note">{scopeLabel} · {view.tasks.length}개 작업. 진척률과 Excel 내보내기는 현재 표시된 작업 기준입니다.</p>
-    <p className="formula-note">가중치는 기존 엑셀의 최종 전체 기여도를 Jira 작업별로 합산했습니다. 보류는 계산 제외·취소선으로 표시합니다. 일정 계획 전 작업 {allTasks.filter(task => task.schedulePending).length}개는 날짜 미정입니다. Jira에는 일정 필드가 없어 날짜는 기존 WBS 범위를 사용합니다.</p>
+    <p className="formula-note">가중치는 기존 엑셀의 최종 전체 기여도를 Jira 작업별로 합산했습니다. Jira 상태별 반영률: 시작 전 0% · 진행 중 50% · 검토 중 75% · 완료 100%; 보류는 계산 제외·취소선입니다. 일정 계획 전 작업 {allTasks.filter(task => task.schedulePending).length}개는 날짜 미정입니다. Jira에는 일정 필드가 없어 날짜는 기존 WBS 범위를 사용합니다.</p>
     {exportError && <p role="alert" className="export-error">{exportError}</p>}
     <div className="legend" aria-label="상태 범례">
       {Object.entries(STATUS_COLORS).map(([label, color]) => <span key={label}><i style={{ background: `#${color}` }} /><span className={label === '보류' ? 'held-label' : ''}>{label}</span></span>)}

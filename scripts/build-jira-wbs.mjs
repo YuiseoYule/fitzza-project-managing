@@ -71,7 +71,7 @@ const phases = [...originals.keys()].filter(id => id.startsWith('PHASE-')).sort(
 const missing = [...originals.keys()].filter(id => !mapping.has(id) && !phases.includes(id))
 if (missing.length || phases.length !== 4) throw new Error(`Unmapped source tasks: ${missing.join(', ')}; phase count=${phases.length}`)
 
-const status = { Done: '완료', 'In Progress': '진행 중', 'In Review': '진행 중', 'To Do': '진행 전' }
+const status = { Done: '완료', 'In Progress': '진행 중', 'In Review': '검토 중', 'To Do': '진행 전' }
 const storyByFeature = new Map(jira.issues.filter(issue => issue.fields.issuetype.name === 'Story')
   .map(issue => [issue.fields.summary.match(/^(FR-[A-Z]+-\d+)/)?.[1], issue]).filter(([key]) => key))
 const members = new Map()

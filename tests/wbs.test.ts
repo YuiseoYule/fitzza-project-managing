@@ -12,10 +12,10 @@ export function makeTask(id: string, weight: 1 | 2, status: Status): Task {
     assistants: [], startDate: '2026-10-06', endDate: '2026-10-08', predecessorIds: [], deliverables: [], notes: '' }
 }
 
-test('완료 가중치 2 / (완료 2 + 진행 1), 보류 2 제외 = 2/3', () => {
+test('진행 중 50%를 반영하고 보류 가중치는 분모에서 제외한다', () => {
   assert.deepEqual(calculateProgress([
     makeTask('TASK-A', 2, '완료'), makeTask('TASK-B', 1, '진행 중'), makeTask('TASK-C', 2, '보류'),
-  ]), { completedWeight: 0.02, totalWeight: 0.03, excludedWeight: 0.02, allWeight: 0.05, heldCount: 1, rate: 0.02 / 0.03 })
+  ]), { completedWeight: 0.02, earnedWeight: 0.025, totalWeight: 0.03, excludedWeight: 0.02, allWeight: 0.05, heldCount: 1, rate: 0.025 / 0.03 })
 })
 
 test('상태만 수정해도 완료와 보류 전환에 따라 분자와 분모가 바뀐다', () => {
@@ -33,10 +33,20 @@ test('과거 영문 상태도 지원하고 progress 숫자는 무시한다', () 
   const done = { ...makeTask('TASK-A', 2, 'completed'), progress: 0 }
   const active = { ...makeTask('TASK-B', 1, 'in_progress'), progress: 1 }
   const held = makeTask('TASK-C', 2, 'on_hold')
-  assert.equal(calculateProgress([done, active, held]).rate, 0.02 / 0.03)
+  assert.equal(calculateProgress([done, active, held]).rate, 0.025 / 0.03)
   assert.equal(taskProgress(done), 1)
-  assert.equal(taskProgress(active), 0)
+  assert.equal(taskProgress(active), 0.5)
   assert.equal(taskProgress(held), null)
+})
+
+test('검토 중은 75%이며 실제 완료 가중치와 진척 반영 가중치를 구분한다', () => {
+  const review = makeTask('TASK-R', 2, '검토 중')
+  assert.equal(taskProgress(review), 0.75)
+  assert.equal(taskProgress(makeTask('TASK-E', 1, 'in_review')), 0.75)
+  const result = calculateProgress([review, makeTask('TASK-P', 1, '진행 중')])
+  assert.equal(result.completedWeight, 0)
+  assert.equal(result.earnedWeight, 0.02)
+  assert.equal(result.rate, 0.02 / 0.03)
 })
 
 test('빈 데이터, 전부 보류, 전부 미완료, 차단 상태를 구분한다', () => {

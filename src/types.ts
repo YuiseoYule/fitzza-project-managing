@@ -1,7 +1,7 @@
 export type Role = '팀장' | 'Cloud' | 'PM' | 'FE' | 'BE'
 export type Assignee = Role | '경민' | '주희' | '지현' | '수혁' | '승원' | '준우' | '나연'
-export type Status = '시작 전' | '진행 전' | '진행 중' | '차단됨' | '완료' | '보류'
-  | 'not_started' | 'in_progress' | 'blocked' | 'completed' | 'on_hold'
+export type Status = '시작 전' | '진행 전' | '진행 중' | '검토 중' | '차단됨' | '완료' | '보류'
+  | 'not_started' | 'in_progress' | 'in_review' | 'blocked' | 'completed' | 'on_hold'
 
 export interface Task {
   id: string
