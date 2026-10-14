@@ -13,10 +13,51 @@ for (const file of (await readdir(taskDir)).filter(x=>x.endsWith('.json')).sort(
   catch (error) { errors.push(`${file}: invalid JSON (${error.message})`) }
 }
 errors.push(...validateTaskRules(tasks))
+const jiraTasks = []
+const jiraDir = path.join(root, 'data', 'jira-tasks')
+try {
+  for (const file of (await readdir(jiraDir)).filter(x => x.endsWith('.json')).sort()) {
+    try {
+      const task = JSON.parse(await readFile(path.join(jiraDir, file), 'utf8'))
+      if (!validSchema(task)) errors.push(`jira-tasks/${file}: ${ajv.errorsText(validSchema.errors)}`)
+      else {
+        if (file !== `${task.id}.json`) errors.push(`jira-tasks/${file}: filename does not match task id`)
+        jiraTasks.push(task)
+      }
+    } catch (error) { errors.push(`jira-tasks/${file}: invalid JSON (${error.message})`) }
+  }
+  if (!jiraTasks.length) errors.push('jira-tasks: active Jira WBS is empty')
+  errors.push(...validateTaskRules(jiraTasks).map(error => `jira-tasks: ${error}`))
+} catch (error) { errors.push(`jira-tasks: ${error.message}`) }
 try {
   const allocation = JSON.parse(await readFile(path.join(root, 'data', 'project-weights.json'), 'utf8'))
   errors.push(...validateAllocation(tasks, allocation.categories))
+  errors.push(...validateAllocation(jiraTasks, allocation.categories).map(error => `jira-tasks: ${error}`))
 } catch (error) { errors.push(`project-weights.json: ${error.message}`) }
+try {
+  const audit = JSON.parse(await readFile(path.join(root, 'data', 'jira-weight-audit.json'), 'utf8'))
+  const snapshot = JSON.parse(await readFile(path.join(root, 'data', 'jira-issues-snapshot.json'), 'utf8'))
+  const source = new Map(tasks.map(task => [task.id, task]))
+  const active = new Map(jiraTasks.map(task => [task.id, task]))
+  const seen = new Set(), sums = new Map()
+  if (audit.mappings.length !== tasks.length || audit.activeTaskCount !== jiraTasks.length || snapshot.issues.length !== audit.jiraIssueCount) {
+    errors.push('jira-weight-audit.json: source, active or Jira issue count does not match')
+  }
+  for (const row of audit.mappings) {
+    if (seen.has(row.sourceTaskId)) errors.push(`jira-weight-audit.json: duplicate source ${row.sourceTaskId}`)
+    seen.add(row.sourceTaskId)
+    const original = source.get(row.sourceTaskId)
+    if (!original || Math.abs(original.weight - row.sourceWeight) > 1e-12 || original.status !== row.sourceStatus) {
+      errors.push(`jira-weight-audit.json: changed or missing source ${row.sourceTaskId}`)
+    }
+    if (!active.has(row.activeTaskId)) errors.push(`jira-weight-audit.json: missing active task ${row.activeTaskId}`)
+    sums.set(row.activeTaskId, (sums.get(row.activeTaskId) ?? 0) + row.sourceWeight)
+  }
+  for (const task of tasks) if (!seen.has(task.id)) errors.push(`jira-weight-audit.json: unmapped source ${task.id}`)
+  for (const task of jiraTasks) if (Math.abs((sums.get(task.id) ?? 0) - task.weight) > 1e-10) {
+    errors.push(`jira-weight-audit.json: ${task.id} aggregated weight does not match its sources`)
+  }
+} catch (error) { errors.push(`jira-weight-audit.json: ${error.message}`) }
 try {
   const calendar = JSON.parse(await readFile(path.join(root, 'data', 'work-calendar.json'), 'utf8'))
   if (!isRealDate(calendar.startDate) || !isRealDate(calendar.endDate) || calendar.startDate > calendar.endDate ||
@@ -29,6 +70,6 @@ try {
   }
 } catch (error) { errors.push(`work-calendar.json: ${error.message}`) }
 if(errors.length){ console.error('WBS validation failed:\n' + errors.map(e=>`- ${e}`).join('\n')); process.exit(1) }
-console.log(`WBS validation passed: ${tasks.length} task(s).`)
+console.log(`WBS validation passed: ${tasks.length} source task(s), ${jiraTasks.length} Jira WBS row(s).`)
 const unknownDates = tasks.filter(task => !task.startDate).length
 if (unknownDates) console.log(`Note: ${unknownDates} task(s) have unknown/pending dates; their dependency dates cannot be checked.`)

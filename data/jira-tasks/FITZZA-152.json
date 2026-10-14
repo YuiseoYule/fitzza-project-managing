@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-152",
+  "wbs": "FITZZA-152",
+  "section": "FR-NOT-03 내 게시글 댓글 알림",
+  "title": "댓글 작성 알림 생성",
+  "phase": "FR-NOT-03",
+  "category": "백엔드",
+  "responsible": "지현",
+  "assistants": [],
+  "startDate": "2026-10-28",
+  "endDate": "2026-10-29",
+  "weight": 0.005844155844155843,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-152 (Done, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

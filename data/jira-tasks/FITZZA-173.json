@@ -1,0 +1,18 @@
+{
+  "id": "FITZZA-173",
+  "wbs": "FITZZA-173",
+  "section": "데이터·파일·메시지 인프라",
+  "title": "백엔드·AI 서비스별 S3·SQS 접근 권한 연결 및 확인",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "weight": 0.0032258064516129032,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-173 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 1개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

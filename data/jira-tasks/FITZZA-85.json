@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-85",
+  "wbs": "FITZZA-85",
+  "section": "FR-ORD-02 구매 이력 설문",
+  "title": "설문 결과 추천 서비스 연동",
+  "phase": "FR-ORD-02",
+  "category": "백엔드",
+  "responsible": "주희",
+  "assistants": [],
+  "startDate": "2026-10-29",
+  "endDate": "2026-10-30",
+  "weight": 0.001888111888111888,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-85 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 1개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

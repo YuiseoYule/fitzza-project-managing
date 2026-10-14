@@ -1,0 +1,1509 @@
+{
+  "fetchedAt": "2026-10-14T01:35:55.3895190Z",
+  "issues": [
+    {
+      "key": "FITZZA-8",
+      "summary": "FR-ACC-01 회원가입 및 로그인",
+      "type": "Story",
+      "status": "In Review",
+      "assignee": null,
+      "updated": "2026-10-13T09:19:39.713+0900"
+    },
+    {
+      "key": "FITZZA-9",
+      "summary": "[FE] 회원가입 및 로그인 UI",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Junwoo shin",
+      "updated": "2026-10-12T11:15:48.466+0900"
+    },
+    {
+      "key": "FITZZA-10",
+      "summary": "[FE] 인증 상태 및 API 연동",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Junwoo shin",
+      "updated": "2026-10-12T11:15:52.804+0900"
+    },
+    {
+      "key": "FITZZA-11",
+      "summary": "[BE] 회원가입 및 로그인 API",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:31:53.099+0900"
+    },
+    {
+      "key": "FITZZA-12",
+      "summary": "[BE] 토큰 발급 및 재발급",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:31:55.809+0900"
+    },
+    {
+      "key": "FITZZA-13",
+      "summary": "[BE] Gateway JWT 인증 연동",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:57:39.523+0900"
+    },
+    {
+      "key": "FITZZA-14",
+      "summary": "FR-ACC-03 로그아웃 및 세션 폐기",
+      "type": "Story",
+      "status": "In Review",
+      "assignee": null,
+      "updated": "2026-10-13T09:19:40.827+0900"
+    },
+    {
+      "key": "FITZZA-15",
+      "summary": "[FE] 로그아웃 UI 및 API 연동",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Junwoo shin",
+      "updated": "2026-10-12T13:39:54.478+0900"
+    },
+    {
+      "key": "FITZZA-16",
+      "summary": "[FE] 로그아웃 및 세션 만료 상태 처리",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Junwoo shin",
+      "updated": "2026-10-12T13:39:57.420+0900"
+    },
+    {
+      "key": "FITZZA-17",
+      "summary": "[BE] 로그아웃 및 Refresh Token 폐기",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-13T13:26:38.644+0900"
+    },
+    {
+      "key": "FITZZA-18",
+      "summary": "[BE] Access Token 블랙리스트 및 Gateway 연동",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-13T14:17:02.632+0900"
+    },
+    {
+      "key": "FITZZA-19",
+      "summary": "FR-PRF-01 온보딩 프로필",
+      "type": "Story",
+      "status": "In Progress",
+      "assignee": null,
+      "updated": "2026-10-08T17:50:37.157+0900"
+    },
+    {
+      "key": "FITZZA-20",
+      "summary": "[FE] 온보딩 프로필 입력 UI",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Junwoo shin",
+      "updated": "2026-10-13T17:09:45.340+0900"
+    },
+    {
+      "key": "FITZZA-21",
+      "summary": "[FE] 입력 검증 및 프로필 저장 연동",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Junwoo shin",
+      "updated": "2026-10-13T17:09:48.312+0900"
+    },
+    {
+      "key": "FITZZA-22",
+      "summary": "[BE] 스타일·체형 태그 및 초기 프로필 구조",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:32:04.612+0900"
+    },
+    {
+      "key": "FITZZA-23",
+      "summary": "[BE] 온보딩 프로필 저장 및 내부 조회 API",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-13T15:40:05.044+0900"
+    },
+    {
+      "key": "FITZZA-24",
+      "summary": "FR-PRF-02 실측과 프로필 관리",
+      "type": "Story",
+      "status": "In Progress",
+      "assignee": null,
+      "updated": "2026-10-07T22:04:15.494+0900"
+    },
+    {
+      "key": "FITZZA-25",
+      "summary": "[FE] 프로필 조회 및 수정 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "Junwoo shin",
+      "updated": "2026-10-13T17:13:01.731+0900"
+    },
+    {
+      "key": "FITZZA-26",
+      "summary": "[FE] 프로필 필드 삭제 및 결과 반영",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "Junwoo shin",
+      "updated": "2026-10-13T17:13:04.437+0900"
+    },
+    {
+      "key": "FITZZA-27",
+      "summary": "2.1 계정과 사용자 프로필",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T23:12:47.196+0900"
+    },
+    {
+      "key": "FITZZA-28",
+      "summary": "[BE] 프로필 조회 및 부분 수정 API",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:32:08.752+0900"
+    },
+    {
+      "key": "FITZZA-29",
+      "summary": "[BE] 프로필 필드 삭제 및 값 검증",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-13T15:40:07.401+0900"
+    },
+    {
+      "key": "FITZZA-30",
+      "summary": "2.2 상품 탐색과 상세 정보",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": "star7613son",
+      "updated": "2026-10-08T09:38:08.289+0900"
+    },
+    {
+      "key": "FITZZA-31",
+      "summary": "FR-CAT-01 상품 목록 확인",
+      "type": "Story",
+      "status": "In Progress",
+      "assignee": null,
+      "updated": "2026-10-08T09:38:34.913+0900"
+    },
+    {
+      "key": "FITZZA-32",
+      "summary": "FR-CAT-02 상품 정렬과 목록 상태",
+      "type": "Story",
+      "status": "In Progress",
+      "assignee": null,
+      "updated": "2026-10-13T14:27:47.983+0900"
+    },
+    {
+      "key": "FITZZA-33",
+      "summary": "FR-CAT-03 상품 상세",
+      "type": "Story",
+      "status": "In Progress",
+      "assignee": null,
+      "updated": "2026-10-07T22:03:55.030+0900"
+    },
+    {
+      "key": "FITZZA-34",
+      "summary": "[FE] 카테고리 상품 목록 UI",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Junwoo shin",
+      "updated": "2026-10-13T17:10:37.359+0900"
+    },
+    {
+      "key": "FITZZA-35",
+      "summary": "[FE] 상품 목록 페이징 및 오류 처리",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Junwoo shin",
+      "updated": "2026-10-13T17:10:51.768+0900"
+    },
+    {
+      "key": "FITZZA-36",
+      "summary": "[BE] 카테고리 상품 목록 조회",
+      "type": "Subtask",
+      "status": "In Progress",
+      "assignee": "star7613son",
+      "updated": "2026-10-14T09:21:40.318+0900"
+    },
+    {
+      "key": "FITZZA-37",
+      "summary": "[BE] 상품 목록 페이징 및 조회 최적화",
+      "type": "Subtask",
+      "status": "In Progress",
+      "assignee": "star7613son",
+      "updated": "2026-10-14T09:21:38.793+0900"
+    },
+    {
+      "key": "FITZZA-38",
+      "summary": "[FE] 상품 정렬 UI 및 상태 유지",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "Junwoo shin",
+      "updated": "2026-10-13T17:21:27.821+0900"
+    },
+    {
+      "key": "FITZZA-39",
+      "summary": "[BE] 상품 정렬 쿼리 및 검증",
+      "type": "Subtask",
+      "status": "In Progress",
+      "assignee": "star7613son",
+      "updated": "2026-10-14T09:21:36.467+0900"
+    },
+    {
+      "key": "FITZZA-40",
+      "summary": "[FE] 상품 상세 정보 UI",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Glenn",
+      "updated": "2026-10-13T17:08:49.558+0900"
+    },
+    {
+      "key": "FITZZA-41",
+      "summary": "[FE] 상품 상세 액션 및 API 연동",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Glenn",
+      "updated": "2026-10-13T17:08:53.487+0900"
+    },
+    {
+      "key": "FITZZA-42",
+      "summary": "[BE] 상품 상세 조회 API",
+      "type": "Subtask",
+      "status": "In Progress",
+      "assignee": "star7613son",
+      "updated": "2026-10-14T09:21:32.533+0900"
+    },
+    {
+      "key": "FITZZA-43",
+      "summary": "[BE] 상품 옵션 및 실측 응답 구성",
+      "type": "Subtask",
+      "status": "In Progress",
+      "assignee": "star7613son",
+      "updated": "2026-10-14T09:21:34.361+0900"
+    },
+    {
+      "key": "FITZZA-44",
+      "summary": "2.3 자연어 검색과 개인화 코디 추천",
+      "type": "Epic",
+      "status": "In Progress",
+      "assignee": null,
+      "updated": "2026-10-13T09:25:31.121+0900"
+    },
+    {
+      "key": "FITZZA-45",
+      "summary": "FR-REC-01 자연어 조건 해석",
+      "type": "Story",
+      "status": "In Review",
+      "assignee": null,
+      "updated": "2026-10-14T09:07:43.334+0900"
+    },
+    {
+      "key": "FITZZA-46",
+      "summary": "FR-REC-02 상품 후보와 사이즈 사전 필터",
+      "type": "Story",
+      "status": "In Progress",
+      "assignee": null,
+      "updated": "2026-10-13T09:25:49.748+0900"
+    },
+    {
+      "key": "FITZZA-47",
+      "summary": "[FE] 자연어 추천 요청 UI 및 상태 처리",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Glenn",
+      "updated": "2026-10-08T17:31:28.211+0900"
+    },
+    {
+      "key": "FITZZA-48",
+      "summary": "[FE] 추천 결과 및 연계 기능",
+      "type": "Subtask",
+      "status": "In Review",
+      "assignee": "Glenn",
+      "updated": "2026-10-08T17:31:30.363+0900"
+    },
+    {
+      "key": "FITZZA-49",
+      "summary": "[BE] 자연어 조건 파싱",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-14T09:26:14.277+0900"
+    },
+    {
+      "key": "FITZZA-50",
+      "summary": "[BE] 추천 후보 검색 및 조화도 검수",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-14T09:26:15.844+0900"
+    },
+    {
+      "key": "FITZZA-51",
+      "summary": "[BE] 추천 결과 및 대화 저장",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-14T09:26:18.305+0900"
+    },
+    {
+      "key": "FITZZA-52",
+      "summary": "[FE] 사이즈 비교 결과 UI",
+      "type": "Subtask",
+      "status": "In Progress",
+      "assignee": "Glenn",
+      "updated": "2026-10-13T17:17:22.700+0900"
+    },
+    {
+      "key": "FITZZA-53",
+      "summary": "[BE] 실측 스펙 정규화 및 조회",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-14T09:25:58.301+0900"
+    },
+    {
+      "key": "FITZZA-54",
+      "summary": "[BE] 사이즈 추천 Fallback 및 적합도 산출",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-14T09:25:59.630+0900"
+    },
+    {
+      "key": "FITZZA-55",
+      "summary": "[BE] 사이즈 추천 데이터 부족 방어",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-14T09:26:02.006+0900"
+    },
+    {
+      "key": "FITZZA-56",
+      "summary": "2.4 찜·장바구니·주문과 결제",
+      "type": "Epic",
+      "status": "Done",
+      "assignee": null,
+      "updated": "2026-10-08T16:36:00.314+0900"
+    },
+    {
+      "key": "FITZZA-57",
+      "summary": "FR-WISH-01 관심상품",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:38:34.205+0900"
+    },
+    {
+      "key": "FITZZA-58",
+      "summary": "FR-CART-01 장바구니 추가",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:38:34.612+0900"
+    },
+    {
+      "key": "FITZZA-59",
+      "summary": "FR-CART-02 장바구니 수정과 삭제",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:38:35.002+0900"
+    },
+    {
+      "key": "FITZZA-60",
+      "summary": "FR-CART-03 찜 월드컵",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:38:35.407+0900"
+    },
+    {
+      "key": "FITZZA-61",
+      "summary": "FR-ORD-01 주문 생성",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:38:35.801+0900"
+    },
+    {
+      "key": "FITZZA-62",
+      "summary": "FR-ORD-02 구매 이력 설문",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:38:36.200+0900"
+    },
+    {
+      "key": "FITZZA-63",
+      "summary": "[FE] 관심상품 토글 및 상태 반영",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:11:23.533+0900"
+    },
+    {
+      "key": "FITZZA-64",
+      "summary": "[FE] 사용자 찜 목록 화면",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:11:26.203+0900"
+    },
+    {
+      "key": "FITZZA-65",
+      "summary": "[BE] 관심상품 조회 및 토글 API",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "star7613son",
+      "updated": "2026-10-08T16:36:00.805+0900"
+    },
+    {
+      "key": "FITZZA-66",
+      "summary": "[BE] 관심상품 중복 요청 방어",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "star7613son",
+      "updated": "2026-10-08T16:36:01.306+0900"
+    },
+    {
+      "key": "FITZZA-67",
+      "summary": "[FE] 장바구니 옵션·수량 선택 및 검증",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:11:40.814+0900"
+    },
+    {
+      "key": "FITZZA-68",
+      "summary": "[FE] 장바구니 추가 API 연동",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:11:43.467+0900"
+    },
+    {
+      "key": "FITZZA-69",
+      "summary": "[BE] 장바구니 옵션 및 수량 검증",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "star7613son",
+      "updated": "2026-10-12T16:45:50.278+0900"
+    },
+    {
+      "key": "FITZZA-70",
+      "summary": "[BE] 장바구니 추가 및 수량 갱신",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "star7613son",
+      "updated": "2026-10-12T16:45:50.806+0900"
+    },
+    {
+      "key": "FITZZA-71",
+      "summary": "[FE] 장바구니 목록 및 합계 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:12:08.641+0900"
+    },
+    {
+      "key": "FITZZA-72",
+      "summary": "[FE] 장바구니 수정·삭제 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:12:11.643+0900"
+    },
+    {
+      "key": "FITZZA-73",
+      "summary": "[BE] 장바구니 조회·수정·삭제 API",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "star7613son",
+      "updated": "2026-10-13T16:53:24.720+0900"
+    },
+    {
+      "key": "FITZZA-74",
+      "summary": "[BE] 장바구니 합계 및 소유권 검증",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "star7613son",
+      "updated": "2026-10-13T16:53:23.974+0900"
+    },
+    {
+      "key": "FITZZA-75",
+      "summary": "[FE] 찜 상품 비교 진행 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:12:20.738+0900"
+    },
+    {
+      "key": "FITZZA-76",
+      "summary": "[FE] 월드컵 결과 및 이력 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:12:25.605+0900"
+    },
+    {
+      "key": "FITZZA-77",
+      "summary": "[BE] 월드컵 후보 및 결과 저장",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "star7613son",
+      "updated": "2026-10-12T14:27:45.326+0900"
+    },
+    {
+      "key": "FITZZA-78",
+      "summary": "[BE] 월드컵 우승 이력 관리",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "star7613son",
+      "updated": "2026-10-12T14:27:46.151+0900"
+    },
+    {
+      "key": "FITZZA-79",
+      "summary": "[FE] 주문 정보 확인 및 입력 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:12:43.313+0900"
+    },
+    {
+      "key": "FITZZA-80",
+      "summary": "[FE] 주문 생성 및 결과 처리",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:12:46.422+0900"
+    },
+    {
+      "key": "FITZZA-81",
+      "summary": "[BE] 주문 입력 유효성 및 배송 정보 처리",
+      "type": "Subtask",
+      "status": "In Progress",
+      "assignee": "star7613son",
+      "updated": "2026-10-14T09:22:19.994+0900"
+    },
+    {
+      "key": "FITZZA-82",
+      "summary": "[BE] 주문 스냅샷 및 주문 생성",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "star7613son",
+      "updated": "2026-10-08T09:40:03.950+0900"
+    },
+    {
+      "key": "FITZZA-83",
+      "summary": "[FE] 주문 내역 및 구매 이력 설문 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:12:56.056+0900"
+    },
+    {
+      "key": "FITZZA-84",
+      "summary": "[BE] 구매 이력 설문 저장 및 검증",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-13T15:43:24.763+0900"
+    },
+    {
+      "key": "FITZZA-85",
+      "summary": "[BE] 설문 결과 추천 서비스 연동",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-08T15:13:25.118+0900"
+    },
+    {
+      "key": "FITZZA-86",
+      "summary": "2.5 커뮤니티 게시글·댓글·투표",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:50:31.423+0900"
+    },
+    {
+      "key": "FITZZA-87",
+      "summary": "FR-COM-01 코디 고민 게시글",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:52:06.929+0900"
+    },
+    {
+      "key": "FITZZA-88",
+      "summary": "FR-COM-02 댓글 관리",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:52:07.179+0900"
+    },
+    {
+      "key": "FITZZA-89",
+      "summary": "FR-COM-03 투표와 참여 내역",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:52:07.429+0900"
+    },
+    {
+      "key": "FITZZA-90",
+      "summary": "FR-COM-04 커뮤니티 연동",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:52:07.661+0900"
+    },
+    {
+      "key": "FITZZA-91",
+      "summary": "FR-COM-05 커뮤니티 메인 페이지",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:52:07.887+0900"
+    },
+    {
+      "key": "FITZZA-92",
+      "summary": "FR-COM-06 커뮤니티 투표 게시글 작성 및 수정",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:52:08.113+0900"
+    },
+    {
+      "key": "FITZZA-93",
+      "summary": "[FE] 게시글 작성·수정 폼 및 검증",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:14:47.827+0900"
+    },
+    {
+      "key": "FITZZA-94",
+      "summary": "[FE] 게시글 이미지·상품 첨부 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:14:50.429+0900"
+    },
+    {
+      "key": "FITZZA-95",
+      "summary": "[BE] 게시글 CRUD 및 상세 조회",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:32:28.571+0900"
+    },
+    {
+      "key": "FITZZA-96",
+      "summary": "[BE] 게시글 첨부 저장",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-08T15:13:26.410+0900"
+    },
+    {
+      "key": "FITZZA-97",
+      "summary": "[FE] 댓글·답글 목록 및 작성 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:15:09.164+0900"
+    },
+    {
+      "key": "FITZZA-98",
+      "summary": "[FE] 댓글 수정·삭제 및 좋아요 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:15:11.817+0900"
+    },
+    {
+      "key": "FITZZA-99",
+      "summary": "[BE] 댓글·답글 조회 및 CRUD API",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:32:23.767+0900"
+    },
+    {
+      "key": "FITZZA-100",
+      "summary": "[BE] 댓글 좋아요 및 검증·알림",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:44:43.674+0900"
+    },
+    {
+      "key": "FITZZA-101",
+      "summary": "[FE] 투표 참여 및 결과 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:15:54.981+0900"
+    },
+    {
+      "key": "FITZZA-102",
+      "summary": "[BE] 투표 참여 및 집계 API",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:32:40.987+0900"
+    },
+    {
+      "key": "FITZZA-103",
+      "summary": "[BE] 투표 마감 및 요청 검증",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T16:55:17.823+0900"
+    },
+    {
+      "key": "FITZZA-104",
+      "summary": "[FE] 추천·월드컵·피팅 결과 공유",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:16:10.002+0900"
+    },
+    {
+      "key": "FITZZA-105",
+      "summary": "[FE] 공유 게시글 초안 미리보기",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:16:13.005+0900"
+    },
+    {
+      "key": "FITZZA-106",
+      "summary": "[BE] 공유 대상 초안 및 소유권 검증",
+      "type": "Subtask",
+      "status": "In Progress",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-13T16:53:17.266+0900"
+    },
+    {
+      "key": "FITZZA-107",
+      "summary": "[BE] 공유 대상 스냅샷 저장",
+      "type": "Subtask",
+      "status": "In Progress",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-13T16:53:19.703+0900"
+    },
+    {
+      "key": "FITZZA-108",
+      "summary": "[FE] 커뮤니티 목록·분류·탐색 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:16:23.776+0900"
+    },
+    {
+      "key": "FITZZA-109",
+      "summary": "[FE] 커뮤니티 목록 상태 및 검색",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:16:26.757+0900"
+    },
+    {
+      "key": "FITZZA-110",
+      "summary": "[BE] 커뮤니티 목록·분류·검색 API",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:32:45.402+0900"
+    },
+    {
+      "key": "FITZZA-111",
+      "summary": "[BE] 커뮤니티 목록 메타데이터 및 좋아요",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-13T14:16:50.238+0900"
+    },
+    {
+      "key": "FITZZA-112",
+      "summary": "[FE] 투표 게시글 작성·수정 폼",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:16:35.467+0900"
+    },
+    {
+      "key": "FITZZA-113",
+      "summary": "[FE] 투표 선택지 상품·이미지 첨부",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:16:38.813+0900"
+    },
+    {
+      "key": "FITZZA-114",
+      "summary": "[FE] 투표 게시글 수정 제한 및 종료 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:16:41.971+0900"
+    },
+    {
+      "key": "FITZZA-115",
+      "summary": "[BE] 투표 게시글 생성 및 선택지 저장",
+      "type": "Subtask",
+      "status": "In Progress",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T17:14:22.585+0900"
+    },
+    {
+      "key": "FITZZA-116",
+      "summary": "[BE] 투표 마감 및 게시글 수정 API",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-13T16:02:00.369+0900"
+    },
+    {
+      "key": "FITZZA-117",
+      "summary": "2.6 AI 가상 피팅",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T09:26:09.449+0900"
+    },
+    {
+      "key": "FITZZA-118",
+      "summary": "FR-VTO-01 피팅 요청 생성",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:34:01.889+0900"
+    },
+    {
+      "key": "FITZZA-119",
+      "summary": "FR-VTO-02 피팅 작업 요청 생성",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:34:02.351+0900"
+    },
+    {
+      "key": "FITZZA-120",
+      "summary": "FR-VTO-03 비동기 생성 상태",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:34:02.738+0900"
+    },
+    {
+      "key": "FITZZA-121",
+      "summary": "FR-VTO-04 결과 확인과 재생성",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:34:03.055+0900"
+    },
+    {
+      "key": "FITZZA-122",
+      "summary": "[FE] 가상 피팅 페이지 및 후보 상품 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:18:06.116+0900"
+    },
+    {
+      "key": "FITZZA-123",
+      "summary": "[FE] 상품 선택 경로에서 피팅 진입",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:18:09.286+0900"
+    },
+    {
+      "key": "FITZZA-124",
+      "summary": "[BE] 피팅 후보 상품 관리 API",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-13T09:26:24.210+0900"
+    },
+    {
+      "key": "FITZZA-125",
+      "summary": "[BE] 피팅 후보 상품 정보 응답",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-13T09:26:26.653+0900"
+    },
+    {
+      "key": "FITZZA-126",
+      "summary": "[FE] 전신 사진 업로드 및 검증",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:18:18.177+0900"
+    },
+    {
+      "key": "FITZZA-127",
+      "summary": "[FE] 피팅 대상 선택 및 작업 생성 연동",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:18:20.826+0900"
+    },
+    {
+      "key": "FITZZA-128",
+      "summary": "[BE] 사용자 사진 업로드 및 스토리지 저장",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-13T09:26:35.606+0900"
+    },
+    {
+      "key": "FITZZA-129",
+      "summary": "[BE] 이미지 합성 API 연동 및 피팅 작업 생성",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-13T09:26:36.988+0900"
+    },
+    {
+      "key": "FITZZA-130",
+      "summary": "[FE] 피팅 작업 상태 폴링",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:18:36.410+0900"
+    },
+    {
+      "key": "FITZZA-131",
+      "summary": "[FE] 피팅 완료·실패 상태 처리",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:18:39.258+0900"
+    },
+    {
+      "key": "FITZZA-132",
+      "summary": "[BE] 비동기 이미지 합성 처리",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-13T09:26:42.631+0900"
+    },
+    {
+      "key": "FITZZA-133",
+      "summary": "[BE] 피팅 완료 푸시 알림",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-13T09:26:44.953+0900"
+    },
+    {
+      "key": "FITZZA-134",
+      "summary": "[FE] 피팅 결과 및 상품 정보 화면",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:18:48.676+0900"
+    },
+    {
+      "key": "FITZZA-135",
+      "summary": "[FE] 피팅 실패·재시도 및 비노출 처리",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:18:51.740+0900"
+    },
+    {
+      "key": "FITZZA-136",
+      "summary": "[BE] 완료 피팅 결과 조회 API",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-13T09:26:51.902+0900"
+    },
+    {
+      "key": "FITZZA-137",
+      "summary": "[BE] 피팅 재생성 및 삭제 데이터 방어",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "이경민",
+      "updated": "2026-10-13T09:26:53.486+0900"
+    },
+    {
+      "key": "FITZZA-138",
+      "summary": "2.7 알림 기능",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T09:19:44.387+0900"
+    },
+    {
+      "key": "FITZZA-139",
+      "summary": "FR-NOT-00 알림 공통 기반",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:40:32.788+0900"
+    },
+    {
+      "key": "FITZZA-140",
+      "summary": "FR-NOT-01 가상 피팅 완료 알림",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:40:33.142+0900"
+    },
+    {
+      "key": "FITZZA-141",
+      "summary": "FR-NOT-02 가상 피팅 실패 알림",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:40:33.371+0900"
+    },
+    {
+      "key": "FITZZA-142",
+      "summary": "FR-NOT-03 내 게시글 댓글 알림",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:40:33.594+0900"
+    },
+    {
+      "key": "FITZZA-143",
+      "summary": "FR-NOT-04 내 게시글 투표 마감 알림",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T12:40:33.814+0900"
+    },
+    {
+      "key": "FITZZA-144",
+      "summary": "[BE] 알림 저장·조회 및 읽음 처리",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:32:54.726+0900"
+    },
+    {
+      "key": "FITZZA-145",
+      "summary": "[BE] 알림 실시간 전송 (FCM)",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-13T15:43:00.755+0900"
+    },
+    {
+      "key": "FITZZA-146",
+      "summary": "[BE] 알림 중복 방지",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:32:57.485+0900"
+    },
+    {
+      "key": "FITZZA-147",
+      "summary": "[FE] 피팅 완료 알림 UI",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:21:00.703+0900"
+    },
+    {
+      "key": "FITZZA-148",
+      "summary": "[BE] 피팅 완료 이벤트 알림 생성",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T09:39:02.885+0900"
+    },
+    {
+      "key": "FITZZA-149",
+      "summary": "[FE] 피팅 실패 알림 및 재시도 이동",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:21:07.033+0900"
+    },
+    {
+      "key": "FITZZA-150",
+      "summary": "[BE] 피팅 실패 이벤트 알림 생성",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-08T15:13:37.707+0900"
+    },
+    {
+      "key": "FITZZA-151",
+      "summary": "[FE] 댓글 알림 및 게시글 이동",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:21:13.312+0900"
+    },
+    {
+      "key": "FITZZA-152",
+      "summary": "[BE] 댓글 작성 알림 생성",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T14:44:39.436+0900"
+    },
+    {
+      "key": "FITZZA-153",
+      "summary": "[FE] 투표 마감 알림 및 결과 표시",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-07T21:21:20.865+0900"
+    },
+    {
+      "key": "FITZZA-154",
+      "summary": "[BE] 투표 마감 감지 및 알림 생성",
+      "type": "Subtask",
+      "status": "Done",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-12T16:55:21.233+0900"
+    },
+    {
+      "key": "FITZZA-155",
+      "summary": "AWS 환경·보안 설정",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-08T09:32:50.798+0900"
+    },
+    {
+      "key": "FITZZA-156",
+      "summary": "컨테이너 배포·CI/CD",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-08T09:32:53.198+0900"
+    },
+    {
+      "key": "FITZZA-157",
+      "summary": "데이터·파일·메시지 인프라",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-08T09:32:56.098+0900"
+    },
+    {
+      "key": "FITZZA-158",
+      "summary": "AI 검색 인프라",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-08T09:36:15.497+0900"
+    },
+    {
+      "key": "FITZZA-159",
+      "summary": "로그·모니터링·운영 점검",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-08T09:33:23.116+0900"
+    },
+    {
+      "key": "FITZZA-160",
+      "summary": "개발 환경과 운영 환경, 기본 AWS 리소스 구성",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:36.878+0900"
+    },
+    {
+      "key": "FITZZA-161",
+      "summary": "VPC·서브넷·보안 그룹 설정: 외부 서비스와 내부 DB·캐시 접근 분리",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:37.309+0900"
+    },
+    {
+      "key": "FITZZA-162",
+      "summary": "IAM 역할·정책 설정: 서비스별 AWS 리소스 접근 권한 구성",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:37.776+0900"
+    },
+    {
+      "key": "FITZZA-163",
+      "summary": "시크릿·환경 변수 관리: DB 비밀번호, JWT 키, 외부 API 키 등",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:38.274+0900"
+    },
+    {
+      "key": "FITZZA-164",
+      "summary": "Spring 백엔드 서비스 Docker 이미지 구성",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:38.740+0900"
+    },
+    {
+      "key": "FITZZA-165",
+      "summary": "FastAPI 추천·가상 피팅 서비스와 비동기 작업자 Docker 이미지 구성",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:39.178+0900"
+    },
+    {
+      "key": "FITZZA-166",
+      "summary": "AWS 배포 대상과 서비스 간 네트워크·통신 설정",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:39.637+0900"
+    },
+    {
+      "key": "FITZZA-167",
+      "summary": "GitHub Actions 빌드·배포 파이프라인 구성",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:40.103+0900"
+    },
+    {
+      "key": "FITZZA-168",
+      "summary": "Spring Cloud Gateway 외부 접속, 도메인·HTTPS 인증서 설정",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:40.552+0900"
+    },
+    {
+      "key": "FITZZA-169",
+      "summary": "PostgreSQL AWS 인스턴스 구성, 네트워크 연결 및 백업 설정",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:41.008+0900"
+    },
+    {
+      "key": "FITZZA-170",
+      "summary": "Redis 배포 및 서비스 연결 설정",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:41.440+0900"
+    },
+    {
+      "key": "FITZZA-171",
+      "summary": "S3 버킷 구성: 상품·커뮤니티·가상 피팅 이미지 저장 및 접근 권한 설정",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:41.861+0900"
+    },
+    {
+      "key": "FITZZA-172",
+      "summary": "SQS 작업 큐 구성: 비동기 처리, 재시도 및 실패 메시지 큐 설정",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:42.327+0900"
+    },
+    {
+      "key": "FITZZA-173",
+      "summary": "백엔드·AI 서비스별 S3·SQS 접근 권한 연결 및 확인",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:42.779+0900"
+    },
+    {
+      "key": "FITZZA-174",
+      "summary": "Qdrant 배포, 영속 저장 공간 및 내부 접근 설정",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:43.196+0900"
+    },
+    {
+      "key": "FITZZA-175",
+      "summary": "AI 서비스와 Qdrant·S3·SQS 연결 설정 및 동작 확인",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:43.632+0900"
+    },
+    {
+      "key": "FITZZA-176",
+      "summary": "서비스 로그·기본 지표 수집 및 보존 설정",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:44.093+0900"
+    },
+    {
+      "key": "FITZZA-177",
+      "summary": "Grafana 데이터 소스 연결 및 서비스 상태 대시보드 구성",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:44.518+0900"
+    },
+    {
+      "key": "FITZZA-178",
+      "summary": "서비스 오류·작업 큐 적체 등 주요 상황의 알림 설정",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:44.933+0900"
+    },
+    {
+      "key": "FITZZA-179",
+      "summary": "배포 후 주요 기능 점검 및 기본 운영·장애 대응 절차 정리",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-13T16:53:45.373+0900"
+    },
+    {
+      "key": "FITZZA-202",
+      "summary": "API 명세서 작성",
+      "type": "Story",
+      "status": "In Progress",
+      "assignee": "fractal barista",
+      "updated": "2026-10-12T08:59:27.690+0900"
+    },
+    {
+      "key": "FITZZA-203",
+      "summary": "아키텍처 설계도 작성",
+      "type": "Story",
+      "status": "Done",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-12T15:26:24.563+0900"
+    },
+    {
+      "key": "FITZZA-204",
+      "summary": "Jev 모델 사용가능성 검토",
+      "type": "Story",
+      "status": "In Review",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-08T17:29:00.598+0900"
+    },
+    {
+      "key": "FITZZA-205",
+      "summary": "클라우드 사용계획서 작성",
+      "type": "Story",
+      "status": "In Progress",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-14T09:28:52.448+0900"
+    },
+    {
+      "key": "FITZZA-206",
+      "summary": "데이터셋 크롤러 확정",
+      "type": "Story",
+      "status": "In Progress",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-14T09:43:42.479+0900"
+    },
+    {
+      "key": "FITZZA-207",
+      "summary": "프로젝트 공통",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-08T09:23:01.296+0900"
+    },
+    {
+      "key": "FITZZA-208",
+      "summary": "백엔드 공통",
+      "type": "Epic",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-08T09:23:07.421+0900"
+    },
+    {
+      "key": "FITZZA-209",
+      "summary": "프론트엔드 공통",
+      "type": "Epic",
+      "status": "In Progress",
+      "assignee": null,
+      "updated": "2026-10-08T15:15:16.544+0900"
+    },
+    {
+      "key": "FITZZA-210",
+      "summary": "백엔드 깃허브 디스코드 PR 알림 봇 연결",
+      "type": "Story",
+      "status": "Done",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-08T11:01:36.980+0900"
+    },
+    {
+      "key": "FITZZA-211",
+      "summary": "클라우드 아키텍쳐 사용 계획",
+      "type": "Story",
+      "status": "Done",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-13T09:31:49.977+0900"
+    },
+    {
+      "key": "FITZZA-212",
+      "summary": "데이터 크롤링 파이프 라인 제작",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-13T16:53:45.806+0900"
+    },
+    {
+      "key": "FITZZA-213",
+      "summary": "상품 컬러과 관련된 데이터셋 정규화 작업",
+      "type": "Subtask",
+      "status": "In Progress",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-08T10:20:12.995+0900"
+    },
+    {
+      "key": "FITZZA-214",
+      "summary": "Jira를 WBS 양식으로 변환하기",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": "fractal barista",
+      "updated": "2026-10-13T12:42:17.280+0900"
+    },
+    {
+      "key": "FITZZA-215",
+      "summary": "Health-check API 수정",
+      "type": "Story",
+      "status": "Done",
+      "assignee": "Kim nayeon",
+      "updated": "2026-10-13T16:55:20.631+0900"
+    },
+    {
+      "key": "FITZZA-216",
+      "summary": "상품 리뷰",
+      "type": "Story",
+      "status": "To Do",
+      "assignee": null,
+      "updated": "2026-10-14T09:24:52.842+0900"
+    },
+    {
+      "key": "FITZZA-217",
+      "summary": "[BE] 상품 리뷰 작성·수정·삭제·조회 API",
+      "type": "Subtask",
+      "status": "To Do",
+      "assignee": "Kim Jihyun",
+      "updated": "2026-10-14T10:12:50.608+0900"
+    }
+  ]
+}

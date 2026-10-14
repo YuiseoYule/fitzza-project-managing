@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-23",
+  "wbs": "FITZZA-23",
+  "section": "FR-PRF-01 온보딩 프로필",
+  "title": "온보딩 프로필 저장 및 내부 조회 API",
+  "phase": "FR-PRF-01",
+  "category": "백엔드",
+  "responsible": "지현",
+  "assistants": [],
+  "startDate": "2026-10-07",
+  "endDate": "2026-10-08",
+  "weight": 0.0034090909090909085,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-23 (Done, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

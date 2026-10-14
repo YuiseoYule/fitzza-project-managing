@@ -1,0 +1,18 @@
+{
+  "id": "FITZZA-161",
+  "wbs": "FITZZA-161",
+  "section": "AWS 환경·보안 설정",
+  "title": "VPC·서브넷·보안 그룹 설정: 외부 서비스와 내부 DB·캐시 접근 분리",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "weight": 0.0064516129032258064,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-161 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 1개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

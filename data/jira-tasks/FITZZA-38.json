@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-38",
+  "wbs": "FITZZA-38",
+  "section": "FR-CAT-02 상품 정렬과 목록 상태",
+  "title": "상품 정렬 UI 및 상태 유지",
+  "phase": "FR-CAT-02",
+  "category": "프론트엔드",
+  "responsible": "준우",
+  "assistants": [],
+  "startDate": "2026-10-07",
+  "endDate": "2026-10-13",
+  "weight": 0.007499999999999999,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-38 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 4개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

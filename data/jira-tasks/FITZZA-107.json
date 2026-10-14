@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-107",
+  "wbs": "FITZZA-107",
+  "section": "FR-COM-04 커뮤니티 연동",
+  "title": "공유 대상 스냅샷 저장",
+  "phase": "FR-COM-04",
+  "category": "백엔드",
+  "responsible": "지현",
+  "assistants": [],
+  "startDate": "2026-10-21",
+  "endDate": "2026-10-22",
+  "weight": 0.0029220779220779213,
+  "status": "진행 중",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-107 (In Progress, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 1개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

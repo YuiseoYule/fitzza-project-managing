@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-75",
+  "wbs": "FITZZA-75",
+  "section": "FR-CART-03 찜 월드컵",
+  "title": "찜 상품 비교 진행 UI",
+  "phase": "FR-CART-03",
+  "category": "프론트엔드",
+  "responsible": "승원",
+  "assistants": [],
+  "startDate": "2026-10-27",
+  "endDate": "2026-10-30",
+  "weight": 0.004326923076923077,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-75 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

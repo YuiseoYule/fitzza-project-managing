@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-52",
+  "wbs": "FITZZA-52",
+  "section": "FR-REC-02 상품 후보와 사이즈 사전 필터",
+  "title": "사이즈 비교 결과 UI",
+  "phase": "FR-REC-02",
+  "category": "프론트엔드",
+  "responsible": "수혁",
+  "assistants": [],
+  "startDate": "2026-10-07",
+  "endDate": "2026-10-13",
+  "weight": 0.012499999999999999,
+  "status": "진행 중",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-52 (In Progress, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 4개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

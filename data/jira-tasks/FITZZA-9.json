@@ -1,0 +1,18 @@
+{
+  "id": "FITZZA-9",
+  "wbs": "FITZZA-9",
+  "section": "FR-ACC-01 회원가입 및 로그인",
+  "title": "회원가입 및 로그인 UI",
+  "phase": "FR-ACC-01",
+  "category": "프론트엔드",
+  "responsible": "준우",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "weight": 0.005208333333333332,
+  "status": "진행 중",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-9 (In Review, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 3개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

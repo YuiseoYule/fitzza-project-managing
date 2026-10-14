@@ -1,0 +1,18 @@
+{
+  "id": "FITZZA-176",
+  "wbs": "FITZZA-176",
+  "section": "로그·모니터링·운영 점검",
+  "title": "서비스 로그·기본 지표 수집 및 보존 설정",
+  "phase": "클라우드",
+  "category": "클라우드",
+  "responsible": "나연",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "weight": 0.004838709677419354,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-176 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 1개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

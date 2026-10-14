@@ -80,6 +80,8 @@ h2.on-hold,
 .detail-dialog dl { margin: 0; }
 .detail-dialog dt { color: #63708b; font-weight: bold; font-size: 12px; margin-top: 16px; }
 .detail-dialog dd { margin: 4px 0; line-height: 1.5; white-space: pre-line; }
+.weight-sources { max-height: 180px; overflow: auto; margin: 8px 0 0; padding-left: 18px; font-size: 11px; }
+.weight-sources li { margin-bottom: 5px; }
 @media (max-width: 800px) {
   .wbs-page { padding: 14px; }
   .wbs-page header, .toolbar { align-items: start; flex-direction: column; }

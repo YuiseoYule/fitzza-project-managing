@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-77",
+  "wbs": "FITZZA-77",
+  "section": "FR-CART-03 찜 월드컵",
+  "title": "월드컵 후보 및 결과 저장",
+  "phase": "FR-CART-03",
+  "category": "백엔드",
+  "responsible": "주희",
+  "assistants": [],
+  "startDate": "2026-10-14",
+  "endDate": "2026-10-30",
+  "weight": 0.006293706293706292,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-77 (Done, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

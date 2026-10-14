@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-26",
+  "wbs": "FITZZA-26",
+  "section": "FR-PRF-02 실측과 프로필 관리",
+  "title": "프로필 필드 삭제 및 결과 반영",
+  "phase": "FR-PRF-02",
+  "category": "프론트엔드",
+  "responsible": "준우",
+  "assistants": [],
+  "startDate": "2026-10-12",
+  "endDate": "2026-10-14",
+  "weight": 0.0025,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-26 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

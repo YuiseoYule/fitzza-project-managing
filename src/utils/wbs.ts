@@ -49,9 +49,11 @@ export function calculateProgress(tasks: readonly Task[]) {
 export type WbsRow = { kind: 'section'; key: string; label: string } | { kind: 'task'; key: string; task: Task }
 
 /** Both the screen and XLSX use this exact row order, date span and column layout. */
-export function createWbsView(tasks: readonly Task[]) {
+export function createWbsView(tasks: readonly Task[], order: 'date' | 'jira-section' = 'date') {
   const sortDate = (task: Task) => task.startDate ? dateValue(task.startDate) : Infinity
-  const sorted = [...tasks].sort((a, b) => sortDate(a) - sortDate(b) || a.id.localeCompare(b.id))
+  const sorted = [...tasks].sort((a, b) =>
+    (order === 'jira-section' ? (a.section || '').localeCompare(b.section || '', 'ko') : 0)
+    || sortDate(a) - sortDate(b) || a.id.localeCompare(b.id))
   const rows: WbsRow[] = []
   let previousSection: string | undefined
   sorted.forEach((task, index) => {

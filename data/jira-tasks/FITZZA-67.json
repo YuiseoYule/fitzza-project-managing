@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-67",
+  "wbs": "FITZZA-67",
+  "section": "FR-CART-01 장바구니 추가",
+  "title": "장바구니 옵션·수량 선택 및 검증",
+  "phase": "FR-CART-01",
+  "category": "프론트엔드",
+  "responsible": "승원",
+  "assistants": [],
+  "startDate": "2026-10-16",
+  "endDate": "2026-10-20",
+  "weight": 0.0028846153846153848,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-67 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

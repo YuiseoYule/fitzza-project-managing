@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-95",
+  "wbs": "FITZZA-95",
+  "section": "FR-COM-01 코디 고민 게시글",
+  "title": "게시글 CRUD 및 상세 조회",
+  "phase": "FR-COM-01",
+  "category": "백엔드",
+  "responsible": "지현",
+  "assistants": [],
+  "startDate": "2026-10-15",
+  "endDate": "2026-10-24",
+  "weight": 0.0026564344746162916,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-95 (Done, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

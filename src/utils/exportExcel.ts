@@ -1,4 +1,5 @@
 import ExcelJS from 'exceljs'
+import jiraAudit from '../../data/jira-weight-audit.json'
 import type { Task } from '../types'
 import {
   COLUMNS, STATUS_COLORS, createWbsView, isWeekend, shortDate, statusLabel, taskProgress,
@@ -11,8 +12,8 @@ export const HEADER_ROW = 8
 export const FIRST_DATA_ROW = 9
 
 /** Generate an actual .xlsx, with editable status/weight cells and recalculating formulas. */
-export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 작업') {
-  const view = createWbsView(tasks)
+export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 작업', order: 'date' | 'jira-section' = 'date') {
+  const view = createWbsView(tasks, order)
   const workbook = new ExcelJS.Workbook()
   workbook.creator = 'Fitzza WBS'
   workbook.calcProperties.fullCalcOnLoad = true
@@ -171,7 +172,51 @@ export function buildWbsWorkbook(tasks: readonly Task[], scopeLabel = '전체 �
   sheet.pageSetup.printTitlesColumn = 'A:C'
   sheet.pageSetup.printArea = `A1:${lastColumn}${lastRow}`
   addWeightSummary(workbook, tasks, scopeLabel, lastRow)
+  if (order === 'jira-section') addJiraWeightLineage(workbook, tasks, scopeLabel)
   return workbook
+}
+
+/** Every original weight component remains traceable after Jira issue aggregation. */
+function addJiraWeightLineage(workbook: ExcelJS.Workbook, tasks: readonly Task[], scopeLabel: string) {
+  const selectedIds = new Set(tasks.map(task => task.id))
+  const mappings = jiraAudit.mappings.filter(row => selectedIds.has(row.activeTaskId))
+  const sheet = workbook.addWorksheet('가중치 합산 근거', {
+    views: [{ state: 'frozen', ySplit: 4, showGridLines: false }],
+  })
+  sheet.columns = [19, 37, 23, 48, 17, 17, 18, 18].map(width => ({ width }))
+  sheet.mergeCells('A1:H1')
+  sheet.getCell('A1').value = 'Jira 작업별 원본 가중치 합산 근거'
+  sheet.getCell('A1').font = { name: '맑은 고딕', size: 17, bold: true, color: { argb: 'FF202D40' } }
+  sheet.getRow(1).height = 32
+  sheet.mergeCells('A2:H2')
+  sheet.getCell('A2').value = `${scopeLabel} · 원본 ${mappings.length}개 → 화면 작업 ${selectedIds.size}개 · 합계 ${(mappings.reduce((sum, row) => sum + row.sourceWeight, 0) * 100).toFixed(3)}%`
+  sheet.mergeCells('A3:H3')
+  sheet.getCell('A3').value = '원본 상태는 이전 WBS의 기록이며, 현재 상태는 Jira 기준입니다. 보류 원본은 별도 행으로 유지하고 진척률 계산에서 제외합니다.'
+  sheet.getRow(4).values = ['화면 작업 ID', 'Jira 작업명', '원본 작업 ID', '원본 작업명', '원본 가중치', '원본 상태', 'Jira 상태', '진척률 제외']
+  sheet.getRow(4).height = 30
+  sheet.getRow(4).eachCell(cell => {
+    cell.fill = fill('385F9D')
+    cell.font = { name: '맑은 고딕', size: 10, bold: true, color: { argb: 'FFFFFFFF' } }
+    cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }
+  })
+  mappings.forEach((mapping, index) => {
+    const row = sheet.getRow(index + 5)
+    row.values = [
+      mapping.activeTaskId, mapping.jiraSummary || 'Jira 직접 대응 없음',
+      mapping.sourceTaskId, mapping.sourceTitle, mapping.sourceWeight,
+      mapping.sourceStatus, mapping.jiraStatus || '원본 유지', mapping.excludedAsHold ? '보류 · 제외' : '',
+    ]
+    row.height = 30
+    row.getCell(5).numFmt = '0.000%'
+    row.eachCell(cell => {
+      cell.fill = fill(index % 2 === 0 ? 'FFFFFF' : 'F3F7FC')
+      cell.font = { name: '맑은 고딕', size: 10, color: { argb: 'FF202D40' } }
+      cell.alignment = { vertical: 'middle', wrapText: true }
+    })
+    if (mapping.excludedAsHold) row.getCell(8).font = { name: '맑은 고딕', size: 10, bold: true, color: { argb: 'FFAD3131' } }
+  })
+  sheet.autoFilter = { from: 'A4', to: `H${Math.max(4, mappings.length + 4)}` }
+  sheet.pageSetup.printTitlesRow = '1:4'
 }
 
 /** Formula-based roll-up, never adding parent rows to the leaf-task total. */
@@ -223,8 +268,8 @@ function addWeightSummary(workbook: ExcelJS.Workbook, tasks: readonly Task[], sc
   }
 }
 
-export async function downloadWbsExcel(tasks: readonly Task[], scopeLabel: string) {
-  const workbook = buildWbsWorkbook(tasks, scopeLabel)
+export async function downloadWbsExcel(tasks: readonly Task[], scopeLabel: string, order: 'date' | 'jira-section' = 'date') {
+  const workbook = buildWbsWorkbook(tasks, scopeLabel, order)
   const buffer = await workbook.xlsx.writeBuffer()
   const bytes = new Uint8Array(buffer)
   const blob = new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })

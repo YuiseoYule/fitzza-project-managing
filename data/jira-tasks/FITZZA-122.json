@@ -1,0 +1,18 @@
+{
+  "id": "FITZZA-122",
+  "wbs": "FITZZA-122",
+  "section": "FR-VTO-01 피팅 요청 생성",
+  "title": "가상 피팅 페이지 및 후보 상품 UI",
+  "phase": "FR-VTO-01",
+  "category": "프론트엔드",
+  "responsible": "승원",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "weight": 0.0017857142857142857,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-122 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 1개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

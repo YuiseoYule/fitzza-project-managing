@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-105",
+  "wbs": "FITZZA-105",
+  "section": "FR-COM-04 커뮤니티 연동",
+  "title": "공유 게시글 초안 미리보기",
+  "phase": "FR-COM-04",
+  "category": "프론트엔드",
+  "responsible": "수혁",
+  "assistants": [],
+  "startDate": "2026-10-15",
+  "endDate": "2026-10-16",
+  "weight": 0.003333333333333334,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-105 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 1개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

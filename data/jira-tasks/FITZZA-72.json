@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-72",
+  "wbs": "FITZZA-72",
+  "section": "FR-CART-02 장바구니 수정과 삭제",
+  "title": "장바구니 수정·삭제 UI",
+  "phase": "FR-CART-02",
+  "category": "프론트엔드",
+  "responsible": "승원",
+  "assistants": [],
+  "startDate": "2026-10-20",
+  "endDate": "2026-10-24",
+  "weight": 0.0036713286713286712,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-72 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 3개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

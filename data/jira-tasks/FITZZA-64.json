@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-64",
+  "wbs": "FITZZA-64",
+  "section": "FR-WISH-01 관심상품",
+  "title": "사용자 찜 목록 화면",
+  "phase": "FR-WISH-01",
+  "category": "프론트엔드",
+  "responsible": "승원",
+  "assistants": [],
+  "startDate": "2026-10-15",
+  "endDate": "2026-10-15",
+  "weight": 0.001730769230769231,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-64 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

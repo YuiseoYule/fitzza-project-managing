@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-28",
+  "wbs": "FITZZA-28",
+  "section": "FR-PRF-02 실측과 프로필 관리",
+  "title": "프로필 조회 및 부분 수정 API",
+  "phase": "FR-PRF-02",
+  "category": "백엔드",
+  "responsible": "지현",
+  "assistants": [],
+  "startDate": "2026-10-07",
+  "endDate": "2026-10-14",
+  "weight": 0.003787878787878787,
+  "status": "완료",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-28 (Done, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

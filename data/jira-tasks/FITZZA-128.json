@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-128",
+  "wbs": "FITZZA-128",
+  "section": "FR-VTO-02 피팅 작업 요청 생성",
+  "title": "사용자 사진 업로드 및 스토리지 저장",
+  "phase": "FR-VTO-02",
+  "category": "백엔드",
+  "responsible": "경민",
+  "assistants": [],
+  "startDate": "2026-10-17",
+  "endDate": "2026-10-21",
+  "weight": 0.005454545454545454,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-128 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 1개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-115",
+  "wbs": "FITZZA-115",
+  "section": "FR-COM-06 커뮤니티 투표 게시글 작성 및 수정",
+  "title": "투표 게시글 생성 및 선택지 저장",
+  "phase": "FR-COM-06",
+  "category": "백엔드",
+  "responsible": "지현",
+  "assistants": [],
+  "startDate": "2026-10-15",
+  "endDate": "2026-10-24",
+  "weight": 0.0038114059853190277,
+  "status": "진행 중",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-115 (In Progress, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 7개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

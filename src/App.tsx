@@ -6,8 +6,9 @@ import {
 } from './utils/wbs'
 import { CAPACITY_COLORS, capacityColor, capacityLabel, dayCapacity } from './utils/workCalendar'
 import { projectSummary } from './utils/projectSummary'
+import jiraAudit from '../data/jira-weight-audit.json'
 
-const modules = import.meta.glob('../data/tasks/*.json', { eager: true, import: 'default' })
+const modules = import.meta.glob('../data/jira-tasks/*.json', { eager: true, import: 'default' })
 const allTasks = Object.values(modules) as Task[]
 const project = projectSummary(allTasks)
 
@@ -19,6 +20,7 @@ function TaskDetail({ task, close }: { task: Task; close: () => void }) {
     return () => element?.close()
   }, [])
   const relatedNames = (ids: string[]) => ids.map(id => allTasks.find(t => t.id === id)?.title ?? id).join(', ') || '없음'
+  const weightSources = jiraAudit.mappings.filter(row => row.activeTaskId === task.id)
   return <dialog ref={dialog} className="detail-dialog" onCancel={close} onClick={event => {
     if (event.target === event.currentTarget) close()
   }}>
@@ -26,10 +28,13 @@ function TaskDetail({ task, close }: { task: Task; close: () => void }) {
       <button className="close" onClick={close} aria-label="상세 닫기">×</button>
       <p className="kicker">{task.wbs ?? task.id}</p>
       <h2 className={statusLabel(task) === '보류' ? 'on-hold' : ''}>{task.title}</h2>
+      {task.id.startsWith('FITZZA-') && <p><a href={`https://fractalbarista.atlassian.net/browse/${task.id}`} target="_blank" rel="noopener noreferrer">Jira 작업 열기 ↗</a></p>}
       <dl>
         <dt>책임자 / 보조자</dt><dd>{roleLabel(task.responsible)} / {task.assistants.join(', ') || '없음'}</dd>
         <dt>단계 / 유형</dt><dd>{task.phase} / {task.category || '없음'}</dd>
         <dt>상태 / 가중치</dt><dd>{statusLabel(task)} / {formatWeight(task.weight)}{taskProgress(task) === null ? ' (진척률 계산 제외)' : ''}</dd>
+        <dt>가중치 합산 근거</dt><dd><strong>기존 작업 {weightSources.length}개 합계 {formatWeight(weightSources.reduce((sum, row) => sum + row.sourceWeight, 0))}</strong>
+          <ul className="weight-sources">{weightSources.map(row => <li key={row.sourceTaskId}><code>{row.sourceTaskId}</code> · {row.sourceTitle} — {formatWeight(row.sourceWeight)}</li>)}</ul></dd>
         {task.effortScore && <><dt>원본 점수</dt><dd>{task.effortScore}점 (가중치는 엑셀의 최종 전체 기여도 적용)</dd></>}
         {task.source && <><dt>원본 계층</dt><dd>{task.source.category} → {task.source.section}{task.source.feature ? ` → ${task.source.feature}` : ''}<br />{task.source.sheet} · {task.source.row}행</dd></>}
         <dt>기간</dt><dd>{task.startDate || '날짜 미정'} ~ {task.endDate || '날짜 미정'}</dd>
@@ -47,7 +52,7 @@ export default function App() {
   const [selected, setSelected] = useState<Task | null>(null)
   const [exporting, setExporting] = useState(false)
   const [exportError, setExportError] = useState('')
-  const view = useMemo(() => createWbsView(allTasks.filter(task => shown.has(task.responsible))), [shown])
+  const view = useMemo(() => createWbsView(allTasks.filter(task => shown.has(task.responsible)), 'jira-section'), [shown])
   const { rows, calendar, weeks, summary } = view
   const scopeLabel = shown.size === FILTER_ROLES.length ? '전체 작업' : `표시된 역할: ${FILTER_ROLES.filter(role => shown.has(role)).map(roleLabel).join(', ') || '없음'}`
 
@@ -56,7 +61,7 @@ export default function App() {
     setExportError('')
     try {
       const { downloadWbsExcel } = await import('./utils/exportExcel')
-      await downloadWbsExcel(view.tasks, scopeLabel)
+      await downloadWbsExcel(view.tasks, scopeLabel, 'jira-section')
     } catch (error) {
       console.error('Excel export failed', error)
       setExportError('Excel 파일을 만들지 못했습니다. 다시 시도해 주세요.')
@@ -70,7 +75,7 @@ export default function App() {
       <div>
         <p className="kicker">PROJECT WBS</p>
         <h1>프로젝트 WBS</h1>
-        <p>작업 JSON을 기준으로 표시하는 읽기 전용 일정표</p>
+        <p>Jira 작업 분류·상태에 기존 WBS 세부 가중치를 합산한 읽기 전용 일정표</p>
       </div>
       <div className="summary" aria-live="polite">
         <b>가중 진척률{shown.size !== FILTER_ROLES.length ? ' · 표시된 작업' : ''}</b>
@@ -80,7 +85,7 @@ export default function App() {
       </div>
     </header>
     <section className="weight-summary" aria-label="전체 프로젝트 가중치 총합">
-      <h2>전체 프로젝트 가중치 총합 <small>필터와 관계없이 전체 {project.total.count}개 작업</small></h2>
+      <h2>전체 프로젝트 가중치 총합 <small>Jira {jiraAudit.jiraIssueCount}개 이슈 · 가중치가 있는 작업 {project.total.count}행 · 기존 {jiraAudit.sourceTaskCount}개 가중치 보존</small></h2>
       <div className="weight-table-wrap"><table>
         <thead><tr><th>영역</th><th>작업 수</th><th>계획 비중</th><th>등록 가중치</th><th>완료 가중치</th><th>보류 제외</th><th>등록 작업 진척률</th></tr></thead>
         <tbody>{[...project.rows, { ...project.total, category: '전체 총합' }].map(row => <tr key={row.category}>
@@ -89,6 +94,8 @@ export default function App() {
         </tr>)}</tbody>
       </table></div>
       <p>등록된 작업만 한 번씩 합산합니다. 등록 작업 진척률 = 완료 가중치 ÷ (등록 가중치 − 보류 가중치). 미등록 영역의 진행 상태는 추정하지 않습니다.</p>
+      <p>기능 Story를 섹션 분류로 쓰고 FE/BE Subtask와 클라우드 세부 Story에 기존 가중치를 합산했습니다. Epic의 상하위 링크는 내보내기에 없어 별도 스냅샷에 보관합니다. 기존 보류 4건은 별도 행으로 유지해 계산에서 제외합니다. 계획·분석설계·테스트·배포 4건도 중복 없이 유지합니다. 합산 내역은 <code>data/jira-weight-audit.json</code>에 원본 작업별로 기록했습니다.</p>
+      <p>Jira 조회 시점: {new Date(jiraAudit.fetchedAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}. 가중치가 없는 Jira 신규 Subtask {jiraAudit.unmatchedJiraSubtasks.map(item => item.key).join(', ')}는 임의의 0% 작업으로 만들지 않았습니다.</p>
       {project.allocationGaps.length > 0 ?
         <p className="weight-warning">계획·세부 합계 불일치: {project.allocationGaps.map(row => `${row.category} 계획 ${formatWeight(row.plannedWeight)} / 등록 ${formatWeight(row.allWeight)}`).join(', ')}. 보류 제외 가중치와는 별개입니다.</p> :
         <p>등록된 영역의 가중치는 계획 비중과 일치합니다.</p>}
@@ -109,7 +116,7 @@ export default function App() {
       </button>
     </div>
     <p className="scope-note">{scopeLabel} · {view.tasks.length}개 작업. 진척률과 Excel 내보내기는 현재 표시된 작업 기준입니다.</p>
-    <p className="formula-note">가중치는 엑셀의 최종 전체 기여도(%)입니다. 보류는 계산 제외·취소선으로 표시합니다. 일정 계획 전 작업 {allTasks.filter(task => task.schedulePending).length}개는 날짜 미정입니다.</p>
+    <p className="formula-note">가중치는 기존 엑셀의 최종 전체 기여도를 Jira 작업별로 합산했습니다. 보류는 계산 제외·취소선으로 표시합니다. 일정 계획 전 작업 {allTasks.filter(task => task.schedulePending).length}개는 날짜 미정입니다. Jira에는 일정 필드가 없어 날짜는 기존 WBS 범위를 사용합니다.</p>
     {exportError && <p role="alert" className="export-error">{exportError}</p>}
     <div className="legend" aria-label="상태 범례">
       {Object.entries(STATUS_COLORS).map(([label, color]) => <span key={label}><i style={{ background: `#${color}` }} /><span className={label === '보류' ? 'held-label' : ''}>{label}</span></span>)}

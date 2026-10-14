@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-113",
+  "wbs": "FITZZA-113",
+  "section": "FR-COM-06 커뮤니티 투표 게시글 작성 및 수정",
+  "title": "투표 선택지 상품·이미지 첨부",
+  "phase": "FR-COM-06",
+  "category": "프론트엔드",
+  "responsible": "수혁",
+  "assistants": [],
+  "startDate": "2026-10-15",
+  "endDate": "2026-10-24",
+  "weight": 0.0035294117647058825,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-113 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 7개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-134",
+  "wbs": "FITZZA-134",
+  "section": "FR-VTO-04 결과 확인과 재생성",
+  "title": "피팅 결과 및 상품 정보 화면",
+  "phase": "FR-VTO-04",
+  "category": "프론트엔드",
+  "responsible": "승원",
+  "assistants": [],
+  "startDate": "2026-10-27",
+  "endDate": "2026-10-29",
+  "weight": 0.002272727272727273,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-134 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

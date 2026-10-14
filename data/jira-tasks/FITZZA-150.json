@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-150",
+  "wbs": "FITZZA-150",
+  "section": "FR-NOT-02 가상 피팅 실패 알림",
+  "title": "피팅 실패 이벤트 알림 생성",
+  "phase": "FR-NOT-02",
+  "category": "백엔드",
+  "responsible": "지현",
+  "assistants": [],
+  "startDate": "2026-10-27",
+  "endDate": "2026-10-30",
+  "weight": 0.005844155844155842,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-150 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 3개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

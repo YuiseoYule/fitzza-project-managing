@@ -1,0 +1,18 @@
+{
+  "id": "FITZZA-97",
+  "wbs": "FITZZA-97",
+  "section": "FR-COM-02 댓글 관리",
+  "title": "댓글·답글 목록 및 작성 UI",
+  "phase": "FR-COM-02",
+  "category": "프론트엔드",
+  "responsible": "수혁",
+  "assistants": [],
+  "startDate": "",
+  "endDate": "",
+  "schedulePending": true,
+  "weight": 0.0016666666666666668,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-97 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

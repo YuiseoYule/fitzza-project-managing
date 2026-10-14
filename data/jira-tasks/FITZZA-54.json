@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-54",
+  "wbs": "FITZZA-54",
+  "section": "FR-REC-02 상품 후보와 사이즈 사전 필터",
+  "title": "사이즈 추천 Fallback 및 적합도 산출",
+  "phase": "FR-REC-02",
+  "category": "백엔드",
+  "responsible": "경민",
+  "assistants": [],
+  "startDate": "2026-10-13",
+  "endDate": "2026-10-16",
+  "weight": 0.014545454545454544,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-54 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-82",
+  "wbs": "FITZZA-82",
+  "section": "FR-ORD-01 주문 생성",
+  "title": "주문 스냅샷 및 주문 생성",
+  "phase": "FR-ORD-01",
+  "category": "백엔드",
+  "responsible": "주희",
+  "assistants": [],
+  "startDate": "2026-10-16",
+  "endDate": "2026-10-22",
+  "weight": 0.004195804195804195,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-82 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 2개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}

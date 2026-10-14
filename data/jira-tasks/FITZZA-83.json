@@ -1,0 +1,17 @@
+{
+  "id": "FITZZA-83",
+  "wbs": "FITZZA-83",
+  "section": "FR-ORD-02 구매 이력 설문",
+  "title": "주문 내역 및 구매 이력 설문 UI",
+  "phase": "FR-ORD-02",
+  "category": "프론트엔드",
+  "responsible": "승원",
+  "assistants": [],
+  "startDate": "2026-10-27",
+  "endDate": "2026-10-30",
+  "weight": 0.005769230769230769,
+  "status": "진행 전",
+  "predecessorIds": [],
+  "deliverables": [],
+  "notes": "Jira FITZZA-83 (To Do, 2026-10-14T01:35:55.3895190Z 조회). 기존 WBS 4개 작업의 가중치를 합산했습니다. 원본별 내역: data/jira-weight-audit.json. 날짜는 기존 작업의 최소 시작일·최대 종료일이며 Jira 계획일은 아닙니다."
+}
