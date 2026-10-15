@@ -29,9 +29,9 @@ header p:not(.kicker) { margin: 0; color: #62708a; font-size: 13px; }
 .weight-summary p { margin: 9px 0 0; font-size: 11px; line-height: 1.6; color: #596b85; }
 .weight-summary .weight-warning { color: #915b15; }
 .toolbar { margin-top: 20px; display: flex; justify-content: space-between; gap: 14px; align-items: center; }
-.role-filter { display: flex; flex-wrap: wrap; gap: 6px; }
-.role-filter button { border: 1px solid #b8c7da; border-radius: 4px; background: white; color: #4f6481; padding: 7px 13px; font-size: 12px; }
-.role-filter button.on { background: #385f9d; color: white; }
+.person-filter { display: flex; flex-wrap: wrap; gap: 6px; }
+.person-filter button { border: 1px solid #b8c7da; border-radius: 4px; background: white; color: #4f6481; padding: 7px 13px; font-size: 12px; }
+.person-filter button.on { background: #385f9d; color: white; }
 .export-button { border: 0; border-radius: 5px; background: #237459; color: white; padding: 10px 16px; font-weight: 700; font-size: 13px; white-space: nowrap; }
 .scope-note, .formula-note { color: #596b85; font-size: 12px; margin: 12px 0 6px; }
 .formula-note { margin-top: 0; }

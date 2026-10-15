@@ -2,8 +2,18 @@ import type { Role, Status, Task } from '../types'
 import { capacityColor, WORK_CALENDAR } from './workCalendar'
 
 export const ROLES: Role[] = ['팀장', 'Cloud', 'PM', 'FE', 'BE']
-export const FILTER_ROLES: Task['responsible'][] = [...ROLES, '경민', '주희', '지현', '수혁', '승원', '준우', '나연', '']
+export const FILTER_PEOPLE: Task['responsible'][] = ['경민', '주희', '지현', '수혁', '승원', '준우', '나연']
+export const FILTER_ROLES: Task['responsible'][] = [...ROLES, ...FILTER_PEOPLE, '']
 export const roleLabel = (role: Task['responsible']) => role || '미배정'
+export function togglePersonSelection(selected: ReadonlySet<Task['responsible']>, person: Task['responsible']) {
+  const next = new Set(selected)
+  if (next.has(person)) next.delete(person)
+  else next.add(person)
+  return next
+}
+export function tasksForPeople(tasks: readonly Task[], selected: ReadonlySet<Task['responsible']>) {
+  return selected.size === 0 ? [...tasks] : tasks.filter(task => selected.has(task.responsible))
+}
 export const DAY = 86_400_000
 export const STATUS_LABELS = {
   not_started: '시작 전', in_progress: '진행 중', in_review: '검토 중', blocked: '차단됨',

@@ -2,8 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Ref } from 'react'
 import type { Task } from './types'
 import {
-  COLUMNS, DAY_WIDTH, FILTER_ROLES, STATUS_COLORS, createWbsView, formatProgress, formatWeight,
+  COLUMNS, DAY_WIDTH, FILTER_PEOPLE, STATUS_COLORS, createWbsView, formatProgress, formatWeight,
   isVisibleTask, isWeekend, roleLabel, shortDate, slotColor, statusLabel, taskProgress,
+  tasksForPeople, togglePersonSelection,
 } from './utils/wbs'
 import { CAPACITY_COLORS, capacityColor, capacityLabel, dayCapacity } from './utils/workCalendar'
 import { projectSummary } from './utils/projectSummary'
@@ -67,7 +68,7 @@ function TaskDetail({ task, close }: { task: Task; close: () => void }) {
 }
 
 export default function App() {
-  const [shown, setShown] = useState(new Set(FILTER_ROLES))
+  const [selectedPeople, setSelectedPeople] = useState<Set<Task['responsible']>>(new Set())
   const [selected, setSelected] = useState<Task | null>(null)
   const [exporting, setExporting] = useState(false)
   const [exportError, setExportError] = useState('')
@@ -76,10 +77,10 @@ export default function App() {
   const dayHeaderRef = useRef<HTMLTableRowElement>(null)
   const tableScrollRef = useRef<HTMLDivElement>(null)
   const floatingScrollRef = useRef<HTMLDivElement>(null)
-  const view = useMemo(() => createWbsView(activeTasks.filter(task => shown.has(task.responsible)), 'jira-section'), [shown])
+  const view = useMemo(() => createWbsView(tasksForPeople(activeTasks, selectedPeople), 'jira-section'), [selectedPeople])
   const { rows, calendar, weeks, summary } = view
   const tableWidth = COLUMNS.reduce((sum, col) => sum + col.width, 0) + calendar.length * DAY_WIDTH
-  const scopeLabel = shown.size === FILTER_ROLES.length ? '전체 작업' : `표시된 역할: ${FILTER_ROLES.filter(role => shown.has(role)).map(roleLabel).join(', ') || '없음'}`
+  const scopeLabel = selectedPeople.size === 0 ? '전체 작업' : `선택한 담당자: ${FILTER_PEOPLE.filter(person => selectedPeople.has(person)).join(', ')}`
 
   useEffect(() => {
     const update = () => {
@@ -118,7 +119,7 @@ export default function App() {
         <p>Jira 작업 분류·상태에 기존 WBS 세부 가중치를 합산한 읽기 전용 일정표</p>
       </div>
       <div className="summary" aria-live="polite">
-        <b>가중 진척률{shown.size !== FILTER_ROLES.length ? ' · 표시된 작업' : ''}</b>
+        <b>가중 진척률{selectedPeople.size > 0 ? ' · 표시된 작업' : ''}</b>
         <strong>{formatProgress(summary.rate)}</strong>
         <small>진척 반영 {formatWeight(summary.earnedWeight)} / 전체 작업 가중치 {formatWeight(summary.totalWeight)}</small>
         <small>표시된 작업 가중치 합계 {formatWeight(summary.allWeight)}</small>
@@ -142,20 +143,16 @@ export default function App() {
       {project.unregistered.length > 0 && <p>미등록 영역: {project.unregistered.map(row => `${row.category} ${formatWeight(row.plannedWeight)}`).join(', ')}. 합계 {formatWeight(project.unregistered.reduce((sum, row) => sum + row.plannedWeight, 0))}는 아직 작업이 등록되지 않았습니다.</p>}
     </section>
     <div className="toolbar">
-      <nav className="role-filter" aria-label="수행인력 필터">
-        {FILTER_ROLES.map(role => <button key={role} className={shown.has(role) ? 'on' : ''} aria-pressed={shown.has(role)}
-          onClick={() => setShown(old => {
-            const next = new Set(old)
-            next.has(role) ? next.delete(role) : next.add(role)
-            return next
-          })}>{roleLabel(role)}</button>)}
-        <button onClick={() => setShown(new Set(FILTER_ROLES))}>전체 표시</button>
+      <nav className="person-filter" aria-label="담당자 선택">
+        {FILTER_PEOPLE.map(person => <button key={person} className={selectedPeople.has(person) ? 'on' : ''}
+          aria-pressed={selectedPeople.has(person)}
+          onClick={() => setSelectedPeople(old => togglePersonSelection(old, person))}>{person}</button>)}
       </nav>
       <button className="export-button" onClick={exportExcel} disabled={exporting || !view.tasks.length}>
         {exporting ? 'Excel 생성 중…' : 'Excel 내보내기 (.xlsx)'}
       </button>
     </div>
-    <p className="scope-note">{scopeLabel} · {view.tasks.length}개 작업. 진척률과 Excel 내보내기는 현재 표시된 작업 기준입니다.</p>
+    <p className="scope-note">{scopeLabel} · {view.tasks.length}개 작업. 이름을 누르면 해당 담당자만 표시되고, 추가 선택도 가능합니다. 모두 선택 해제하면 전체 작업을 표시합니다. 진척률과 Excel 내보내기는 현재 표시된 작업 기준입니다.</p>
     <p className="formula-note">가중치는 기존 엑셀의 최종 전체 기여도를 Jira 작업별로 합산했습니다. Jira 상태별 반영률: 시작 전 0% · 진행 중 50% · 검토 중 75% · 완료 100%. 일정 계획 전 작업 {activeTasks.filter(task => task.schedulePending).length}개는 날짜 미정입니다. Jira에는 일정 필드가 없어 날짜는 기존 WBS 범위를 사용합니다.</p>
     {exportError && <p role="alert" className="export-error">{exportError}</p>}
     <div className="legend" aria-label="상태 범례">
@@ -167,7 +164,7 @@ export default function App() {
       <span>2026년 10월 기준 · 비근무일/0.5 근무일 색상이 상태 색상보다 우선합니다.</span>
       <span>빈 담당자: 미배정 · 빈 날짜: 날짜 미정 · ‘진행 전’은 ‘시작 전’으로 표시</span>
     </div>
-    {!view.tasks.length ? <div className="empty">표시할 작업이 없습니다. 역할 필터에서 표시할 역할을 선택하세요.</div> :
+    {!view.tasks.length ? <div className="empty">선택한 담당자의 작업이 없습니다. 이름을 다시 눌러 선택 해제하면 전체 작업을 표시합니다.</div> :
       <div className="wbs-region" ref={regionRef}>
         <div className={`sticky-day-head ${headerPinned ? 'visible' : ''}`} aria-hidden={!headerPinned}>
           <div className="sticky-header-scroll" ref={floatingScrollRef} onScroll={event => {

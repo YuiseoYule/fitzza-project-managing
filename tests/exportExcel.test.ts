@@ -86,14 +86,14 @@ test('진행 전 작업의 Excel 간트 색상도 연한 빨강이다', () => {
   assert.ok(JSON.stringify(planned?.style).includes('FFFAD4D0'))
 })
 
-test('역할 필터에 표시된 작업만 Excel에 포함한다', () => {
-  const workbook = buildWbsWorkbook([fixture[1]], '표시된 역할: BE')
+test('담당자 필터에 표시된 작업만 Excel에 포함한다', () => {
+  const workbook = buildWbsWorkbook([{ ...fixture[1], responsible: '경민' }], '선택한 담당자: 경민')
   const sheet = workbook.worksheets[0]
   assert.equal(sheet.getCell('C10').value, '진행 작업')
   assert.equal(sheet.getCell('C11').value, null)
   assert.equal(sheet.getCell('D4').result, 0.01)
   assert.equal(sheet.getCell('C3').result, 0.5)
-  assert.match(sheet.getCell('A2').text, /BE/)
+  assert.match(sheet.getCell('A2').text, /경민/)
 })
 
 test('Excel 검토 중 75%와 진행 중 50% 수식이 저장 후에도 유지된다', async () => {

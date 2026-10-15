@@ -223,7 +223,7 @@ function addWeightSummary(workbook: ExcelJS.Workbook, tasks: readonly Task[], sc
   sheet.getCell('A1').font = { size: 18, bold: true }
   sheet.getRow(1).height = 32
   sheet.mergeCells('A2:F2')
-  sheet.getCell('A2').value = `${scopeLabel} · 완료와 진척 반영 가중치를 구분합니다. 전체 합계는 전체 표시 후 내보내세요.`
+  sheet.getCell('A2').value = `${scopeLabel} · 완료와 진척 반영 가중치를 구분합니다. 전체 합계는 담당자 선택을 모두 해제한 뒤 내보내세요.`
   sheet.mergeCells('A3:F3')
   sheet.getCell('A3').value = '계획 비중은 원본 O4:P10 기준이며 미등록 영역의 상태는 추정하지 않습니다.'
   sheet.getRow(4).values = ['영역', '전체 계획 비중', '등록 가중치', '완료 가중치', '진척 반영 가중치', '가중 진척률']

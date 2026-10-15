@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import Ajv from 'ajv/dist/2020.js'
 import type { Status, Task } from '../src/types'
-import { FILTER_ROLES, calculateProgress, createWbsView, slotColor, taskProgress } from '../src/utils/wbs'
+import { FILTER_PEOPLE, FILTER_ROLES, calculateProgress, createWbsView, slotColor, taskProgress, tasksForPeople, togglePersonSelection } from '../src/utils/wbs'
 import { CAPACITY_COLORS, dayCapacity } from '../src/utils/workCalendar'
 import { validateTaskRules } from '../scripts/task-rules.mjs'
 
@@ -65,6 +65,27 @@ test('화면/Excel 공통 뷰는 입력 배열을 보존하고 필터 범위만 
   assert.equal(createWbsView(tasks.filter(t => t.responsible === 'FE')).summary.rate, 1)
   assert.equal(createWbsView(tasks).calendar[0].toISOString().slice(0, 10), '2026-10-05')
   assert.equal(createWbsView([]).calendar.length, 0)
+})
+
+test('담당자 첫 클릭은 한 사람만, 추가 클릭은 다중 선택, 모두 해제하면 전체를 표시한다', () => {
+  const tasks: Task[] = [
+    { ...makeTask('TASK-A', 1, '완료'), responsible: '경민' },
+    { ...makeTask('TASK-B', 1, '완료'), responsible: '주희' },
+    { ...makeTask('TASK-C', 1, '완료'), responsible: '' },
+    { ...makeTask('TASK-D', 1, '완료'), responsible: 'FE' },
+  ]
+  assert.deepEqual(FILTER_PEOPLE, ['경민', '주희', '지현', '수혁', '승원', '준우', '나연'])
+  let selected = new Set<Task['responsible']>()
+  assert.deepEqual(tasksForPeople(tasks, selected).map(task => task.id), ['TASK-A', 'TASK-B', 'TASK-C', 'TASK-D'])
+  selected = togglePersonSelection(selected, '경민')
+  assert.deepEqual(tasksForPeople(tasks, selected).map(task => task.id), ['TASK-A'])
+  selected = togglePersonSelection(selected, '주희')
+  assert.deepEqual(tasksForPeople(tasks, selected).map(task => task.id), ['TASK-A', 'TASK-B'])
+  selected = togglePersonSelection(selected, '경민')
+  assert.deepEqual(tasksForPeople(tasks, selected).map(task => task.id), ['TASK-B'])
+  selected = togglePersonSelection(selected, '주희')
+  assert.equal(selected.size, 0)
+  assert.deepEqual(tasksForPeople(tasks, selected).map(task => task.id), ['TASK-A', 'TASK-B', 'TASK-C', 'TASK-D'])
 })
 
 test('보류 작업은 화면 공통 뷰의 행·작업 수·가중치에서 완전히 제외한다', () => {
