@@ -26,6 +26,7 @@ export const COLUMNS = [
 export const DAY_WIDTH = 26
 export const dateValue = (date: string) => Date.parse(`${date}T00:00:00Z`)
 export const statusLabel = (task: Pick<Task, 'status'>) => STATUS_LABELS[task.status]
+export const isVisibleTask = (task: Pick<Task, 'status'>) => statusLabel(task) !== '보류'
 export const taskProgress = (task: Pick<Task, 'status'>): number | null => {
   const status = statusLabel(task)
   return status === '보류' ? null : status === '완료' ? 1 : status === '검토 중' ? 0.75 : status === '진행 중' ? 0.5 : 0
@@ -54,7 +55,7 @@ export type WbsRow = { kind: 'section'; key: string; label: string } | { kind: '
 /** Both the screen and XLSX use this exact row order, date span and column layout. */
 export function createWbsView(tasks: readonly Task[], order: 'date' | 'jira-section' = 'date') {
   const sortDate = (task: Task) => task.startDate ? dateValue(task.startDate) : Infinity
-  const sorted = [...tasks].sort((a, b) =>
+  const sorted = tasks.filter(isVisibleTask).sort((a, b) =>
     (order === 'jira-section' ? (a.section || '').localeCompare(b.section || '', 'ko') : 0)
     || sortDate(a) - sortDate(b) || a.id.localeCompare(b.id))
   const rows: WbsRow[] = []

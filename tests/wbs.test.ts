@@ -67,6 +67,16 @@ test('화면/Excel 공통 뷰는 입력 배열을 보존하고 필터 범위만 
   assert.equal(createWbsView([]).calendar.length, 0)
 })
 
+test('보류 작업은 화면 공통 뷰의 행·작업 수·가중치에서 완전히 제외한다', () => {
+  const visible = makeTask('TASK-A', 1, '완료')
+  const held = makeTask('TASK-B', 2, '보류')
+  const view = createWbsView([visible, held])
+  assert.deepEqual(view.tasks.map(task => task.id), ['TASK-A'])
+  assert.deepEqual(view.rows.filter(row => row.kind === 'task').map(row => row.task.id), ['TASK-A'])
+  assert.equal(view.summary.totalWeight, visible.weight)
+  assert.equal(view.summary.excludedWeight, 0)
+})
+
 test('JSON 스키마는 퍼센트 가중치와 상태를 검증하고 잘못된 가중치를 거절한다', async () => {
   const schema = JSON.parse(await readFile(new URL('../schemas/task.schema.json', import.meta.url), 'utf8'))
   const validate = new Ajv().compile(schema)

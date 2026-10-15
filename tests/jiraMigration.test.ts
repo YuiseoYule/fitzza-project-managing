@@ -45,19 +45,19 @@ test('Jira 완료만 완료로 계산하고 원본 보류 가중치는 제외한
   assert.ok(active.some(task => task.id === 'FITZZA-9' && task.status === '검토 중'))
 })
 
-test('Jira 섹션 순서와 가중치 합산 근거 296행이 Excel 저장 후에도 보존된다', async () => {
+test('Jira 섹션 순서와 표시 대상 작업의 가중치 합산 근거가 Excel에 보존된다', async () => {
   const workbook = buildWbsWorkbook(active, 'Jira WBS', 'jira-section')
   const total = workbook.getWorksheet('가중치 총합')!
   const lineage = workbook.getWorksheet('가중치 합산 근거')!
   const summary = calculateProgress(active)
   assert.ok(Math.abs(summary.allWeight - 1) < 1e-10)
   assert.ok(total.rowCount > 4)
-  assert.equal(workbook.getWorksheet('프로젝트 WBS')!.getCell('A2').value?.toString().includes('137개 작업'), true)
-  assert.equal(lineage.rowCount, audit.mappings.length + 4)
-  const sourceIds = new Set(Array.from({ length: audit.mappings.length }, (_, index) => lineage.getCell(index + 5, 3).value))
-  assert.equal(sourceIds.size, originals.length)
+  assert.equal(workbook.getWorksheet('프로젝트 WBS')!.getCell('A2').value?.toString().includes('133개 작업'), true)
+  assert.equal(lineage.rowCount, audit.mappings.length)
+  const sourceIds = new Set(Array.from({ length: audit.mappings.length - 4 }, (_, index) => lineage.getCell(index + 5, 3).value))
+  assert.equal(sourceIds.size, originals.length - 4)
   assert.equal(lineage.getCell('E5').numFmt, '0.000%')
   const reopened = new (await import('exceljs')).default.Workbook()
   await reopened.xlsx.load(await workbook.xlsx.writeBuffer())
-  assert.equal(reopened.getWorksheet('가중치 합산 근거')?.rowCount, audit.mappings.length + 4)
+  assert.equal(reopened.getWorksheet('가중치 합산 근거')?.rowCount, audit.mappings.length)
 })
